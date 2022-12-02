@@ -1,0 +1,12 @@
+
+image:
+  file: .gitpod.Dockerfile
+  
+tasks:
+  - name: Dev Server
+    before: npm install --global http-server
+    init: |
+      asciibinder build --distro=openshift-enterprise
+    command: |
+      cd _preview/openshift-enterprise/main
+      http-server

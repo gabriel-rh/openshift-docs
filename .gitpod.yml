@@ -4,9 +4,10 @@ image:
   
 tasks:
   - name: Dev Server
-    before: npm install --global http-server
+    # before: npm install --global http-server
     init: |
       asciibinder build --distro=openshift-enterprise
     command: |
       cd _preview/openshift-enterprise/main
-      http-server
+      ln -s welcome/index.html index.html
+      python -m http.server

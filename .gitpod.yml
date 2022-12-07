@@ -8,7 +8,7 @@ tasks:
     init: |
 #      rvm install 2.7.6
 #      gem install asciidoctor asciidoctor-diagram ascii_binder
-      pip3 install aura.tar.gz
+#      pip3 install aura.tar.gz
     command: |
       asciibinder build --distro=openshift-enterprise
       cd _preview/openshift-enterprise/main

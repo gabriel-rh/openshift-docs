@@ -1,13 +1,13 @@
 
-image:
-  file: .gitpod.Dockerfile
+#image:
+#  file: .gitpod.Dockerfile
   
 tasks:
   - name: Dev Server
     # before: npm install --global http-server
     init: |
-#      rvm install 2.7.6
-#      gem install asciidoctor asciidoctor-diagram ascii_binder
+      rvm install 2.7.6
+      gem install asciidoctor asciidoctor-diagram ascii_binder
 #      pip3 install aura.tar.gz
     command: |
       asciibinder build --distro=openshift-enterprise

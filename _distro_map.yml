@@ -8,4 +8,4 @@ openshift-srvls:
   branches:
     srvlstest-docs:
       name: ''
-      dir: srvls
+      dir: serverless

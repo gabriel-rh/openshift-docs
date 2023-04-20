@@ -17,7 +17,6 @@ For additional information about the {ServerlessProductName} life cycle and supp
 
 // add something about CLI tools?
 
-
 [id="additional-resources_about-serverless"]
 [role="_additional-resources"]
 == Additional resources

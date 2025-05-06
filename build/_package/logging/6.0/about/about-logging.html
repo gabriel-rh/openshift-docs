@@ -1,0 +1,892 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Logging overview | About OpenShift Logging | Red Hat OpenShift Logging 6.0</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('6.0');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+      <span>
+        <div class="alert alert-info" role="primary" id="support-info">
+          <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+          </strong>
+        </div>
+      </span>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+            <a href="https://docs.openshift.com/logging/6.0/about/about-logging.html">
+              Red Hat OpenShift Logging
+            </a>
+            <select id="version-selector" onchange="versionSelector(this);">
+              <option value="main">main</option>
+              <option value="6.2">6.2</option>
+              <option value="6.1">6.1</option>
+              <option value="6.0">6.0</option>
+            </select>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../about/logging-release-notes-6-0.html">About OpenShift Logging</a>
+      </li>
+      
+      
+      <li class="hidden-xs active">
+        Logging overview
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/main/about/about-logging.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=Issue+in+file+about/about-logging.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-down"></span>About OpenShift Logging</a>
+      <ul id="topicGroup0" class="collapse in list-unstyled">
+            <li><a class="" href="../about/logging-release-notes-6-0.html">Release notes</a></li>
+            <li><a class=" active" href="../about/about-logging.html">Logging overview</a></li>
+            <li><a class="" href="../about/cluster-logging-support.html">Cluster logging support</a></li>
+            <li><a class="" href="../about/logging-visualization.html">Visualization for logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>Installing</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../installing/installing-logging.html">Installing logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-right"></span>Configuring</a>
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+            <li><a class="" href="../configuring/configuring-log-forwarding.html">Configuring log forwarding</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-storage.html">Configuring LokiStack storage</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../upgrading/upgrading-to-logging-60.html">Upgrading to Logging 6.0</a></li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Red Hat OpenShift Logging overview
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#inputs-and-outputs">Inputs and Outputs</a></li>
+<li><a href="#receiver-input-type">Receiver Input Type</a></li>
+<li><a href="#pipelines-and-filters">Pipelines and Filters</a></li>
+<li><a href="#operator-behavior">Operator Behavior</a></li>
+<li><a href="#validation">Validation</a></li>
+<li><a href="#quick-start">Quick Start</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>ClusterLogForwarder</code> custom resource (CR) is the central configuration point for log collection and forwarding.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="inputs-and-outputs"><a class="anchor" href="#inputs-and-outputs"></a>Inputs and Outputs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Inputs specify the sources of logs to be forwarded. Logging provides the following built-in input types that select logs from different parts of your cluster:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>application</code></p>
+</li>
+<li>
+<p><code>receiver</code></p>
+</li>
+<li>
+<p><code>infrastructure</code></p>
+</li>
+<li>
+<p><code>audit</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also define custom inputs based on namespaces or pod labels to fine-tune log selection.</p>
+</div>
+<div class="paragraph">
+<p>Outputs define the destinations where logs are sent. Each output type has its own set of configuration options, allowing you to customize the behavior and authentication settings.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="receiver-input-type"><a class="anchor" href="#receiver-input-type"></a>Receiver Input Type</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The receiver input type enables the Logging system to accept logs from external sources. It supports two formats for receiving logs: <code>http</code> and <code>syslog</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ReceiverSpec</code> field defines the configuration for a receiver input.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pipelines-and-filters"><a class="anchor" href="#pipelines-and-filters"></a>Pipelines and Filters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pipelines determine the flow of logs from inputs to outputs. A pipeline consists of one or more input refs, output refs, and optional filter refs. You can use filters to transform or drop log messages within a pipeline. The order of filters matters, as they are applied sequentially, and earlier filters can prevent log messages from reaching later stages.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="operator-behavior"><a class="anchor" href="#operator-behavior"></a>Operator Behavior</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Cluster Logging Operator manages the deployment and configuration of the collector based on the <code>managementState</code> field:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When set to <code>Managed</code> (default), the Operator actively manages the logging resources to match the configuration defined in the spec.</p>
+</li>
+<li>
+<p>When set to <code>Unmanaged</code>, the Operator does not take any action, allowing you to manually manage the logging components.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="validation"><a class="anchor" href="#validation"></a>Validation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Logging includes extensive validation rules and default values to ensure a smooth and error-free configuration experience. The <code>ClusterLogForwarder</code> resource enforces validation checks on required fields, dependencies between fields, and the format of input values. Default values are provided for certain fields, reducing the need for explicit configuration in common scenarios.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-start"><a class="anchor" href="#quick-start"></a>Quick Start</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have access to an OpenShift Container Platform cluster with <code>cluster-admin</code> permissions.</p>
+</li>
+<li>
+<p>You installed the OpenShift CLI (<code>oc</code>).</p>
+</li>
+<li>
+<p>You have access to a supported object store. For example, AWS S3, Google Cloud Storage, Azure, Swift, Minio, or OpenShift Data Foundation.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Install the <code>Red Hat OpenShift Logging Operator</code>, <code>Loki Operator</code>, and <code>Cluster Observability Operator (COO)</code> from OperatorHub.</p>
+</li>
+<li>
+<p>Create a secret to access an existing object storage bucket:</p>
+<div class="listingblock">
+<div class="title">Example command for AWS</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc create secret generic logging-loki-s3 <span class="se">\</span>
+  <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">bucketnames</span><span class="o">=</span><span class="s2">"&lt;bucket_name&gt;"</span> <span class="se">\</span>
+  <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">endpoint</span><span class="o">=</span><span class="s2">"&lt;aws_bucket_endpoint&gt;"</span> <span class="se">\</span>
+  <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">access_key_id</span><span class="o">=</span><span class="s2">"&lt;aws_access_key_id&gt;"</span> <span class="se">\</span>
+  <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">access_key_secret</span><span class="o">=</span><span class="s2">"&lt;aws_access_key_secret&gt;"</span> <span class="se">\</span>
+  <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">region</span><span class="o">=</span><span class="s2">"&lt;aws_region_of_your_bucket&gt;"</span> <span class="se">\</span>
+  <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>LokiStack</code> custom resource (CR) in the <code>openshift-logging</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">managementState</span><span class="pi">:</span> <span class="s">Managed</span>
+  <span class="na">size</span><span class="pi">:</span> <span class="s">1x.extra-small</span>
+  <span class="na">storage</span><span class="pi">:</span>
+    <span class="na">schemas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">effectiveDate</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2022-06-01'</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s">v13</span>
+    <span class="na">secret</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki-s3</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">s3</span>
+  <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">gp3-csi</span>
+  <span class="na">tenants</span><span class="pi">:</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">openshift-logging</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a service account for the collector:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="shell"><span class="nv">$ </span>oc create sa collector <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Bind the <code>ClusterRole</code> to the service account:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="shell"><span class="nv">$ </span>oc adm policy add-cluster-role-to-user logging-collector-logs-writer <span class="nt">-z</span> collector <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>UIPlugin</code> to enable the Log section in the Observe tab:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">UIPlugin</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">Logging</span>
+  <span class="na">logging</span><span class="pi">:</span>
+    <span class="na">lokiStack</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add additional roles to the collector service account:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="shell"><span class="nv">$ </span>oc adm policy add-cluster-role-to-user collect-application-logs <span class="nt">-z</span> collector <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user collect-audit-logs <span class="nt">-z</span> collector <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user collect-infrastructure-logs <span class="nt">-z</span> collector <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>ClusterLogForwarder</code> CR to configure log forwarding:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">collector</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">collector</span>
+  <span class="na">outputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">default-lokistack</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">lokiStack</span>
+    <span class="na">lokiStack</span><span class="pi">:</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+        <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+      <span class="na">authentication</span><span class="pi">:</span>
+        <span class="na">token</span><span class="pi">:</span>
+          <span class="na">from</span><span class="pi">:</span> <span class="s">serviceAccount</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">ca</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">service-ca.crt</span>
+        <span class="na">configMapName</span><span class="pi">:</span> <span class="s">openshift-service-ca.crt</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">default-logstore</span>
+    <span class="na">inputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">application</span>
+    <span class="pi">-</span> <span class="s">infrastructure</span>
+    <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">default-lokistack</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Verification</div>
+<ul>
+<li>
+<p>Verify that logs are visible in the <strong>Log</strong> section of the <strong>Observe</strong> tab in the OpenShift Container Platform web console.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="/logging/main/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-logging';
+  var version = '6.0';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version],
+    'openshift-logging' : ['docs_logging', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

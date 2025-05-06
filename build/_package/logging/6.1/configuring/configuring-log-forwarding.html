@@ -1,0 +1,2143 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Configuring log forwarding | Configuring | Red Hat OpenShift Logging 6.1</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('6.1');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+      <span>
+        <div class="alert alert-info" role="primary" id="support-info">
+          <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+          </strong>
+        </div>
+      </span>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+            <a href="https://docs.openshift.com/logging/6.1/about/about-logging.html">
+              Red Hat OpenShift Logging
+            </a>
+            <select id="version-selector" onchange="versionSelector(this);">
+              <option value="main">main</option>
+              <option value="6.2">6.2</option>
+              <option value="6.1">6.1</option>
+              <option value="6.0">6.0</option>
+            </select>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../configuring/configuring-log-forwarding.html">Configuring</a>
+      </li>
+      
+      
+      <li class="hidden-xs active">
+        Configuring log forwarding
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/main/configuring/configuring-log-forwarding.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=Issue+in+file+configuring/configuring-log-forwarding.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About OpenShift Logging</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../about/logging-release-notes-6.1.html">Release notes</a></li>
+            <li><a class="" href="../about/about-logging.html">Logging overview</a></li>
+            <li><a class="" href="../about/cluster-logging-support.html">Cluster logging support</a></li>
+            <li><a class="" href="../about/logging-visualization.html">Visualization for logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>Installing</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../installing/installing-logging.html">Installing logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-down"></span>Configuring</a>
+      <ul id="topicGroup2" class="collapse in list-unstyled">
+            <li><a class=" active" href="../configuring/configuring-log-forwarding.html">Configuring log forwarding</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-storage.html">Configuring LokiStack storage</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-otlp.html">Configuring LokiStack for OTLP</a></li>
+            <li><a class="" href="../configuring/opentelemetry-data-model.html">OpenTelemetry data model</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../upgrading/upgrading-to-logging-60.html">Upgrading to Logging 6.0</a></li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Configuring log forwarding
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#setting-up-log-collection_configuring-log-forwarding">Setting up log collection</a>
+<ul class="sectlevel2">
+<li><a href="#legacy-service-accounts">Legacy service accounts</a></li>
+<li><a href="#creating-service-accounts">Creating service accounts</a></li>
+</ul>
+</li>
+<li><a href="#modifying-log-level_configuring-log-forwarding">Modifying log level in collector</a></li>
+<li><a href="#managing-the-operator_configuring-log-forwarding">Managing the Operator</a></li>
+<li><a href="#clf-structure_configuring-log-forwarding">Structure of the ClusterLogForwarder</a>
+<ul class="sectlevel2">
+<li><a href="#clf-inputs_configuring-log-forwarding">Inputs</a></li>
+<li><a href="#clf-outputs_configuring-log-forwarding">Outputs</a></li>
+<li><a href="#configuring-otlp-output_configuring-log-forwarding">Configuring OTLP output</a></li>
+<li><a href="#clf-pipelines_configuring-log-forwarding">Pipelines</a></li>
+<li><a href="#clf-filters_configuring-log-forwarding">Filters</a></li>
+<li><a href="#enabling-multi-line-exception-detection_configuring-log-forwarding">Enabling multi-line exception detection</a></li>
+<li><a href="#content-filter-drop-records_configuring-log-forwarding">Configuring content filters to drop unwanted log records</a></li>
+<li><a href="#audit-filtering_configuring-log-forwarding">Overview of API audit filter</a></li>
+<li><a href="#input-spec-filter-labels-expressions_configuring-log-forwarding">Filtering application logs at input by including the label expressions or a matching label key and values</a></li>
+<li><a href="#content-filter-prune-records_configuring-log-forwarding">Configuring content filters to prune log records</a></li>
+</ul>
+</li>
+<li><a href="#input-spec-filter-audit-infrastructure_configuring-log-forwarding">Filtering the audit and infrastructure log inputs by source</a></li>
+<li><a href="#input-spec-filter-namespace-container_configuring-log-forwarding">Filtering application logs at input by including or excluding the namespace or container name</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>ClusterLogForwarder</code> (CLF) allows users to configure forwarding of logs to various destinations. It provides a flexible way to select log messages from different sources, send them through a pipeline that can transform or filter them, and forward them to one or more outputs.</p>
+</div>
+<div class="ulist">
+<div class="title">Key Functions of the ClusterLogForwarder</div>
+<ul>
+<li>
+<p>Selects log messages using inputs</p>
+</li>
+<li>
+<p>Forwards logs to external destinations using outputs</p>
+</li>
+<li>
+<p>Filters, transforms, and drops log messages using filters</p>
+</li>
+<li>
+<p>Defines log forwarding pipelines connecting inputs, filters and outputs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-log-collection_configuring-log-forwarding"><a class="anchor" href="#setting-up-log-collection_configuring-log-forwarding"></a>Setting up log collection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This release of Cluster Logging requires administrators to explicitly grant log collection permissions to the service account associated with <strong>ClusterLogForwarder</strong>. This was not required in previous releases for the legacy logging scenario consisting of a <strong>ClusterLogging</strong> and, optionally, a <strong>ClusterLogForwarder.logging.openshift.io</strong> resource.</p>
+</div>
+<div class="paragraph">
+<p>The Red Hat OpenShift Logging Operator provides <code>collect-audit-logs</code>, <code>collect-application-logs</code>, and <code>collect-infrastructure-logs</code> cluster roles, which enable the collector to collect audit logs, application logs, and infrastructure logs respectively.</p>
+</div>
+<div class="paragraph">
+<p>Setup log collection by binding the required cluster roles to your service account.</p>
+</div>
+<div class="sect2">
+<h3 id="legacy-service-accounts"><a class="anchor" href="#legacy-service-accounts"></a>Legacy service accounts</h3>
+<div class="paragraph">
+<p>To use the existing legacy service account <code>logcollector</code>, create the following <strong>ClusterRoleBinding</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user collect-application-logs system:serviceaccount:openshift-logging:logcollector</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user collect-infrastructure-logs system:serviceaccount:openshift-logging:logcollector</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Additionally, create the following <strong>ClusterRoleBinding</strong> if collecting audit logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user collect-audit-logs system:serviceaccount:openshift-logging:logcollector</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-service-accounts"><a class="anchor" href="#creating-service-accounts"></a>Creating service accounts</h3>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>The Red Hat OpenShift Logging Operator is installed in the <code>openshift-logging</code> namespace.</p>
+</li>
+<li>
+<p>You have administrator permissions.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a service account for the collector. If you want to write logs to storage that requires a token for authentication, you must include a token in the service account.</p>
+</li>
+<li>
+<p>Bind the appropriate cluster roles to the service account:</p>
+<div class="listingblock">
+<div class="title">Example binding command</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user &lt;cluster_role_name&gt; system:serviceaccount:&lt;namespace_name&gt;:&lt;service_account_name&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="cluster-role-binding-for-your-service-account"><a class="anchor" href="#cluster-role-binding-for-your-service-account"></a>Cluster Role Binding for your Service Account</h4>
+<div class="paragraph">
+<p>The role_binding.yaml file binds the ClusterLogging operator&#8217;s ClusterRole to a specific ServiceAccount, allowing it to manage Kubernetes resources cluster-wide.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">manager-rolebinding</span>
+<span class="na">roleRef</span><span class="pi">:</span>                                           <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>              <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>                                <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging-operator</span>                   <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="na">subjects</span><span class="pi">:</span>                                          <i class="conum" data-value="5"></i><b>(5)</b>
+  <span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>                           <i class="conum" data-value="6"></i><b>(6)</b>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging-operator</span>                 <i class="conum" data-value="7"></i><b>(7)</b>
+    <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>                   <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>roleRef: References the ClusterRole to which the binding applies.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>apiGroup: Indicates the RBAC API group, specifying that the ClusterRole is part of Kubernetes' RBAC system.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>kind: Specifies that the referenced role is a ClusterRole, which applies cluster-wide.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>name: The name of the ClusterRole being bound to the ServiceAccount, here cluster-logging-operator.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>subjects: Defines the entities (users or service accounts) that are being granted the permissions from the ClusterRole.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>kind: Specifies that the subject is a ServiceAccount.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Name: The name of the ServiceAccount being granted the permissions.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>namespace: Indicates the namespace where the ServiceAccount is located.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="writing-application-logs"><a class="anchor" href="#writing-application-logs"></a>Writing application logs</h4>
+<div class="paragraph">
+<p>The write-application-logs-clusterrole.yaml file defines a ClusterRole that grants permissions to write application logs to the Loki logging application.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging-write-application-logs</span>
+<span class="na">rules</span><span class="pi">:</span>                                              <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span>                                      <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="pi">-</span> <span class="s">loki.grafana.com</span>                            <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="na">resources</span><span class="pi">:</span>                                      <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="pi">-</span> <span class="s">application</span>                                 <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="na">resourceNames</span><span class="pi">:</span>                                  <i class="conum" data-value="6"></i><b>(6)</b>
+      <span class="pi">-</span> <span class="s">logs</span>                                        <i class="conum" data-value="7"></i><b>(7)</b>
+    <span class="na">verbs</span><span class="pi">:</span>                                          <i class="conum" data-value="8"></i><b>(8)</b>
+      <span class="pi">-</span> <span class="s">create</span>                                      <i class="conum" data-value="9"></i><b>(9)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>rules: Specifies the permissions granted by this ClusterRole.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>apiGroups: Refers to the API group loki.grafana.com, which relates to the Loki logging system.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>loki.grafana.com: The API group for managing Loki-related resources.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>resources: The resource type that the ClusterRole grants permission to interact with.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>application: Refers to the application resources within the Loki logging system.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>resourceNames: Specifies the names of resources that this role can manage.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>logs: Refers to the log resources that can be created.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>verbs: The actions allowed on the resources.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>create: Grants permission to create new logs in the Loki system.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="writing-audit-logs"><a class="anchor" href="#writing-audit-logs"></a>Writing audit logs</h4>
+<div class="paragraph">
+<p>The write-audit-logs-clusterrole.yaml file defines a ClusterRole that grants permissions to create audit logs in the Loki logging system.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging-write-audit-logs</span>
+<span class="na">rules</span><span class="pi">:</span>                                              <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span>                                      <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="pi">-</span> <span class="s">loki.grafana.com</span>                            <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="na">resources</span><span class="pi">:</span>                                      <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="pi">-</span> <span class="s">audit</span>                                       <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="na">resourceNames</span><span class="pi">:</span>                                  <i class="conum" data-value="6"></i><b>(6)</b>
+      <span class="pi">-</span> <span class="s">logs</span>                                        <i class="conum" data-value="7"></i><b>(7)</b>
+    <span class="na">verbs</span><span class="pi">:</span>                                          <i class="conum" data-value="8"></i><b>(8)</b>
+      <span class="pi">-</span> <span class="s">create</span>                                      <i class="conum" data-value="9"></i><b>(9)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>rules: Defines the permissions granted by this ClusterRole.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>apiGroups: Specifies the API group loki.grafana.com.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>loki.grafana.com: The API group responsible for Loki logging resources.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>resources: Refers to the resource type this role manages, in this case, audit.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>audit: Specifies that the role manages audit logs within Loki.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>resourceNames: Defines the specific resources that the role can access.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>logs: Refers to the logs that can be managed under this role.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>verbs: The actions allowed on the resources.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>create: Grants permission to create new audit logs.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="writing-infrastructure-logs"><a class="anchor" href="#writing-infrastructure-logs"></a>Writing infrastructure logs</h4>
+<div class="paragraph">
+<p>The write-infrastructure-logs-clusterrole.yaml file defines a ClusterRole that grants permission to create infrastructure logs in the Loki logging system.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample YAML</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging-write-infrastructure-logs</span>
+<span class="na">rules</span><span class="pi">:</span>                                              <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span>                                      <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="pi">-</span> <span class="s">loki.grafana.com</span>                            <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="na">resources</span><span class="pi">:</span>                                      <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="pi">-</span> <span class="s">infrastructure</span>                              <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="na">resourceNames</span><span class="pi">:</span>                                  <i class="conum" data-value="6"></i><b>(6)</b>
+      <span class="pi">-</span> <span class="s">logs</span>                                        <i class="conum" data-value="7"></i><b>(7)</b>
+    <span class="na">verbs</span><span class="pi">:</span>                                          <i class="conum" data-value="8"></i><b>(8)</b>
+      <span class="pi">-</span> <span class="s">create</span>                                      <i class="conum" data-value="9"></i><b>(9)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>rules: Specifies the permissions this ClusterRole grants.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>apiGroups: Specifies the API group for Loki-related resources.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>loki.grafana.com: The API group managing the Loki logging system.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>resources: Defines the resource type that this role can interact with.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>infrastructure: Refers to infrastructure-related resources that this role manages.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>resourceNames: Specifies the names of resources this role can manage.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>logs: Refers to the log resources related to infrastructure.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>verbs: The actions permitted by this role.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>create: Grants permission to create infrastructure logs in the Loki system.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clusterlogforwarder-editor-role"><a class="anchor" href="#clusterlogforwarder-editor-role"></a>ClusterLogForwarder editor role</h4>
+<div class="paragraph">
+<p>The clusterlogforwarder-editor-role.yaml file defines a ClusterRole that allows users to manage ClusterLogForwarders in OpenShift.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">clusterlogforwarder-editor-role</span>
+<span class="na">rules</span><span class="pi">:</span>                                              <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span>                                      <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="pi">-</span> <span class="s">observability.openshift.io</span>                  <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="na">resources</span><span class="pi">:</span>                                      <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="pi">-</span> <span class="s">clusterlogforwarders</span>                        <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="na">verbs</span><span class="pi">:</span>                                          <i class="conum" data-value="6"></i><b>(6)</b>
+      <span class="pi">-</span> <span class="s">create</span>                                      <i class="conum" data-value="7"></i><b>(7)</b>
+      <span class="pi">-</span> <span class="s">delete</span>                                      <i class="conum" data-value="8"></i><b>(8)</b>
+      <span class="pi">-</span> <span class="s">get</span>                                         <i class="conum" data-value="9"></i><b>(9)</b>
+      <span class="pi">-</span> <span class="s">list</span>                                        <i class="conum" data-value="10"></i><b>(10)</b>
+      <span class="pi">-</span> <span class="s">patch</span>                                       <i class="conum" data-value="11"></i><b>(11)</b>
+      <span class="pi">-</span> <span class="s">update</span>                                      <i class="conum" data-value="12"></i><b>(12)</b>
+      <span class="pi">-</span> <span class="s">watch</span>                                       <i class="conum" data-value="13"></i><b>(13)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>rules: Specifies the permissions this ClusterRole grants.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>apiGroups: Refers to the OpenShift-specific API group</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>obervability.openshift.io: The API group for managing observability resources, like logging.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>resources: Specifies the resources this role can manage.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>clusterlogforwarders: Refers to the log forwarding resources in OpenShift.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>verbs: Specifies the actions allowed on the ClusterLogForwarders.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>create: Grants permission to create new ClusterLogForwarders.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>delete: Grants permission to delete existing ClusterLogForwarders.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>get: Grants permission to retrieve information about specific ClusterLogForwarders.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>list: Allows listing all ClusterLogForwarders.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>patch: Grants permission to partially modify ClusterLogForwarders.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>update: Grants permission to update existing ClusterLogForwarders.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="13"></i><b>13</b></td>
+<td>watch: Grants permission to monitor changes to ClusterLogForwarders.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modifying-log-level_configuring-log-forwarding"><a class="anchor" href="#modifying-log-level_configuring-log-forwarding"></a>Modifying log level in collector</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To modify the log level in the collector, you can set the <code>observability.openshift.io/log-level</code> annotation to <code>trace</code>, <code>debug</code>, <code>info</code>, <code>warn</code>, <code>error</code>, and <code>off</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example log level annotation</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">collector</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="s">observability.openshift.io/log-level</span><span class="pi">:</span> <span class="s">debug</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="managing-the-operator_configuring-log-forwarding"><a class="anchor" href="#managing-the-operator_configuring-log-forwarding"></a>Managing the Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>ClusterLogForwarder</code> resource has a <code>managementState</code> field that controls whether the operator actively manages its resources or leaves them Unmanaged:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Managed</dt>
+<dd>
+<p>(default) The operator will drive the logging resources to match the desired state in the CLF spec.</p>
+</dd>
+<dt class="hdlist1">Unmanaged</dt>
+<dd>
+<p>The operator will not take any action related to the logging components.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This allows administrators to temporarily pause log forwarding by setting <code>managementState</code> to <code>Unmanaged</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="clf-structure_configuring-log-forwarding"><a class="anchor" href="#clf-structure_configuring-log-forwarding"></a>Structure of the ClusterLogForwarder</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The CLF has a <code>spec</code> section that contains the following key components:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Inputs</dt>
+<dd>
+<p>Select log messages to be forwarded. Built-in input types <code>application</code>, <code>infrastructure</code> and <code>audit</code> forward logs from different parts of the cluster. You can also define custom inputs.</p>
+</dd>
+<dt class="hdlist1">Outputs</dt>
+<dd>
+<p>Define destinations to forward logs to. Each output has a unique name and type-specific configuration.</p>
+</dd>
+<dt class="hdlist1">Pipelines</dt>
+<dd>
+<p>Define the path logs take from inputs, through filters, to outputs. Pipelines have a unique name and consist of a list of input, output and filter names.</p>
+</dd>
+<dt class="hdlist1">Filters</dt>
+<dd>
+<p>Transform or drop log messages in the pipeline. Users can define filters that match certain log fields and drop or modify the messages. Filters are applied in the order specified in the pipeline.</p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="clf-inputs_configuring-log-forwarding"><a class="anchor" href="#clf-inputs_configuring-log-forwarding"></a>Inputs</h3>
+<div class="paragraph">
+<p>Inputs are configured in an array under <code>spec.inputs</code>. There are three built-in input types:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">application</dt>
+<dd>
+<p>Selects logs from all application containers, excluding those in infrastructure namespaces.</p>
+</dd>
+<dt class="hdlist1">infrastructure</dt>
+<dd>
+<p>Selects logs from nodes and from infrastructure components running in the following namespaces:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>default</code></p>
+</li>
+<li>
+<p><code>kube</code></p>
+</li>
+<li>
+<p><code>openshift</code></p>
+</li>
+<li>
+<p>Containing the <code>kube-</code> or <code>openshift-</code> prefix</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">audit</dt>
+<dd>
+<p>Selects logs from the OpenShift API server audit logs, Kubernetes API server audit logs, ovn audit logs, and node audit logs from auditd.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Users can define custom inputs of type <code>application</code> that select logs from specific namespaces or using pod labels.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clf-outputs_configuring-log-forwarding"><a class="anchor" href="#clf-outputs_configuring-log-forwarding"></a>Outputs</h3>
+<div class="paragraph">
+<p>Outputs are configured in an array under <code>spec.outputs</code>. Each output must have a unique name and a type. Supported types are:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">azureMonitor</dt>
+<dd>
+<p>Forwards logs to Azure Monitor.</p>
+</dd>
+<dt class="hdlist1">cloudwatch</dt>
+<dd>
+<p>Forwards logs to AWS CloudWatch.</p>
+</dd>
+<dt class="hdlist1">googleCloudLogging</dt>
+<dd>
+<p>Forwards logs to Google Cloud Logging.</p>
+</dd>
+<dt class="hdlist1">http</dt>
+<dd>
+<p>Forwards logs to a generic HTTP endpoint.</p>
+</dd>
+<dt class="hdlist1">kafka</dt>
+<dd>
+<p>Forwards logs to a Kafka broker.</p>
+</dd>
+<dt class="hdlist1">loki</dt>
+<dd>
+<p>Forwards logs to a Loki logging backend.</p>
+</dd>
+<dt class="hdlist1">lokistack</dt>
+<dd>
+<p>Forwards logs to the logging supported combination of Loki and web proxy with OpenShift Container Platform authentication integration. LokiStack&#8217;s proxy uses OpenShift Container Platform authentication to enforce multi-tenancy</p>
+</dd>
+<dt class="hdlist1">otlp</dt>
+<dd>
+<p>Forwards logs using the OpenTelemetry Protocol.</p>
+</dd>
+<dt class="hdlist1">splunk</dt>
+<dd>
+<p>Forwards logs to Splunk.</p>
+</dd>
+<dt class="hdlist1">syslog</dt>
+<dd>
+<p>Forwards logs to an external syslog server.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Each output type has its own configuration fields.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-otlp-output_configuring-log-forwarding"><a class="anchor" href="#configuring-otlp-output_configuring-log-forwarding"></a>Configuring OTLP output</h3>
+<div class="paragraph">
+<p>Cluster administrators can use the OpenTelemetry Protocol (OTLP) output to collect and forward logs to OTLP receivers. The OTLP output uses the specification defined by the <a href="https://opentelemetry.io/docs/specs/otlp/">OpenTelemetry Observability framework</a> to send data over HTTP with JSON encoding.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The OpenTelemetry Protocol (OTLP) output log forwarder is a Technology Preview feature only. Technology Preview features are not supported with Red Hat production service level agreements (SLAs) and might not be functionally complete. Red Hat does not recommend using them in production. These features provide early access to upcoming product features, enabling customers to test functionality and provide feedback during the development process.</p>
+</div>
+<div class="paragraph">
+<p>For more information about the support scope of Red Hat Technology Preview features, see <a href="https://access.redhat.com/support/offerings/techpreview/">Technology Preview Features Support Scope</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Create or edit a <code>ClusterLogForwarder</code> custom resource (CR) to enable forwarding using OTLP by adding the following annotation:</p>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="s">observability.openshift.io/tech-preview-otlp-output</span><span class="pi">:</span> <span class="s2">"</span><span class="s">enabled"</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">clf-otlp</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">outputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">otlp</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">otlp</span>
+    <span class="na">otlp</span><span class="pi">:</span>
+      <span class="na">tuning</span><span class="pi">:</span>
+        <span class="na">compression</span><span class="pi">:</span> <span class="s">gzip</span>
+        <span class="na">deliveryMode</span><span class="pi">:</span> <span class="s">AtLeastOnce</span>
+        <span class="na">maxRetryDuration</span><span class="pi">:</span> <span class="m">20</span>
+        <span class="na">maxWrite</span><span class="pi">:</span> <span class="s">10M</span>
+        <span class="na">minRetryDuration</span><span class="pi">:</span> <span class="m">5</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">&lt;otlp_url&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">inputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">application</span>
+    <span class="pi">-</span> <span class="s">infrastructure</span>
+    <span class="pi">-</span> <span class="s">audit</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">otlp-logs</span>
+    <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">otlp</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use this annotation to enable the OpenTelemetry Protocol (OTLP) output, which is a Technology Preview feature.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This URL must be absolute and is a placeholder for the OTLP endpoint where logs are sent.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The OTLP output uses the OpenTelemetry data model, which is different from the ViaQ data model that is used by other output types. It adheres to the OTLP using <a href="https://opentelemetry.io/docs/specs/semconv/">OpenTelemetry Semantic Conventions</a> defined by the OpenTelemetry Observability framework.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clf-pipelines_configuring-log-forwarding"><a class="anchor" href="#clf-pipelines_configuring-log-forwarding"></a>Pipelines</h3>
+<div class="paragraph">
+<p>Pipelines are configured in an array under <code>spec.pipelines</code>. Each pipeline must have a unique name and consists of:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">inputRefs</dt>
+<dd>
+<p>Names of inputs whose logs should be forwarded to this pipeline.</p>
+</dd>
+<dt class="hdlist1">outputRefs</dt>
+<dd>
+<p>Names of outputs to send logs to.</p>
+</dd>
+<dt class="hdlist1">filterRefs</dt>
+<dd>
+<p>(optional) Names of filters to apply.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The order of filterRefs matters, as they are applied sequentially. Earlier filters can drop messages that will not be processed by later filters.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clf-filters_configuring-log-forwarding"><a class="anchor" href="#clf-filters_configuring-log-forwarding"></a>Filters</h3>
+<div class="paragraph">
+<p>Filters are configured in an array under <code>spec.filters</code>. They can match incoming log messages based on the value of structured fields and modify or drop them.</p>
+</div>
+<div class="paragraph">
+<p>Administrators can configure the following types of filters:</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enabling-multi-line-exception-detection_configuring-log-forwarding"><a class="anchor" href="#enabling-multi-line-exception-detection_configuring-log-forwarding"></a>Enabling multi-line exception detection</h3>
+<div class="paragraph">
+<p>Enables multi-line error detection of container logs.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Enabling this feature could have performance implications and may require additional computing resources or alternate logging solutions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Log parsers often incorrectly identify separate lines of the same exception as separate exceptions. This leads to extra log entries and an incomplete or inaccurate view of the traced information.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example java exception</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="java"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">NullPointerException</span><span class="o">:</span> <span class="nc">Cannot</span> <span class="n">invoke</span> <span class="s">"String.toString()"</span> <span class="n">because</span> <span class="s">"&lt;param1&gt;"</span> <span class="n">is</span> <span class="kc">null</span>
+    <span class="n">at</span> <span class="n">testjava</span><span class="o">.</span><span class="na">Main</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="nc">Main</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">47</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">testjava</span><span class="o">.</span><span class="na">Main</span><span class="o">.</span><span class="na">printMe</span><span class="o">(</span><span class="nc">Main</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">19</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">testjava</span><span class="o">.</span><span class="na">Main</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="nc">Main</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">10</span><span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To enable logging to detect multi-line exceptions and reassemble them into a single log entry, ensure that the <code>ClusterLogForwarder</code> Custom Resource (CR) contains a <code>detectMultilineErrors</code> field under the <code>.spec.filters</code>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example ClusterLogForwarder CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">observability.openshift.io/v1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;log_forwarder_name&gt;</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;log_forwarder_namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">filters</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;name&gt;</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">detectMultilineException</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">inputRefs</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">&lt;input-name&gt;</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;pipeline-name&gt;</span>
+      <span class="na">filterRefs</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">&lt;filter-name&gt;</span>
+      <span class="na">outputRefs</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">&lt;output-name&gt;</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="details"><a class="anchor" href="#details"></a>Details</h4>
+<div class="paragraph">
+<p>When log messages appear as a consecutive sequence forming an exception stack trace, they are combined into a single, unified log record. The first log message&#8217;s content is replaced with the concatenated content of all the message fields in the sequence.</p>
+</div>
+<div class="paragraph">
+<p>The collector supports the following languages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Java</p>
+</li>
+<li>
+<p>JS</p>
+</li>
+<li>
+<p>Ruby</p>
+</li>
+<li>
+<p>Python</p>
+</li>
+<li>
+<p>Golang</p>
+</li>
+<li>
+<p>PHP</p>
+</li>
+<li>
+<p>Dart</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="content-filter-drop-records_configuring-log-forwarding"><a class="anchor" href="#content-filter-drop-records_configuring-log-forwarding"></a>Configuring content filters to drop unwanted log records</h3>
+<div class="paragraph">
+<p>When the <code>drop</code> filter is configured, the log collector evaluates log streams according to the filters before forwarding. The collector drops unwanted log records that match the specified configuration.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Add a configuration for a filter to the <code>filters</code> spec in the <code>ClusterLogForwarder</code> CR.</p>
+<div class="paragraph">
+<p>The following example shows how to configure the <code>ClusterLogForwarder</code> CR to drop log records based on regular expressions:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">filters</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;filter_name&gt;</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">drop</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="na">drop</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="pi">-</span> <span class="na">test</span><span class="pi">:</span> <i class="conum" data-value="3"></i><b>(3)</b>
+      <span class="pi">-</span> <span class="na">field</span><span class="pi">:</span> <span class="s">.kubernetes.labels."foo-bar/baz"</span> <i class="conum" data-value="4"></i><b>(4)</b>
+        <span class="na">matches</span><span class="pi">:</span> <span class="s">.+</span> <i class="conum" data-value="5"></i><b>(5)</b>
+      <span class="pi">-</span> <span class="na">field</span><span class="pi">:</span> <span class="s">.kubernetes.pod_name</span>
+        <span class="na">notMatches</span><span class="pi">:</span> <span class="s2">"</span><span class="s">my-pod"</span> <i class="conum" data-value="6"></i><b>(6)</b>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;pipeline_name&gt;</span> <i class="conum" data-value="7"></i><b>(7)</b>
+    <span class="na">filterRefs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">&lt;filter_name&gt;"</span><span class="pi">]</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specifies the type of filter. The <code>drop</code> filter drops log records that match the filter configuration.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specifies configuration options for applying the <code>drop</code> filter.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Specifies the configuration for tests that are used to evaluate whether a log record is dropped.
+<div class="ulist">
+<ul>
+<li>
+<p>If all the conditions specified for a test are true, the test passes and the log record is dropped.</p>
+</li>
+<li>
+<p>When multiple tests are specified for the <code>drop</code> filter configuration, if any of the tests pass, the record is dropped.</p>
+</li>
+<li>
+<p>If there is an error evaluating a condition, for example, the field is missing from the log record being evaluated, that condition evaluates to false.</p>
+</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Specifies a dot-delimited field path, which is a path to a field in the log record. The path can contain alpha-numeric characters and underscores (<code>a-zA-Z0-9_</code>), for example, <code>.kubernetes.namespace_name</code>. If segments contain characters outside of this range, the segment must be in quotes, for example, <code>.kubernetes.labels."foo.bar-bar/baz"</code>. You can include multiple field paths in a single <code>test</code> configuration, but they must all evaluate to true for the test to pass and the <code>drop</code> filter to be applied.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Specifies a regular expression. If log records match this regular expression, they are dropped. You can set either the <code>matches</code> or <code>notMatches</code> condition for a single <code>field</code> path, but not both.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Specifies a regular expression. If log records do not match this regular expression, they are dropped. You can set either the <code>matches</code> or <code>notMatches</code> condition for a single <code>field</code> path, but not both.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Specifies the pipeline that the <code>drop</code> filter is applied to.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>ClusterLogForwarder</code> CR by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional examples</div>
+<p>The following additional example shows how you can configure the <code>drop</code> filter to only keep higher priority log records:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">filters</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">important</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">drop</span>
+    <span class="na">drop</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">test</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">field</span><span class="pi">:</span> <span class="s">.message</span>
+        <span class="na">notMatches</span><span class="pi">:</span> <span class="s2">"</span><span class="s">(?i)critical|error"</span>
+      <span class="pi">-</span> <span class="na">field</span><span class="pi">:</span> <span class="s">.level</span>
+        <span class="na">matches</span><span class="pi">:</span> <span class="s2">"</span><span class="s">info|warning"</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In addition to including multiple field paths in a single <code>test</code> configuration, you can also include additional tests that are treated as <em>OR</em> checks. In the following example, records are dropped if either <code>test</code> configuration evaluates to true. However, for the second <code>test</code> configuration, both field specs must be true for it to be evaluated to true:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">filters</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">important</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">drop</span>
+    <span class="na">drop</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">test</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">field</span><span class="pi">:</span> <span class="s">.kubernetes.namespace_name</span>
+        <span class="na">matches</span><span class="pi">:</span> <span class="s2">"</span><span class="s">^open"</span>
+    <span class="pi">-</span> <span class="na">test</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">field</span><span class="pi">:</span> <span class="s">.log_type</span>
+        <span class="na">matches</span><span class="pi">:</span> <span class="s2">"</span><span class="s">application"</span>
+      <span class="pi">-</span> <span class="na">field</span><span class="pi">:</span> <span class="s">.kubernetes.pod_name</span>
+        <span class="na">notMatches</span><span class="pi">:</span> <span class="s2">"</span><span class="s">my-pod"</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="audit-filtering_configuring-log-forwarding"><a class="anchor" href="#audit-filtering_configuring-log-forwarding"></a>Overview of API audit filter</h3>
+<div class="paragraph">
+<p>OpenShift API servers generate audit events for each API call, detailing the request, response, and the identity of the requester, leading to large volumes of data. The API Audit filter uses rules to enable the exclusion of non-essential events and the reduction of event size, facilitating a more manageable audit trail. Rules are checked in order, and checking stops at the first match. The amount of data that is included in an event is determined by the value of the <code>level</code> field:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>None</code>: The event is dropped.</p>
+</li>
+<li>
+<p><code>Metadata</code>: Audit metadata is included, request and response bodies are removed.</p>
+</li>
+<li>
+<p><code>Request</code>: Audit metadata and the request body are included, the response body is removed.</p>
+</li>
+<li>
+<p><code>RequestResponse</code>: All data is included: metadata, request body and response body. The response body can be very large. For example, <code>oc get pods -A</code> generates a response body containing the YAML description of every pod in the cluster.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>ClusterLogForwarder</code> custom resource (CR) uses the same format as the standard <a href="https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/#audit-policy">Kubernetes audit policy</a>, while providing the following additional functions:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Wildcards</dt>
+<dd>
+<p>Names of users, groups, namespaces, and resources can have a leading or trailing <code>*</code> asterisk character. For example, the namespace <code>openshift-\*</code> matches <code>openshift-apiserver</code> or <code>openshift-authentication</code>. Resource <code>\*/status</code> matches <code>Pod/status</code> or <code>Deployment/status</code>.</p>
+</dd>
+<dt class="hdlist1">Default Rules</dt>
+<dd>
+<p>Events that do not match any rule in the policy are filtered as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Read-only system events such as <code>get</code>, <code>list</code>, and <code>watch</code> are dropped.</p>
+</li>
+<li>
+<p>Service account write events that occur within the same namespace as the service account are dropped.</p>
+</li>
+<li>
+<p>All other events are forwarded, subject to any configured rate limits.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>To disable these defaults, either end your rules list with a rule that has only a <code>level</code> field or add an empty rule.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Omit Response Codes</dt>
+<dd>
+<p>A list of integer status codes to omit. You can drop events based on the HTTP status code in the response by using the <code>OmitResponseCodes</code> field, which lists HTTP status codes for which no events are created. The default value is <code>[404, 409, 422, 429]</code>. If the value is an empty list, <code>[]</code>, then no status codes are omitted.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The <code>ClusterLogForwarder</code> CR audit policy acts in addition to the OpenShift Container Platform audit policy. The <code>ClusterLogForwarder</code> CR audit filter changes what the log collector forwards and provides the ability to filter by verb, user, group, namespace, or resource. You can create multiple filters to send different summaries of the same audit stream to different places. For example, you can send a detailed stream to the local cluster log store and a less detailed stream to a remote site.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You must have a cluster role <code>collect-audit-logs</code> to collect the audit logs. The following example provided is intended to illustrate the range of rules possible in an audit policy and is not a recommended configuration.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example audit policy</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;log_forwarder_name&gt;</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;log_forwarder_namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">my-pipeline</span>
+      <span class="na">inputRefs</span><span class="pi">:</span> <span class="s">audit</span> <i class="conum" data-value="1"></i><b>(1)</b>
+      <span class="na">filterRefs</span><span class="pi">:</span> <span class="s">my-policy</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">filters</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">my-policy</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">kubeAPIAudit</span>
+      <span class="na">kubeAPIAudit</span><span class="pi">:</span>
+        <span class="c1"># Don't generate audit events for all requests in RequestReceived stage.</span>
+        <span class="na">omitStages</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s2">"</span><span class="s">RequestReceived"</span>
+
+        <span class="na">rules</span><span class="pi">:</span>
+          <span class="c1"># Log pod changes at RequestResponse level</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">RequestResponse</span>
+            <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+              <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">pods"</span><span class="pi">]</span>
+
+          <span class="c1"># Log "pods/log", "pods/status" at Metadata level</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">Metadata</span>
+            <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+              <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">pods/log"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">pods/status"</span><span class="pi">]</span>
+
+          <span class="c1"># Don't log requests to a configmap called "controller-leader"</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">None</span>
+            <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+              <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">configmaps"</span><span class="pi">]</span>
+              <span class="na">resourceNames</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">controller-leader"</span><span class="pi">]</span>
+
+          <span class="c1"># Don't log watch requests by the "system:kube-proxy" on endpoints or services</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">None</span>
+            <span class="na">users</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">system:kube-proxy"</span><span class="pi">]</span>
+            <span class="na">verbs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">watch"</span><span class="pi">]</span>
+            <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># core API group</span>
+              <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">endpoints"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">services"</span><span class="pi">]</span>
+
+          <span class="c1"># Don't log authenticated requests to certain non-resource URL paths.</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">None</span>
+            <span class="na">userGroups</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">system:authenticated"</span><span class="pi">]</span>
+            <span class="na">nonResourceURLs</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s2">"</span><span class="s">/api*"</span> <span class="c1"># Wildcard matching.</span>
+            <span class="pi">-</span> <span class="s2">"</span><span class="s">/version"</span>
+
+          <span class="c1"># Log the request body of configmap changes in kube-system.</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">Request</span>
+            <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># core API group</span>
+              <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">configmaps"</span><span class="pi">]</span>
+            <span class="c1"># This rule only applies to resources in the "kube-system" namespace.</span>
+            <span class="c1"># The empty string "" can be used to select non-namespaced resources.</span>
+            <span class="na">namespaces</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">kube-system"</span><span class="pi">]</span>
+
+          <span class="c1"># Log configmap and secret changes in all other namespaces at the Metadata level.</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">Metadata</span>
+            <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># core API group</span>
+              <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">secrets"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">configmaps"</span><span class="pi">]</span>
+
+          <span class="c1"># Log all other resources in core and extensions at the Request level.</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">Request</span>
+            <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># core API group</span>
+            <span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s2">"</span><span class="s">extensions"</span> <span class="c1"># Version of group should NOT be included.</span>
+
+          <span class="c1"># A catch-all rule to log all other requests at the Metadata level.</span>
+          <span class="pi">-</span> <span class="na">level</span><span class="pi">:</span> <span class="s">Metadata</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The log types that are collected. The value for this field can be <code>audit</code> for audit logs, <code>application</code> for application logs, <code>infrastructure</code> for infrastructure logs, or a named input that has been defined for your application.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The name of your audit policy.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="input-spec-filter-labels-expressions_configuring-log-forwarding"><a class="anchor" href="#input-spec-filter-labels-expressions_configuring-log-forwarding"></a>Filtering application logs at input by including the label expressions or a matching label key and values</h3>
+<div class="paragraph">
+<p>You can include the application logs based on the label expressions or a matching label key and its values by using the <code>input</code> selector.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Add a configuration for a filter to the <code>input</code> spec in the <code>ClusterLogForwarder</code> CR.</p>
+<div class="paragraph">
+<p>The following example shows how to configure the <code>ClusterLogForwarder</code> CR to include logs based on label expressions or matched label key/values:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mylogs</span>
+      <span class="na">application</span><span class="pi">:</span>
+        <span class="na">selector</span><span class="pi">:</span>
+          <span class="na">matchExpressions</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">key</span><span class="pi">:</span> <span class="s">env</span> <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="na">operator</span><span class="pi">:</span> <span class="s">In</span> <i class="conum" data-value="2"></i><b>(2)</b>
+            <span class="na">values</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">prod"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">qa"</span><span class="pi">]</span> <i class="conum" data-value="3"></i><b>(3)</b>
+          <span class="pi">-</span> <span class="na">key</span><span class="pi">:</span> <span class="s">zone</span>
+            <span class="na">operator</span><span class="pi">:</span> <span class="s">NotIn</span>
+            <span class="na">values</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">east"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">west"</span><span class="pi">]</span>
+          <span class="na">matchLabels</span><span class="pi">:</span> <i class="conum" data-value="4"></i><b>(4)</b>
+            <span class="na">app</span><span class="pi">:</span> <span class="s">one</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">app1</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">application</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specifies the label key to match.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specifies the operator. Valid values include: <code>In</code>, <code>NotIn</code>, <code>Exists</code>, and <code>DoesNotExist</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Specifies an array of string values. If the <code>operator</code> value is either <code>Exists</code> or <code>DoesNotExist</code>, the value array must be empty.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Specifies an exact key or value mapping.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>ClusterLogForwarder</code> CR by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="content-filter-prune-records_configuring-log-forwarding"><a class="anchor" href="#content-filter-prune-records_configuring-log-forwarding"></a>Configuring content filters to prune log records</h3>
+<div class="paragraph">
+<p>When the <code>prune</code> filter is configured, the log collector evaluates log streams according to the filters before forwarding. The collector prunes log records by removing low value fields such as pod annotations.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Add a configuration for a filter to the <code>prune</code> spec in the <code>ClusterLogForwarder</code> CR.</p>
+<div class="paragraph">
+<p>The following example shows how to configure the <code>ClusterLogForwarder</code> CR to prune log records based on field paths:</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If both are specified, records are pruned based on the <code>notIn</code> array first, which takes precedence over the <code>in</code> array. After records have been pruned by using the <code>notIn</code> array, they are then pruned by using the <code>in</code> array.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">filters</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;filter_name&gt;</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">prune</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="na">prune</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="na">in</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">.kubernetes.annotations</span><span class="pi">,</span> <span class="nv">.kubernetes.namespace_id</span><span class="pi">]</span> <i class="conum" data-value="3"></i><b>(3)</b>
+      <span class="na">notIn</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">.kubernetes</span><span class="pi">,</span><span class="nv">.log_type</span><span class="pi">,</span><span class="nv">.message</span><span class="pi">,</span><span class="nv">."@timestamp"</span><span class="pi">]</span> <i class="conum" data-value="4"></i><b>(4)</b>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;pipeline_name&gt;</span> <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="na">filterRefs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">&lt;filter_name&gt;"</span><span class="pi">]</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify the type of filter. The <code>prune</code> filter prunes log records by configured fields.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify configuration options for applying the <code>prune</code> filter. The <code>in</code> and <code>notIn</code> fields are specified as arrays of dot-delimited field paths, which are paths to fields in log records. These paths can contain alpha-numeric characters and underscores (<code>a-zA-Z0-9_</code>), for example, <code>.kubernetes.namespace_name</code>. If segments contain characters outside of this range, the segment must be in quotes, for example, <code>.kubernetes.labels."foo.bar-bar/baz"</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Optional: Any fields that are specified in this array are removed from the log record.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Optional: Any fields that are not specified in this array are removed from the log record.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Specify the pipeline that the <code>prune</code> filter is applied to.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The filters exempts the <code>log_type</code>, <code>.log_source</code>, and <code>.message</code> fields.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>ClusterLogForwarder</code> CR by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="input-spec-filter-audit-infrastructure_configuring-log-forwarding"><a class="anchor" href="#input-spec-filter-audit-infrastructure_configuring-log-forwarding"></a>Filtering the audit and infrastructure log inputs by source</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can define the list of <code>audit</code> and <code>infrastructure</code> sources to collect the logs by using the <code>input</code> selector.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Add a configuration to define the <code>audit</code> and <code>infrastructure</code> sources in the <code>ClusterLogForwarder</code> CR.</p>
+<div class="paragraph">
+<p>The following example shows how to configure the <code>ClusterLogForwarder</code> CR to define <code>audit</code> and <code>infrastructure</code> sources:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mylogs1</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">infrastructure</span>
+      <span class="na">infrastructure</span><span class="pi">:</span>
+        <span class="na">sources</span><span class="pi">:</span> <i class="conum" data-value="1"></i><b>(1)</b>
+          <span class="pi">-</span> <span class="s">node</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mylogs2</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">audit</span>
+      <span class="na">audit</span><span class="pi">:</span>
+        <span class="na">sources</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+          <span class="pi">-</span> <span class="s">kubeAPI</span>
+          <span class="pi">-</span> <span class="s">openshiftAPI</span>
+          <span class="pi">-</span> <span class="s">ovn</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specifies the list of infrastructure sources to collect. The valid sources include:
+<div class="ulist">
+<ul>
+<li>
+<p><code>node</code>: Journal log from the node</p>
+</li>
+<li>
+<p><code>container</code>: Logs from the workloads deployed in the namespaces</p>
+</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specifies the list of audit sources to collect. The valid sources include:
+<div class="ulist">
+<ul>
+<li>
+<p><code>kubeAPI</code>: Logs from the Kubernetes API servers</p>
+</li>
+<li>
+<p><code>openshiftAPI</code>: Logs from the OpenShift API servers</p>
+</li>
+<li>
+<p><code>auditd</code>: Logs from a node auditd service</p>
+</li>
+<li>
+<p><code>ovn</code>: Logs from an open virtual network service</p>
+</li>
+</ul>
+</div></td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>ClusterLogForwarder</code> CR by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="input-spec-filter-namespace-container_configuring-log-forwarding"><a class="anchor" href="#input-spec-filter-namespace-container_configuring-log-forwarding"></a>Filtering application logs at input by including or excluding the namespace or container name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can include or exclude the application logs based on the namespace and container name by using the <code>input</code> selector.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Add a configuration to include or exclude the namespace and container names in the <code>ClusterLogForwarder</code> CR.</p>
+<div class="paragraph">
+<p>The following example shows how to configure the <code>ClusterLogForwarder</code> CR to include or exclude namespaces and container names:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mylogs</span>
+      <span class="na">application</span><span class="pi">:</span>
+        <span class="na">includes</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">namespace</span><span class="pi">:</span> <span class="s2">"</span><span class="s">my-project"</span> <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="na">container</span><span class="pi">:</span> <span class="s2">"</span><span class="s">my-container"</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="na">excludes</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">container</span><span class="pi">:</span> <span class="s2">"</span><span class="s">other-container*"</span> <i class="conum" data-value="3"></i><b>(3)</b>
+            <span class="na">namespace</span><span class="pi">:</span> <span class="s2">"</span><span class="s">other-namespace"</span> <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">application</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specifies that the logs are only collected from these namespaces.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specifies that the logs are only collected from these containers.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Specifies the pattern of namespaces to ignore when collecting the logs.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Specifies the set of containers to ignore when collecting the logs.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>excludes</code> field takes precedence over the <code>includes</code> field.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>ClusterLogForwarder</code> CR by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="/logging/main/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-logging';
+  var version = '6.1';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version],
+    'openshift-logging' : ['docs_logging', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

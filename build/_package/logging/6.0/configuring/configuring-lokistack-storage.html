@@ -1,0 +1,1814 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Configuring LokiStack storage | Configuring | Red Hat OpenShift Logging 6.0</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('6.0');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+      <span>
+        <div class="alert alert-info" role="primary" id="support-info">
+          <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+          </strong>
+        </div>
+      </span>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+            <a href="https://docs.openshift.com/logging/6.0/about/about-logging.html">
+              Red Hat OpenShift Logging
+            </a>
+            <select id="version-selector" onchange="versionSelector(this);">
+              <option value="main">main</option>
+              <option value="6.2">6.2</option>
+              <option value="6.1">6.1</option>
+              <option value="6.0">6.0</option>
+            </select>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../configuring/configuring-log-forwarding.html">Configuring</a>
+      </li>
+      
+      
+      <li class="hidden-xs active">
+        Configuring LokiStack storage
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/main/configuring/configuring-lokistack-storage.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=Issue+in+file+configuring/configuring-lokistack-storage.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About OpenShift Logging</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../about/logging-release-notes-6-0.html">Release notes</a></li>
+            <li><a class="" href="../about/about-logging.html">Logging overview</a></li>
+            <li><a class="" href="../about/cluster-logging-support.html">Cluster logging support</a></li>
+            <li><a class="" href="../about/logging-visualization.html">Visualization for logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>Installing</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../installing/installing-logging.html">Installing logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-down"></span>Configuring</a>
+      <ul id="topicGroup2" class="collapse in list-unstyled">
+            <li><a class="" href="../configuring/configuring-log-forwarding.html">Configuring log forwarding</a></li>
+            <li><a class=" active" href="../configuring/configuring-lokistack-storage.html">Configuring LokiStack storage</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../upgrading/upgrading-to-logging-60.html">Upgrading to Logging 6.0</a></li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Configuring LokiStack storage
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#prerequisites_configuring-lokistack-storage">Prerequisites</a></li>
+<li><a href="#setup_configuring-lokistack-storage">Core Setup and Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#loki-rbac-rules-permissions_configuring-lokistack-storage">Authorizing LokiStack rules RBAC permissions</a></li>
+<li><a href="#logging-enabling-loki-alerts_configuring-lokistack-storage">Creating a log-based alerting rule with Loki</a></li>
+<li><a href="#loki-memberlist-ip_configuring-lokistack-storage">Configuring Loki to tolerate memberlist creation failure</a></li>
+<li><a href="#loki-retention_configuring-lokistack-storage">Enabling stream-based retention with Loki</a></li>
+<li><a href="#loki-pod-placement_configuring-lokistack-storage">Loki pod placement</a></li>
+</ul>
+</li>
+<li><a href="#performance_configuring-lokistack-storage">Enhanced Reliability and Performance</a>
+<ul class="sectlevel2">
+<li><a href="#identity-federation_configuring-lokistack-storage">Enabling authentication to cloud-based log stores using short-lived tokens</a></li>
+<li><a href="#loki-reliability-hardening_configuring-lokistack-storage">Configuring Loki to tolerate node failure</a></li>
+<li><a href="#loki-restart-hardening_configuring-lokistack-storage">LokiStack behavior during cluster restarts</a></li>
+</ul>
+</li>
+<li><a href="#advanced_configuring-lokistack-storage">Advanced Deployment and Scalability</a>
+<ul class="sectlevel2">
+<li><a href="#loki-zone-aware-replication_configuring-lokistack-storage">Zone aware data replication</a></li>
+<li><a href="#loki-zone-fail-recovery_configuring-lokistack-storage">Recovering Loki pods from failed zones</a></li>
+<li><a href="#loki-rate-limit-errors_configuring-lokistack-storage">Troubleshooting Loki rate limit errors</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can configure a <code>LokiStack</code> CR to store application, audit, and infrastructure-related logs.</p>
+</div>
+<div class="paragraph">
+<p>Loki is a horizontally scalable, highly available, multi-tenant log aggregation system offered as a GA log store for logging for Red Hat OpenShift that can be visualized with the OpenShift Observability UI. The Loki configuration provided by OpenShift Logging is a short-term log store designed to enable users to perform fast troubleshooting with the collected logs. For that purpose, the logging for Red Hat OpenShift configuration of Loki has short-term storage, and is optimized for very recent queries.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For long-term storage or queries over a long time period, users should look to log stores external to their cluster. Loki sizing is only tested and supported for short term storage, for a maximum of 30 days.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites_configuring-lokistack-storage"><a class="anchor" href="#prerequisites_configuring-lokistack-storage"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>You have installed the Loki Operator by using the CLI or web console.</p>
+</li>
+<li>
+<p>You have a <code>serviceAccount</code> in the same namespace in which you create the <code>ClusterLogForwarder</code>.</p>
+</li>
+<li>
+<p>The <code>serviceAccount</code> is assigned <code>collect-audit-logs</code>, <code>collect-application-logs</code>, and <code>collect-infrastructure-logs</code> cluster roles.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setup_configuring-lokistack-storage"><a class="anchor" href="#setup_configuring-lokistack-storage"></a>Core Setup and Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Role-based access controls, basic monitoring, and pod placement to deploy Loki.</strong></p>
+</div>
+<div class="sect2">
+<h3 id="loki-rbac-rules-permissions_configuring-lokistack-storage"><a class="anchor" href="#loki-rbac-rules-permissions_configuring-lokistack-storage"></a>Authorizing LokiStack rules RBAC permissions</h3>
+<div class="paragraph">
+<p>Administrators can allow users to create and manage their own alerting and recording rules by binding cluster roles to usernames.
+Cluster roles are defined as <code>ClusterRole</code> objects that contain necessary role-based access control (RBAC) permissions for users.</p>
+</div>
+<div class="paragraph">
+<p>The following cluster roles for alerting and recording rules are available for LokiStack:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Rule name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertingrules.loki.grafana.com-v1-admin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role have administrative-level access to manage alerting rules. This cluster role grants permissions to create, read, update, delete, list, and watch <code>AlertingRule</code> resources within the <code>loki.grafana.com/v1</code> API group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertingrules.loki.grafana.com-v1-crdview</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role can view the definitions of Custom Resource Definitions (CRDs) related to <code>AlertingRule</code> resources within the <code>loki.grafana.com/v1</code> API group, but do not have permissions for modifying or managing these resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertingrules.loki.grafana.com-v1-edit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role have permission to create, update, and delete <code>AlertingRule</code> resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertingrules.loki.grafana.com-v1-view</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role can read <code>AlertingRule</code> resources within the <code>loki.grafana.com/v1</code> API group. They can inspect configurations, labels, and annotations for existing alerting rules but cannot make any modifications to them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>recordingrules.loki.grafana.com-v1-admin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role have administrative-level access to manage recording rules. This cluster role grants permissions to create, read, update, delete, list, and watch <code>RecordingRule</code> resources within the <code>loki.grafana.com/v1</code> API group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>recordingrules.loki.grafana.com-v1-crdview</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role can view the definitions of Custom Resource Definitions (CRDs) related to <code>RecordingRule</code> resources within the <code>loki.grafana.com/v1</code> API group, but do not have permissions for modifying or managing these resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>recordingrules.loki.grafana.com-v1-edit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role have permission to create, update, and delete <code>RecordingRule</code> resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>recordingrules.loki.grafana.com-v1-view</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users with this role can read <code>RecordingRule</code> resources within the <code>loki.grafana.com/v1</code> API group. They can inspect configurations, labels, and annotations for existing alerting rules but cannot make any modifications to them.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="loki-rbac-rules-permissions-examples_configuring-lokistack-storage"><a class="anchor" href="#loki-rbac-rules-permissions-examples_configuring-lokistack-storage"></a>Examples</h4>
+<div class="paragraph">
+<p>To apply cluster roles for a user, you must bind an existing cluster role to a specific username.</p>
+</div>
+<div class="paragraph">
+<p>Cluster roles can be cluster or namespace scoped, depending on which type of role binding you use.
+When a <code>RoleBinding</code> object is used, as when using the <code>oc adm policy add-role-to-user</code> command, the cluster role only applies to the specified namespace.
+When a <code>ClusterRoleBinding</code> object is used, as when using the <code>oc adm policy add-cluster-role-to-user</code> command, the cluster role applies to all namespaces in the cluster.</p>
+</div>
+<div class="paragraph">
+<p>The following example command gives the specified user create, read, update and delete (CRUD) permissions for alerting rules in a specific namespace in the cluster:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example cluster role binding command for alerting rule CRUD permissions in a specific namespace</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-role-to-user alertingrules.loki.grafana.com-v1-admin <span class="nt">-n</span> &lt;namespace&gt; &lt;username&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following command gives the specified user administrator permissions for alerting rules in all namespaces:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example cluster role binding command for administrator permissions</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user alertingrules.loki.grafana.com-v1-admin &lt;username&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging-enabling-loki-alerts_configuring-lokistack-storage"><a class="anchor" href="#logging-enabling-loki-alerts_configuring-lokistack-storage"></a>Creating a log-based alerting rule with Loki</h3>
+<div class="paragraph">
+<p>The <code>AlertingRule</code> CR contains a set of specifications and webhook validation definitions to declare groups of alerting rules for a single <code>LokiStack</code> instance. In addition, the webhook validation definition provides support for rule validation conditions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If an <code>AlertingRule</code> CR includes an invalid <code>interval</code> period, it is an invalid alerting rule</p>
+</li>
+<li>
+<p>If an <code>AlertingRule</code> CR includes an invalid <code>for</code> period, it is an invalid alerting rule.</p>
+</li>
+<li>
+<p>If an <code>AlertingRule</code> CR includes an invalid LogQL <code>expr</code>, it is an invalid alerting rule.</p>
+</li>
+<li>
+<p>If an <code>AlertingRule</code> CR includes two groups with the same name, it is an invalid alerting rule.</p>
+</li>
+<li>
+<p>If none of the above applies, an alerting rule is considered valid.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. AlertingRule definitions</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tenant type</th>
+<th class="tableblock halign-left valign-top">Valid namespaces for <code>AlertingRule</code> CRs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>&lt;your_application_namespace&gt;</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">audit</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>openshift-logging</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">infrastructure</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>openshift-/*</code>, <code>kube-/\*</code>, <code>default</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create an <code>AlertingRule</code> custom resource (CR):</p>
+<div class="listingblock">
+<div class="title">Example infrastructure <code>AlertingRule</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml">  <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">AlertingRule</span>
+  <span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator-alerts</span>
+    <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-operators-redhat</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="na">labels</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="s">openshift.io/&lt;label_name&gt;</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+  <span class="na">spec</span><span class="pi">:</span>
+    <span class="na">tenantID</span><span class="pi">:</span> <span class="s2">"</span><span class="s">infrastructure"</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="na">groups</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">LokiOperatorHighReconciliationError</span>
+        <span class="na">rules</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">alert</span><span class="pi">:</span> <span class="s">HighPercentageError</span>
+            <span class="na">expr</span><span class="pi">:</span> <span class="pi">|</span> <i class="conum" data-value="4"></i><b>(4)</b>
+              <span class="s">sum(rate({kubernetes_namespace_name="openshift-operators-redhat", kubernetes_pod_name=~"loki-operator-controller-manager.*"} |= "error" [1m])) by (job)</span>
+                <span class="s">/</span>
+              <span class="s">sum(rate({kubernetes_namespace_name="openshift-operators-redhat", kubernetes_pod_name=~"loki-operator-controller-manager.*"}[1m])) by (job)</span>
+                <span class="s">&gt; 0.01</span>
+            <span class="na">for</span><span class="pi">:</span> <span class="s">10s</span>
+            <span class="na">labels</span><span class="pi">:</span>
+              <span class="na">severity</span><span class="pi">:</span> <span class="s">critical</span> <i class="conum" data-value="5"></i><b>(5)</b>
+            <span class="na">annotations</span><span class="pi">:</span>
+              <span class="na">summary</span><span class="pi">:</span> <span class="s">High Loki Operator Reconciliation Errors</span> <i class="conum" data-value="6"></i><b>(6)</b>
+              <span class="na">description</span><span class="pi">:</span> <span class="s">High Loki Operator Reconciliation Errors</span> <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The namespace where this <code>AlertingRule</code> CR is created must have a label matching the LokiStack <code>spec.rules.namespaceSelector</code> definition.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>labels</code> block must match the LokiStack <code>spec.rules.selector</code> definition.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>AlertingRule</code> CRs for <code>infrastructure</code> tenants are only supported in the <code>openshift-*</code>, <code>kube-\*</code>, or <code>default</code> namespaces.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The value for <code>kubernetes_namespace_name:</code> must match the value for <code>metadata.namespace</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The value of this mandatory field must be <code>critical</code>, <code>warning</code>, or <code>info</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>This field is mandatory.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>This field is mandatory.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example application <code>AlertingRule</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml">  <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">AlertingRule</span>
+  <span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">app-user-workload</span>
+    <span class="na">namespace</span><span class="pi">:</span> <span class="s">app-ns</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="na">labels</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="s">openshift.io/&lt;label_name&gt;</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+  <span class="na">spec</span><span class="pi">:</span>
+    <span class="na">tenantID</span><span class="pi">:</span> <span class="s2">"</span><span class="s">application"</span>
+    <span class="na">groups</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">AppUserWorkloadHighError</span>
+        <span class="na">rules</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">alert</span><span class="pi">:</span>
+            <span class="na">expr</span><span class="pi">:</span> <span class="pi">|</span> <i class="conum" data-value="3"></i><b>(3)</b>
+              <span class="s">sum(rate({kubernetes_namespace_name="app-ns", kubernetes_pod_name=~"podName.*"} |= "error" [1m])) by (job)</span>
+            <span class="na">for</span><span class="pi">:</span> <span class="s">10s</span>
+            <span class="na">labels</span><span class="pi">:</span>
+              <span class="na">severity</span><span class="pi">:</span> <span class="s">critical</span> <i class="conum" data-value="4"></i><b>(4)</b>
+            <span class="na">annotations</span><span class="pi">:</span>
+              <span class="na">summary</span><span class="pi">:</span>  <i class="conum" data-value="5"></i><b>(5)</b>
+              <span class="na">description</span><span class="pi">:</span>  <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The namespace where this <code>AlertingRule</code> CR is created must have a label matching the LokiStack <code>spec.rules.namespaceSelector</code> definition.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>labels</code> block must match the LokiStack <code>spec.rules.selector</code> definition.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Value for <code>kubernetes_namespace_name:</code> must match the value for <code>metadata.namespace</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The value of this mandatory field must be <code>critical</code>, <code>warning</code>, or <code>info</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The value of this mandatory field is a summary of the rule.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>The value of this mandatory field is a detailed description of the rule.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>AlertingRule</code> CR:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loki-memberlist-ip_configuring-lokistack-storage"><a class="anchor" href="#loki-memberlist-ip_configuring-lokistack-storage"></a>Configuring Loki to tolerate memberlist creation failure</h3>
+<div class="paragraph">
+<p>In an OpenShift Container Platform cluster, administrators generally use a non-private IP network range. As a result, the LokiStack memberlist configuration fails because, by default, it only uses private IP networks.</p>
+</div>
+<div class="paragraph">
+<p>As an administrator, you can select the pod network for the memberlist configuration. You can modify the <code>LokiStack</code> custom resource (CR) to use the <code>podIP</code> address in the <code>hashRing</code> spec. To configure the <code>LokiStack</code> CR, use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc patch LokiStack logging-loki <span class="nt">-n</span> openshift-logging  <span class="nt">--type</span><span class="o">=</span>merge <span class="nt">-p</span> <span class="s1">'{"spec": {"hashRing":{"memberlist":{"instanceAddrType":"podIP"},"type":"memberlist"}}}'</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example LokiStack to include <code>podIP</code></div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+  <span class="na">hashRing</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">memberlist</span>
+    <span class="na">memberlist</span><span class="pi">:</span>
+      <span class="na">instanceAddrType</span><span class="pi">:</span> <span class="s">podIP</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loki-retention_configuring-lokistack-storage"><a class="anchor" href="#loki-retention_configuring-lokistack-storage"></a>Enabling stream-based retention with Loki</h3>
+<div class="paragraph">
+<p>You can configure retention policies based on log streams. Rules for these may be set globally, per-tenant, or both. If you configure both, tenant rules apply before global rules.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If there is no retention period defined on the s3 bucket or in the LokiStack custom resource (CR), then the logs are not pruned and they stay in the s3 bucket forever, which might fill up the s3 storage.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Schema v13 is recommended.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a <code>LokiStack</code> CR:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enable stream-based retention globally as shown in the following example:</p>
+<div class="listingblock">
+<div class="title">Example global stream-based retention for AWS</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">limits</span><span class="pi">:</span>
+   <span class="na">global</span><span class="pi">:</span> <i class="conum" data-value="1"></i><b>(1)</b>
+      <span class="na">retention</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="na">days</span><span class="pi">:</span> <span class="m">20</span>
+        <span class="na">streams</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">days</span><span class="pi">:</span> <span class="m">4</span>
+          <span class="na">priority</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">selector</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{kubernetes_namespace_name=~"test.+"}'</span> <i class="conum" data-value="3"></i><b>(3)</b>
+        <span class="pi">-</span> <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">priority</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">selector</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{log_type="infrastructure"}'</span>
+  <span class="na">managementState</span><span class="pi">:</span> <span class="s">Managed</span>
+  <span class="na">replicationFactor</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">size</span><span class="pi">:</span> <span class="s">1x.small</span>
+  <span class="na">storage</span><span class="pi">:</span>
+    <span class="na">schemas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">effectiveDate</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2020-10-11"</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s">v13</span>
+    <span class="na">secret</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki-s3</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">aws</span>
+  <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">gp3-csi</span>
+  <span class="na">tenants</span><span class="pi">:</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">openshift-logging</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sets retention policy for all log streams. <strong>Note: This field does not impact the retention period for stored logs in object storage.</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Retention is enabled in the cluster when this block is added to the CR.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Contains the <a href="https://grafana.com/docs/loki/latest/logql/query_examples/#query-examples">LogQL query</a> used to define the log stream.spec:
+limits:</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Enable stream-based retention per-tenant basis as shown in the following example:</p>
+<div class="listingblock">
+<div class="title">Example per-tenant stream-based retention for AWS</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">limits</span><span class="pi">:</span>
+    <span class="na">global</span><span class="pi">:</span>
+      <span class="na">retention</span><span class="pi">:</span>
+        <span class="na">days</span><span class="pi">:</span> <span class="m">20</span>
+    <span class="na">tenants</span><span class="pi">:</span> <i class="conum" data-value="1"></i><b>(1)</b>
+      <span class="na">application</span><span class="pi">:</span>
+        <span class="na">retention</span><span class="pi">:</span>
+          <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">streams</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">days</span><span class="pi">:</span> <span class="m">4</span>
+              <span class="na">selector</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{kubernetes_namespace_name=~"test.+"}'</span> <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="na">infrastructure</span><span class="pi">:</span>
+        <span class="na">retention</span><span class="pi">:</span>
+          <span class="na">days</span><span class="pi">:</span> <span class="m">5</span>
+          <span class="na">streams</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
+              <span class="na">selector</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{kubernetes_namespace_name=~"openshift-cluster.+"}'</span>
+  <span class="na">managementState</span><span class="pi">:</span> <span class="s">Managed</span>
+  <span class="na">replicationFactor</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">size</span><span class="pi">:</span> <span class="s">1x.small</span>
+  <span class="na">storage</span><span class="pi">:</span>
+    <span class="na">schemas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">effectiveDate</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2020-10-11"</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s">v13</span>
+    <span class="na">secret</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki-s3</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">aws</span>
+  <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">gp3-csi</span>
+  <span class="na">tenants</span><span class="pi">:</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">openshift-logging</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sets retention policy by tenant. Valid tenant types are <code>application</code>, <code>audit</code>, and <code>infrastructure</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Contains the <a href="https://grafana.com/docs/loki/latest/logql/query_examples/#query-examples">LogQL query</a> used to define the log stream.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Apply the <code>LokiStack</code> CR:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loki-pod-placement_configuring-lokistack-storage"><a class="anchor" href="#loki-pod-placement_configuring-lokistack-storage"></a>Loki pod placement</h3>
+<div class="paragraph">
+<p>You can control which nodes the Loki pods run on, and prevent other workloads from using those nodes, by using tolerations or node selectors on the pods.</p>
+</div>
+<div class="paragraph">
+<p>You can apply tolerations to the log store pods with the LokiStack custom resource (CR) and apply taints to a node with the node specification. A taint on a node is a <code>key:value</code> pair that instructs the node to repel all pods that do not allow the taint. Using a specific <code>key:value</code> pair that is not on other pods ensures that only the log store pods can run on that node.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example LokiStack with node selectors</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">compactor</span><span class="pi">:</span> <i class="conum" data-value="1"></i><b>(1)</b>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="na">distributor</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">gateway</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">indexGateway</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">ingester</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">querier</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">queryFrontend</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">ruler</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specifies the component pod type that applies to the node selector.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specifies the pods that are moved to nodes containing the defined label.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example LokiStack CR with node selectors and tolerations</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">compactor</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+    <span class="na">distributor</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+    <span class="na">indexGateway</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+    <span class="na">ingester</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+    <span class="na">querier</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+    <span class="na">queryFrontend</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+    <span class="na">ruler</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+    <span class="na">gateway</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span>
+        <span class="s">node-role.kubernetes.io/infra</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">tolerations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoSchedule</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+      <span class="pi">-</span> <span class="na">effect</span><span class="pi">:</span> <span class="s">NoExecute</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">node-role.kubernetes.io/infra</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">reserved</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To configure the <code>nodeSelector</code> and <code>tolerations</code> fields of the LokiStack (CR), you can use the <code class="command">oc explain</code> command to view the description and fields for a particular resource:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc explain lokistack.spec.template</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="text">KIND:     LokiStack
+VERSION:  loki.grafana.com/v1
+
+RESOURCE: template &lt;Object&gt;
+
+DESCRIPTION:
+     Template defines the resource/limits/tolerations/nodeselectors per
+     component
+
+FIELDS:
+   compactor	&lt;Object&gt;
+     Compactor defines the compaction component spec.
+
+   distributor	&lt;Object&gt;
+     Distributor defines the distributor component spec.
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more detailed information, you can add a specific field:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc explain lokistack.spec.template.compactor</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="text">KIND:     LokiStack
+VERSION:  loki.grafana.com/v1
+
+RESOURCE: compactor &lt;Object&gt;
+
+DESCRIPTION:
+     Compactor defines the compaction component spec.
+
+FIELDS:
+   nodeSelector	&lt;map[string]string&gt;
+     NodeSelector defines the labels required by a node to schedule the
+     component onto it.
+...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="performance_configuring-lokistack-storage"><a class="anchor" href="#performance_configuring-lokistack-storage"></a>Enhanced Reliability and Performance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Configurations to ensure Loki’s reliability and efficiency in production.</strong></p>
+</div>
+<div class="sect2">
+<h3 id="identity-federation_configuring-lokistack-storage"><a class="anchor" href="#identity-federation_configuring-lokistack-storage"></a>Enabling authentication to cloud-based log stores using short-lived tokens</h3>
+<div class="paragraph">
+<p>Workload identity federation enables authentication to cloud-based log stores using short-lived tokens.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Use one of the following options to enable authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you use the OpenShift Container Platform web console to install the Loki Operator, clusters that use short-lived tokens are automatically detected. You are prompted to create roles and supply the data required for the Loki Operator to create a <code>CredentialsRequest</code> object, which populates a secret.</p>
+</li>
+<li>
+<p>If you use the OpenShift CLI (<code>oc</code>) to install the Loki Operator, you must manually create a <code>Subscription</code> object using the appropriate template for your storage provider, as shown in the following examples. This authentication strategy is only supported for the storage providers indicated.</p>
+<div class="listingblock">
+<div class="title">Example Azure sample subscription</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">operators.coreos.com/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Subscription</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-operators-redhat</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">channel</span><span class="pi">:</span> <span class="s2">"</span><span class="s">stable-6.0"</span>
+  <span class="na">installPlanApproval</span><span class="pi">:</span> <span class="s">Manual</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator</span>
+  <span class="na">source</span><span class="pi">:</span> <span class="s">redhat-operators</span>
+  <span class="na">sourceNamespace</span><span class="pi">:</span> <span class="s">openshift-marketplace</span>
+  <span class="na">config</span><span class="pi">:</span>
+    <span class="na">env</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">CLIENTID</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">&lt;your_client_id&gt;</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">TENANTID</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">&lt;your_tenant_id&gt;</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">SUBSCRIPTIONID</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">&lt;your_subscription_id&gt;</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">REGION</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="s">&lt;your_region&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example AWS sample subscription</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">operators.coreos.com/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Subscription</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-operators-redhat</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">channel</span><span class="pi">:</span> <span class="s2">"</span><span class="s">stable-6.0"</span>
+  <span class="na">installPlanApproval</span><span class="pi">:</span> <span class="s">Manual</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator</span>
+  <span class="na">source</span><span class="pi">:</span> <span class="s">redhat-operators</span>
+  <span class="na">sourceNamespace</span><span class="pi">:</span> <span class="s">openshift-marketplace</span>
+  <span class="na">config</span><span class="pi">:</span>
+    <span class="na">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">ROLEARN</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">&lt;role_ARN&gt;</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loki-reliability-hardening_configuring-lokistack-storage"><a class="anchor" href="#loki-reliability-hardening_configuring-lokistack-storage"></a>Configuring Loki to tolerate node failure</h3>
+<div class="paragraph">
+<p>The Loki Operator supports setting pod anti-affinity rules to request that pods of the same component are scheduled on different available nodes in the cluster.</p>
+</div>
+<div class="paragraph">
+<p>Affinity is a property of pods that controls the nodes on which they prefer to be scheduled. Anti-affinity is a property of pods
+that prevents a pod from being scheduled on a node.</p>
+</div>
+<div class="paragraph">
+<p>In OpenShift Container Platform, <em>pod affinity</em> and <em>pod anti-affinity</em> allow you to constrain which nodes your pod is eligible to be scheduled on based on the key-value labels on other pods.</p>
+</div>
+<div class="paragraph">
+<p>The Operator sets default, preferred <code>podAntiAffinity</code> rules for all Loki components, which includes the <code>compactor</code>, <code>distributor</code>, <code>gateway</code>, <code>indexGateway</code>, <code>ingester</code>, <code>querier</code>, <code>queryFrontend</code>, and <code>ruler</code> components.</p>
+</div>
+<div class="paragraph">
+<p>You can override the preferred <code>podAntiAffinity</code> settings for Loki components by configuring required settings in the <code>requiredDuringSchedulingIgnoredDuringExecution</code> field:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example user settings for the ingester component</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">ingester</span><span class="pi">:</span>
+      <span class="na">podAntiAffinity</span><span class="pi">:</span>
+      <span class="c1"># ...</span>
+        <span class="na">requiredDuringSchedulingIgnoredDuringExecution</span><span class="pi">:</span> <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="pi">-</span> <span class="na">labelSelector</span><span class="pi">:</span>
+            <span class="na">matchLabels</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+              <span class="s">app.kubernetes.io/component</span><span class="pi">:</span> <span class="s">ingester</span>
+          <span class="na">topologyKey</span><span class="pi">:</span> <span class="s">kubernetes.io/hostname</span>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The stanza to define a required rule.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The key-value pair (label) that must be matched to apply the rule.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loki-restart-hardening_configuring-lokistack-storage"><a class="anchor" href="#loki-restart-hardening_configuring-lokistack-storage"></a>LokiStack behavior during cluster restarts</h3>
+<div class="paragraph">
+<p>When an OpenShift Container Platform cluster is restarted, LokiStack ingestion and the query path continue to operate within the available CPU and memory resources available for the node. This means that there is no downtime for the LokiStack during OpenShift Container Platform cluster updates. This behavior is achieved by using <code>PodDisruptionBudget</code> resources. The Loki Operator provisions <code>PodDisruptionBudget</code> resources for Loki, which determine the minimum number of pods that must be available per component to ensure normal operations under certain conditions.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="advanced_configuring-lokistack-storage"><a class="anchor" href="#advanced_configuring-lokistack-storage"></a>Advanced Deployment and Scalability</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Specialized configurations for high availability, scalability, and error handling.</strong></p>
+</div>
+<div class="sect2">
+<h3 id="loki-zone-aware-replication_configuring-lokistack-storage"><a class="anchor" href="#loki-zone-aware-replication_configuring-lokistack-storage"></a>Zone aware data replication</h3>
+<div class="paragraph">
+<p>The Loki Operator offers support for zone-aware data replication through pod topology spread constraints. Enabling this feature enhances reliability and safeguards against log loss in the event of a single zone failure. When configuring the deployment size as <code>1x.extra-small</code>, <code>1x.small</code>, or <code>1x.medium</code>, the <code>replication.factor</code> field is automatically set to 2.</p>
+</div>
+<div class="paragraph">
+<p>To ensure proper replication, you need to have at least as many availability zones as the replication factor specifies. While it is possible to have more availability zones than the replication factor, having fewer zones can lead to write failures. Each zone should host an equal number of instances for optimal operation.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example LokiStack CR with zone replication enabled</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+ <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+ <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+ <span class="na">replicationFactor</span><span class="pi">:</span> <span class="s">2</span> <i class="conum" data-value="1"></i><b>(1)</b>
+ <span class="na">replication</span><span class="pi">:</span>
+   <span class="na">factor</span><span class="pi">:</span> <span class="s">2</span> <i class="conum" data-value="2"></i><b>(2)</b>
+   <span class="na">zones</span><span class="pi">:</span>
+   <span class="pi">-</span>  <span class="na">maxSkew</span><span class="pi">:</span> <span class="s">1</span> <i class="conum" data-value="3"></i><b>(3)</b>
+      <span class="na">topologyKey</span><span class="pi">:</span> <span class="s">topology.kubernetes.io/zone</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Deprecated field, values entered are overwritten by <code>replication.factor</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This value is automatically set when deployment size is selected at setup.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The maximum difference in number of pods between any two topology domains. The default is 1, and you cannot specify a value of 0.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Defines zones in the form of a topology key that corresponds to a node label.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loki-zone-fail-recovery_configuring-lokistack-storage"><a class="anchor" href="#loki-zone-fail-recovery_configuring-lokistack-storage"></a>Recovering Loki pods from failed zones</h3>
+<div class="paragraph">
+<p>In OpenShift Container Platform a zone failure happens when specific availability zone resources become inaccessible. Availability zones are isolated areas within a cloud provider&#8217;s data center, aimed at enhancing redundancy and fault tolerance. If your OpenShift Container Platform cluster is not configured to handle this, a zone failure can lead to service or data loss.</p>
+</div>
+<div class="paragraph">
+<p>Loki pods are part of a <a href="https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/">StatefulSet</a>, and they come with Persistent Volume Claims (PVCs) provisioned by a <code>StorageClass</code> object. Each Loki pod and its PVCs reside in the same zone. When a zone failure occurs in a cluster, the StatefulSet controller automatically attempts to recover the affected pods in the failed zone.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The following procedure will delete the PVCs in the failed zone, and all data contained therein.  To avoid complete data loss the replication factor field of the <code>LokiStack</code> CR should always be set to a value greater than 1 to ensure that Loki is replicating.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Verify your <code>LokiStack</code> CR has a replication factor greater than 1.</p>
+</li>
+<li>
+<p>Zone failure detected by the control plane, and nodes in the failed zone are marked by cloud provider integration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The StatefulSet controller automatically attempts to reschedule pods in a failed zone. Because the associated PVCs are also in the failed zone, automatic rescheduling to a different zone does not work. You must manually delete the PVCs in the failed zone to allow successful re-creation of the stateful Loki Pod and its provisioned PVC in the new zone.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>List the pods in <code>Pending</code> status by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get pods <span class="nt">--field-selector</span> status.phase<span class="o">==</span>Pending <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>oc get pods</code> output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="go">NAME                           READY   STATUS    RESTARTS   AGE <i class="conum" data-value="1"></i><b>(1)</b>
+logging-loki-index-gateway-1   0/1     Pending   0          17m
+logging-loki-ingester-1        0/1     Pending   0          16m
+logging-loki-ruler-1           0/1     Pending   0          16m</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>These pods are in <code>Pending</code> status because their corresponding PVCs are in the failed zone.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>List the PVCs in <code>Pending</code> status by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get pvc <span class="nt">-o</span><span class="o">=</span>json <span class="nt">-n</span> openshift-logging | jq <span class="s1">'.items[] | select(.status.phase == "Pending") | .metadata.name'</span> <span class="nt">-r</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>oc get pvc</code> output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="go">storage-logging-loki-index-gateway-1
+storage-logging-loki-ingester-1
+wal-logging-loki-ingester-1
+storage-logging-loki-ruler-1
+wal-logging-loki-ruler-1</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the PVC(s) for a pod by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc delete pvc &lt;pvc_name&gt; <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the pod(s) by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc delete pod &lt;pod_name&gt; <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once these objects have been successfully deleted, they should automatically be rescheduled in an available zone.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="logging-loki-zone-fail-term-state_configuring-lokistack-storage"><a class="anchor" href="#logging-loki-zone-fail-term-state_configuring-lokistack-storage"></a>Troubleshooting PVC in a terminating state</h4>
+<div class="paragraph">
+<p>The PVCs might hang in the terminating state without being deleted, if PVC metadata finalizers are set to <code>kubernetes.io/pv-protection</code>. Removing the finalizers should allow the PVCs to delete successfully.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove the finalizer for each PVC by running the command below, then retry deletion.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc patch pvc &lt;pvc_name&gt; <span class="nt">-p</span> <span class="s1">'{"metadata":{"finalizers":null}}'</span> <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loki-rate-limit-errors_configuring-lokistack-storage"><a class="anchor" href="#loki-rate-limit-errors_configuring-lokistack-storage"></a>Troubleshooting Loki rate limit errors</h3>
+<div class="paragraph">
+<p>If the Log Forwarder API forwards a large block of messages that exceeds the rate limit to Loki, Loki generates rate limit (<code>429</code>) errors.</p>
+</div>
+<div class="paragraph">
+<p>These errors can occur during normal operation. For example, when adding the logging to a cluster that already has some logs, rate limit errors might occur while the logging tries to ingest all of the existing log entries. In this case, if the rate of addition of new logs is less than the total rate limit, the historical data is eventually ingested, and the rate limit errors are resolved without requiring user intervention.</p>
+</div>
+<div class="paragraph">
+<p>In cases where the rate limit errors continue to occur, you can fix the issue by modifying the <code>LokiStack</code> custom resource (CR).</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>LokiStack</code> CR is not available on Grafana-hosted Loki. This topic does not apply to Grafana-hosted Loki servers.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Conditions</div>
+<ul>
+<li>
+<p>The Log Forwarder API is configured to forward logs to Loki.</p>
+</li>
+<li>
+<p>Your system sends a block of messages that is larger than 2 MB to Loki. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="text">"values":[["1630410392689800468","{\"kind\":\"Event\",\"apiVersion\":\
+.......
+......
+......
+......
+\"received_at\":\"2021-08-31T11:46:32.800278+00:00\",\"version\":\"1.7.4 1.6.0\"}},\"@timestamp\":\"2021-08-31T11:46:32.799692+00:00\",\"viaq_index_name\":\"audit-write\",\"viaq_msg_id\":\"MzFjYjJkZjItNjY0MC00YWU4LWIwMTEtNGNmM2E5ZmViMGU4\",\"log_type\":\"audit\"}"]]}]}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After you enter <code>oc logs -n openshift-logging -l component=collector</code>, the collector logs in your cluster show a line containing one of the following error messages:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="text">429 Too Many Requests Ingestion rate limit exceeded</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example Vector error message</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="text">2023-08-25T16:08:49.301780Z  WARN sink{component_kind="sink" component_id=default_loki_infra component_type=loki component_name=default_loki_infra}: vector::sinks::util::retries: Retrying after error. error=Server responded with an error: 429 Too Many Requests internal_log_rate_limit=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The error is also visible on the receiving end. For example, in the LokiStack ingester pod:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Loki ingester error message</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="text">level=warn ts=2023-08-30T14:57:34.155592243Z caller=grpc_logging.go:43 duration=1.434942ms method=/logproto.Pusher/Push err="rpc error: code = Code(429) desc = entry with timestamp 2023-08-30 14:57:32.012778399 +0000 UTC ignored, reason: 'Per stream rate limit exceeded (limit: 3MB/sec) while attempting to ingest for stream</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Update the <code>ingestionBurstSize</code> and <code>ingestionRate</code> fields in the <code>LokiStack</code> CR:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">limits</span><span class="pi">:</span>
+    <span class="na">global</span><span class="pi">:</span>
+      <span class="na">ingestion</span><span class="pi">:</span>
+        <span class="na">ingestionBurstSize</span><span class="pi">:</span> <span class="s">16</span> <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="na">ingestionRate</span><span class="pi">:</span> <span class="s">8</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="c1"># ...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>ingestionBurstSize</code> field defines the maximum local rate-limited sample size per distributor replica in MB. This value is a hard limit. Set this value to at least the maximum logs size expected in a single push request. Single requests that are larger than the <code>ingestionBurstSize</code> value are not permitted.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>ingestionRate</code> field is a soft limit on the maximum amount of ingested samples per second in MB. Rate limit errors occur if the rate of logs exceeds the limit, but the collector retries sending the logs. As long as the total average is lower than the limit, the system recovers and errors are resolved without user intervention.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="/logging/main/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-logging';
+  var version = '6.0';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version],
+    'openshift-logging' : ['docs_logging', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

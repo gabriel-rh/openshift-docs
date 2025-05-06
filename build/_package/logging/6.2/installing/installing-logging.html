@@ -1,0 +1,1817 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Installing logging | Installing | Red Hat OpenShift Logging 6.2</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('6.2');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+      <span>
+        <div class="alert alert-info" role="primary" id="support-info">
+          <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+          </strong>
+        </div>
+      </span>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+            <a href="https://docs.openshift.com/logging/6.2/about/about-logging.html">
+              Red Hat OpenShift Logging
+            </a>
+            <select id="version-selector" onchange="versionSelector(this);">
+              <option value="main">main</option>
+              <option value="6.2">6.2</option>
+              <option value="6.1">6.1</option>
+              <option value="6.0">6.0</option>
+            </select>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../installing/installing-logging.html">Installing</a>
+      </li>
+      
+      
+      <li class="hidden-xs active">
+        Installing logging
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/main/installing/installing-logging.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=Issue+in+file+installing/installing-logging.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About OpenShift Logging</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../about/logging-release-notes-6.2.html">Release notes</a></li>
+            <li><a class="" href="../about/about-logging.html">Logging overview</a></li>
+            <li><a class="" href="../about/cluster-logging-support.html">Cluster logging support</a></li>
+            <li><a class="" href="../about/logging-visualization.html">Visualization for logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-down"></span>Installing</a>
+      <ul id="topicGroup1" class="collapse in list-unstyled">
+            <li><a class=" active" href="../installing/installing-logging.html">Installing logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-right"></span>Configuring</a>
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+            <li><a class="" href="../configuring/configuring-log-forwarding.html">Configuring log forwarding</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-storage.html">Configuring LokiStack storage</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-otlp.html">Configuring LokiStack for OTLP</a></li>
+            <li><a class="" href="../configuring/opentelemetry-data-model.html">OpenTelemetry data model</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../upgrading/upgrading-to-logging-60.html">Upgrading to Logging 6.0</a></li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Installing Logging
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#prerequisites_cluster-logging-deploying_installing-logging">Prerequisites</a></li>
+<li><a href="#installing-loki-and-logging-cli_installing-logging">Installation by using the CLI</a>
+<ul class="sectlevel2">
+<li><a href="#install-loki-operator-cli_installing-logging">Installing the Loki Operator by using the CLI</a></li>
+<li><a href="#installing-logging-operator-cli_installing-logging">Installing Red Hat OpenShift Logging Operator by using the CLI</a></li>
+</ul>
+</li>
+<li><a href="#installing-loki-and-logging-gui_installing-logging">Installation by using the web console</a>
+<ul class="sectlevel2">
+<li><a href="#installing-loki-operator-web-console_installing-logging">Installing Logging by using the web console</a></li>
+<li><a href="#installing-logging-operator-web-console_installing-logging">Installing Red Hat OpenShift Logging Operator by using the web console</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>OpenShift Container Platform Operators use custom resources (CRs) to manage applications and their components. You provide high-level configuration and settings through the CR. The Operator translates high-level directives into low-level actions, based on best practices embedded within the logic of the Operator. A custom resource definition (CRD) defines a CR and lists all the configurations available to users of the Operator. Installing an Operator creates the CRDs to generate CRs.</p>
+</div>
+<div class="paragraph">
+<p>To get started with logging, you must install the following Operators:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Loki Operator to manage your log store.</p>
+</li>
+<li>
+<p>Red Hat OpenShift Logging Operator to manage log collection and forwarding.</p>
+</li>
+<li>
+<p>Cluster Observability Operator (COO) to manage visualization.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can use either the OpenShift Container Platform web console or the OpenShift Container Platform CLI to install or configure logging.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You must configure the Red Hat OpenShift Logging Operator after the Loki Operator.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites_cluster-logging-deploying_installing-logging"><a class="anchor" href="#prerequisites_cluster-logging-deploying_installing-logging"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>If you are using OKD, you have downloaded the <a href="https://console.redhat.com/openshift/install/pull-secret">pull secret from Red Hat OpenShift Cluster Manager</a> as shown in "Obtaining the installation program" in the installation documentation for your platform.</p>
+<div class="paragraph">
+<p>If you have the pull secret, add the <code>redhat-operators</code> catalog to the <code>OperatorHub</code> custom resource (CR) as shown in "Configuring OpenShift Container Platform to use Red&#160;Hat Operators".</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-loki-and-logging-cli_installing-logging"><a class="anchor" href="#installing-loki-and-logging-cli_installing-logging"></a>Installation by using the CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following sections describe installing the Loki Operator and the Red Hat OpenShift Logging Operator by using the CLI.</p>
+</div>
+<div class="sect2">
+<h3 id="install-loki-operator-cli_installing-logging"><a class="anchor" href="#install-loki-operator-cli_installing-logging"></a>Installing the Loki Operator by using the CLI</h3>
+<div class="paragraph">
+<p>Install Loki Operator on your OpenShift Container Platform cluster to manage the log store <code>Loki</code> by using the OpenShift Container Platform command-line interface (CLI). You can deploy and configure the <code>Loki</code> log store by reconciling the resource LokiStack with the Loki Operator.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have administrator permissions.</p>
+</li>
+<li>
+<p>You installed the OpenShift CLI (<code>oc</code>).</p>
+</li>
+<li>
+<p>You have access to a supported object store. For example: AWS S3, Google Cloud Storage, Azure, Swift, Minio, or OpenShift Data Foundation.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a <code>Namespace</code> object for Loki Operator:</p>
+<div class="listingblock">
+<div class="title">Example <code>Namespace</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Namespace</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">openshift-operators-redhat</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="s">openshift.io/cluster-monitoring</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify <code>openshift-operators-redhat</code> as the namespace. To enable monitoring for the operator, configure Cluster Monitoring Operator to scrape metrics from the <code>openshift-operators-redhat</code> namespace and not the <code>openshift-operators</code> namespace. The <code>openshift-operators</code> namespace might contain community operators, which are untrusted and could publish a metric with the same name as an OpenShift Container Platform metric, causing conflicts.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>A string value that specifies the label as shown to ensure that cluster monitoring scrapes the <code>openshift-operators-redhat</code> namespace.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>Namespace</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an <code>OperatorGroup</code> object.</p>
+<div class="listingblock">
+<div class="title">Example <code>OperatorGroup</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">operators.coreos.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">OperatorGroup</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-operators-redhat</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">upgradeStrategy</span><span class="pi">:</span> <span class="s">Default</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify <code>openshift-operators-redhat</code> as the namespace.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>OperatorGroup</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>Subscription</code> object for Loki Operator:</p>
+<div class="listingblock">
+<div class="title">Example <code>Subscription</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">operators.coreos.com/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Subscription</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-operators-redhat</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">channel</span><span class="pi">:</span> <span class="s">stable-6.&lt;y&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">installPlanApproval</span><span class="pi">:</span> <span class="s">Automatic</span> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">loki-operator</span>
+  <span class="na">source</span><span class="pi">:</span> <span class="s">redhat-operators</span> <i class="conum" data-value="4"></i><b>(4)</b>
+  <span class="na">sourceNamespace</span><span class="pi">:</span> <span class="s">openshift-marketplace</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify <code>openshift-operators-redhat</code> as the namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify <code>stable-6.&lt;y&gt;</code> as the channel.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>If the approval strategy in the subscription is set to <code>Automatic</code>, the update process initiates as soon as a new operator version is available in the selected channel. If the approval strategy is set to <code>Manual</code>, you must manually approve pending updates.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Specify <code>redhat-operators</code> as the value. If your OpenShift Container Platform cluster is installed on a restricted network, also known as a disconnected cluster, specify the name of the <code>CatalogSource</code> object that you created when you configured Operator Lifecycle Manager (OLM).</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>Subscription</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>namespace</code> object for deploy the LokiStack:</p>
+<div class="listingblock">
+<div class="title">Example <code>namespace</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Namespace</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="s">openshift.io/cluster-monitoring</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>openshift-logging</code> namespace is dedicated for all logging workloads.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>A string value that specifies the label, as shown, to ensure that cluster monitoring scrapes the <code>openshift-logging</code> namespace.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>namespace</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a secret with the credentials to access the object storage. For example, create a secret to access Amazon Web Services (AWS) s3.</p>
+<div class="listingblock">
+<div class="title">Example <code>Secret</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki-s3</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">stringData</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">access_key_id</span><span class="pi">:</span> <span class="s">&lt;access_key_id&gt;</span>
+  <span class="na">access_key_secret</span><span class="pi">:</span> <span class="s">&lt;access_secret&gt;</span>
+  <span class="na">bucketnames</span><span class="pi">:</span> <span class="s">s3-bucket-name</span>
+  <span class="na">endpoint</span><span class="pi">:</span> <span class="s">https://s3.eu-central-1.amazonaws.com</span>
+  <span class="na">region</span><span class="pi">:</span> <span class="s">eu-central-1</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the name <code>logging-loki-s3</code> to match the name used in LokiStack.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>For the contents of the secret see the Loki object storage section.</td>
+</tr>
+</table>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If there is no retention period defined on the s3 bucket or in the LokiStack custom resource (CR), then the logs are not pruned and they stay in the s3 bucket forever, which might fill up the s3 storage.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Apply the <code>Secret</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>LokiStack</code> CR:</p>
+<div class="listingblock">
+<div class="title">Example <code>LokiStack</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">size</span><span class="pi">:</span> <span class="s">1x.small</span> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="na">storage</span><span class="pi">:</span>
+    <span class="na">schemas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">version</span><span class="pi">:</span> <span class="s">v13</span>
+      <span class="na">effectiveDate</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;yyyy&gt;-&lt;mm&gt;-&lt;dd&gt;"</span> <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="na">secret</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki-s3</span> <i class="conum" data-value="5"></i><b>(5)</b>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">s3</span> <i class="conum" data-value="6"></i><b>(6)</b>
+  <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">&lt;storage_class_name&gt;</span> <i class="conum" data-value="7"></i><b>(7)</b>
+  <span class="na">tenants</span><span class="pi">:</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the name <code>logging-loki</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>You must specify <code>openshift-logging</code> as the namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Specify the deployment size. Supported size options for production instances of Loki are <code>1x.extra-small</code>, <code>1x.small</code>, or <code>1x.medium</code>. Additionally, <code>1x.pico</code> is supported starting with logging 6.1.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>For new installations this date should be set to the equivalent of "yesterday", as this will be the date from when the schema takes effect.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Specify the name of your log store secret.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Specify the corresponding storage type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Specify the name of a storage class for temporary storage. For best performance, specify a storage class that allocates block storage. You can list the available storage classes for your cluster by using the <code>oc get storageclasses</code> command.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>The <code>openshift-logging</code> mode is the default tenancy mode where a tenant is created for log types, such as audit, infrastructure, and application. This enables access control for individual users and user groups to different log streams.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>LokiStack</code> CR object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Verification</div>
+<ul>
+<li>
+<p>Verify the installation by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get pods <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get pods <span class="nt">-n</span> openshift-logging
+<span class="go">NAME                                               READY   STATUS    RESTARTS   AGE
+logging-loki-compactor-0                           1/1     Running   0          42m
+logging-loki-distributor-7d7688bcb9-dvcj8          1/1     Running   0          42m
+logging-loki-gateway-5f6c75f879-bl7k9              2/2     Running   0          42m
+logging-loki-gateway-5f6c75f879-xhq98              2/2     Running   0          42m
+logging-loki-index-gateway-0                       1/1     Running   0          42m
+logging-loki-ingester-0                            1/1     Running   0          42m
+logging-loki-querier-6b7b56bccc-2v9q4              1/1     Running   0          42m
+logging-loki-query-frontend-84fb57c578-gq2f7       1/1     Running   0          42m</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-logging-operator-cli_installing-logging"><a class="anchor" href="#installing-logging-operator-cli_installing-logging"></a>Installing Red Hat OpenShift Logging Operator by using the CLI</h3>
+<div class="paragraph">
+<p>Install Red Hat OpenShift Logging Operator on your OpenShift Container Platform cluster to collect and forward logs to a log store by using the OpenShift CLI (<code>oc</code>).</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have administrator permissions.</p>
+</li>
+<li>
+<p>You installed the OpenShift CLI (<code>oc</code>).</p>
+</li>
+<li>
+<p>You installed and configured Loki Operator.</p>
+</li>
+<li>
+<p>You have created the <code>openshift-logging</code> namespace.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create an <code>OperatorGroup</code> object:</p>
+<div class="listingblock">
+<div class="title">Example <code>OperatorGroup</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">operators.coreos.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">OperatorGroup</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">upgradeStrategy</span><span class="pi">:</span> <span class="s">Default</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify <code>openshift-logging</code> as the namespace.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>OperatorGroup</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>Subscription</code> object for Red Hat OpenShift Logging Operator:</p>
+<div class="listingblock">
+<div class="title">Example <code>Subscription</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">operators.coreos.com/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Subscription</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">channel</span><span class="pi">:</span> <span class="s">stable-6.&lt;y&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">installPlanApproval</span><span class="pi">:</span> <span class="s">Automatic</span> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-logging</span>
+  <span class="na">source</span><span class="pi">:</span> <span class="s">redhat-operators</span> <i class="conum" data-value="4"></i><b>(4)</b>
+  <span class="na">sourceNamespace</span><span class="pi">:</span> <span class="s">openshift-marketplace</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify <code>openshift-logging</code> as the namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify <code>stable-6.&lt;y&gt;</code> as the channel.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>If the approval strategy in the subscription is set to <code>Automatic</code>, the update process initiates as soon as a new operator version is available in the selected channel. If the approval strategy is set to <code>Manual</code>, you must manually approve pending updates.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Specify <code>redhat-operators</code> as the value. If your OpenShift Container Platform cluster is installed on a restricted network, also known as a disconnected cluster, specify the name of the <code>CatalogSource</code> object that you created when you configured Operator Lifecycle Manager (OLM).</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>Subscription</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a service account to be used by the log collector:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc create sa logging-collector <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Assign the necessary permissions to the service account for the collector to be able to collect and forward logs. In this example, the collector is provided permissions to collect logs from both infrastructure and application logs.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user logging-collector-logs-writer <span class="nt">-z</span> logging-collector <span class="nt">-n</span> openshift-logging
+<span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user collect-application-logs <span class="nt">-z</span> logging-collector <span class="nt">-n</span> openshift-logging
+<span class="gp">$</span><span class="w"> </span>oc adm policy add-cluster-role-to-user collect-infrastructure-logs <span class="nt">-z</span> logging-collector <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>ClusterLogForwarder</code> CR:</p>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">instance</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">outputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">lokistack-out</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">lokiStack</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="na">lokiStack</span><span class="pi">:</span>
+      <span class="na">target</span><span class="pi">:</span> <i class="conum" data-value="4"></i><b>(4)</b>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+        <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+      <span class="na">authentication</span><span class="pi">:</span>
+        <span class="na">token</span><span class="pi">:</span>
+          <span class="na">from</span><span class="pi">:</span> <span class="s">serviceAccount</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">ca</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">service-ca.crt</span>
+        <span class="na">configMapName</span><span class="pi">:</span> <span class="s">openshift-service-ca.crt</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">infra-app-logs</span>
+    <span class="na">inputRefs</span><span class="pi">:</span> <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="pi">-</span> <span class="s">application</span>
+    <span class="pi">-</span> <span class="s">infrastructure</span>
+    <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">lokistack-out</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify the <code>openshift-logging</code> namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify the name of the service account created before.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Select the <code>lokiStack</code> output type to send logs to the <code>LokiStack</code> instance.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Point the <code>ClusterLogForwarder</code> to the <code>LokiStack</code> instance created earlier.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Select the log output types you want to send to the <code>LokiStack</code> instance.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the <code>ClusterLogForwarder CR</code> object by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> &lt;filename&gt;.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>Verify the installation by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get pods <span class="nt">-n</span> openshift-logging</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get pods <span class="nt">-n</span> openshift-logging
+<span class="go">NAME                                               READY   STATUS    RESTARTS   AGE
+cluster-logging-operator-fb7f7cf69-8jsbq           1/1     Running   0          98m
+instance-222js                                     2/2     Running   0          18m
+instance-g9ddv                                     2/2     Running   0          18m
+instance-hfqq8                                     2/2     Running   0          18m
+instance-sphwg                                     2/2     Running   0          18m
+instance-vv7zn                                     2/2     Running   0          18m
+instance-wk5zz                                     2/2     Running   0          18m
+logging-loki-compactor-0                           1/1     Running   0          42m
+logging-loki-distributor-7d7688bcb9-dvcj8          1/1     Running   0          42m
+logging-loki-gateway-5f6c75f879-bl7k9              2/2     Running   0          42m
+logging-loki-gateway-5f6c75f879-xhq98              2/2     Running   0          42m
+logging-loki-index-gateway-0                       1/1     Running   0          42m
+logging-loki-ingester-0                            1/1     Running   0          42m
+logging-loki-querier-6b7b56bccc-2v9q4              1/1     Running   0          42m
+logging-loki-query-frontend-84fb57c578-gq2f7       1/1     Running   0          42m</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-loki-and-logging-gui_installing-logging"><a class="anchor" href="#installing-loki-and-logging-gui_installing-logging"></a>Installation by using the web console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following sections describe installing the Loki Operator and the Red Hat OpenShift Logging Operator by using the web console.</p>
+</div>
+<div class="sect2">
+<h3 id="installing-loki-operator-web-console_installing-logging"><a class="anchor" href="#installing-loki-operator-web-console_installing-logging"></a>Installing Logging by using the web console</h3>
+<div class="paragraph">
+<p>Install Loki Operator on your OpenShift Container Platform cluster to manage the log store <code>Loki</code> from the OperatorHub by using the OpenShift Container Platform web console. You can deploy and configure the <code>Loki</code> log store by reconciling the resource LokiStack with the Loki Operator.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have administrator permissions.</p>
+</li>
+<li>
+<p>You have access to the OpenShift Container Platform web console.</p>
+</li>
+<li>
+<p>You have access to a supported object store (AWS S3, Google Cloud Storage, Azure, Swift, Minio, OpenShift Data Foundation).</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>In the OpenShift Container Platform web console <strong>Administrator</strong> perspective, go to <strong>Operators</strong> &#8594; <strong>OperatorHub</strong>.</p>
+</li>
+<li>
+<p>Type Loki Operator in the <strong>Filter by keyword</strong> field. Click <strong>Loki Operator</strong> in the list of available Operators, and then click <strong>Install</strong>.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Community Loki Operator is not supported by Red&#160;Hat.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Select <strong>stable-x.y</strong> as the <strong>Update channel</strong>.</p>
+<div class="paragraph">
+<p>The Loki Operator must be deployed to the global Operator group namespace <code>openshift-operators-redhat</code>, so the <strong>Installation mode</strong> and <strong>Installed Namespace</strong> are already selected. If this namespace does not already exist, it will be created for you.</p>
+</div>
+</li>
+<li>
+<p>Select <strong>Enable Operator-recommended cluster monitoring on this namespace.</strong></p>
+<div class="paragraph">
+<p>This option sets the <code>openshift.io/cluster-monitoring: "true"</code> label in the <code>Namespace</code> object. You must select this option to ensure that cluster monitoring scrapes the <code>openshift-operators-redhat</code> namespace.</p>
+</div>
+</li>
+<li>
+<p>For <strong>Update approval</strong> select <strong>Automatic</strong>, then click <strong>Install</strong>.</p>
+<div class="paragraph">
+<p>If the approval strategy in the subscription is set to <strong>Automatic</strong>, the update process initiates as soon as a new Operator version is available in the selected channel. If the approval strategy is set to <strong>Manual</strong>, you must manually approve pending updates.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An Operator might display a <code>Failed</code> status before the installation completes. If the Operator install completes with an <code>InstallSucceeded</code> message, refresh the page.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>While the Operator installs, create the namespace to which the log store will be deployed.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>+</strong> in the top right of the screen to access the <strong>Import YAML</strong> page.</p>
+</li>
+<li>
+<p>Add the YAML definition for the <code>openshift-logging</code> namespace:</p>
+<div class="listingblock">
+<div class="title">Example <code>namespace</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Namespace</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="s">openshift.io/cluster-monitoring</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>openshift-logging</code> namespace is dedicated for all logging workloads.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>A string value that specifies the label, as shown, to ensure that cluster monitoring scrapes the <code>openshift-logging</code> namespace.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create a secret with the credentials to access the object storage.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>+</strong> in the top right of the screen to access the <strong>Import YAML</strong> page.</p>
+</li>
+<li>
+<p>Add the YAML definition for the secret. For example, create a secret to access Amazon Web Services (AWS) s3:</p>
+<div class="listingblock">
+<div class="title">Example <code>Secret</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki-s3</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="na">stringData</span><span class="pi">:</span> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="na">access_key_id</span><span class="pi">:</span> <span class="s">&lt;access_key_id&gt;</span>
+  <span class="na">access_key_secret</span><span class="pi">:</span> <span class="s">&lt;access_key&gt;</span>
+  <span class="na">bucketnames</span><span class="pi">:</span> <span class="s">s3-bucket-name</span>
+  <span class="na">endpoint</span><span class="pi">:</span> <span class="s">https://s3.eu-central-1.amazonaws.com</span>
+  <span class="na">region</span><span class="pi">:</span> <span class="s">eu-central-1</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Note down the name used for the secret <code>logging-loki-s3</code> to use it later when creating the <code>LokiStack</code> resource.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set the namespace to <code>openshift-logging</code> as that will be the namespace used to deploy <code>LokiStack</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>For the contents of the secret see the Loki object storage section.</td>
+</tr>
+</table>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If there is no retention period defined on the s3 bucket or in the LokiStack custom resource (CR), then the logs are not pruned and they stay in the s3 bucket forever, which might fill up the s3 storage.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to the <strong>Installed Operators</strong> page. Select the Loki Operator under the <strong>Provided APIs</strong> find the <strong>LokiStack</strong> resource and click <strong>Create Instance</strong>.</p>
+</li>
+<li>
+<p>Select <strong>YAML view</strong>, and then use the following template to create a <code>LokiStack</code> CR:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">Example <code>LokiStack</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">loki.grafana.com/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">LokiStack</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">size</span><span class="pi">:</span> <span class="s">1x.small</span> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="na">storage</span><span class="pi">:</span>
+    <span class="na">schemas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">version</span><span class="pi">:</span> <span class="s">v13</span>
+      <span class="na">effectiveDate</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;yyyy&gt;-&lt;mm&gt;-&lt;dd&gt;"</span>
+    <span class="na">secret</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki-s3</span> <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">s3</span> <i class="conum" data-value="5"></i><b>(5)</b>
+  <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">&lt;storage_class_name&gt;</span> <i class="conum" data-value="6"></i><b>(6)</b>
+  <span class="na">tenants</span><span class="pi">:</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the name <code>logging-loki</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>You must specify <code>openshift-logging</code> as the namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Specify the deployment size. Supported size options for production instances of Loki are <code>1x.extra-small</code>, <code>1x.small</code>, or <code>1x.medium</code>. Additionally, 1x.pico is supported starting with logging 6.1.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Specify the name of your log store secret.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Specify the corresponding storage type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Specify the name of a storage class for temporary storage. For best performance, specify a storage class that allocates block storage. You can list the available storage classes for your cluster by using the <code>oc get storageclasses</code> command.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>The <code>openshift-logging</code> mode is the default tenancy mode where a tenant is created for log types, such as audit, infrastructure, and application. This enables access control for individual users and user groups to different log streams.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>In the <strong>LokiStack</strong> tab veriy that you see your <code>LokiStack</code> instance.</p>
+</li>
+<li>
+<p>In the <strong>Status</strong> column, verify that you see the message <code>Condition: Ready</code> with a green checkmark.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-logging-operator-web-console_installing-logging"><a class="anchor" href="#installing-logging-operator-web-console_installing-logging"></a>Installing Red Hat OpenShift Logging Operator by using the web console</h3>
+<div class="paragraph">
+<p>Install Red Hat OpenShift Logging Operator on your OpenShift Container Platform cluster to collect and forward logs to a log store from the OperatorHub by using the OpenShift Container Platform web console.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have administrator permissions.</p>
+</li>
+<li>
+<p>You have access to the OpenShift Container Platform web console.</p>
+</li>
+<li>
+<p>You installed and configured Loki Operator.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>In the OpenShift Container Platform web console <strong>Administrator</strong> perspective, go to <strong>Operators</strong> &#8594; <strong>OperatorHub</strong>.</p>
+</li>
+<li>
+<p>Type Red Hat OpenShift Logging Operator in the <strong>Filter by keyword</strong> field. Click <strong>Red Hat OpenShift Logging Operator</strong> in the list of available Operators, and then click <strong>Install</strong>.</p>
+</li>
+<li>
+<p>Select <strong>stable-x.y</strong> as the <strong>Update channel</strong>. The latest version is already selected in the <strong>Version</strong> field.</p>
+<div class="paragraph">
+<p>The Red Hat OpenShift Logging Operator must be deployed to the logging namespace <code>openshift-logging</code>, so the <strong>Installation mode</strong> and <strong>Installed Namespace</strong> are already selected. If this namespace does not already exist, it will be created for you.</p>
+</div>
+</li>
+<li>
+<p>Select <strong>Enable Operator-recommended cluster monitoring on this namespace.</strong></p>
+<div class="paragraph">
+<p>This option sets the <code>openshift.io/cluster-monitoring: "true"</code> label in the <code>Namespace</code> object. You must select this option to ensure that cluster monitoring scrapes the <code>openshift-logging</code> namespace.</p>
+</div>
+</li>
+<li>
+<p>For <strong>Update approval</strong> select <strong>Automatic</strong>, then click <strong>Install</strong>.</p>
+<div class="paragraph">
+<p>If the approval strategy in the subscription is set to <strong>Automatic</strong>, the update process initiates as soon as a new operator version is available in the selected channel. If the approval strategy is set to <strong>Manual</strong>, you must manually approve pending updates.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An Operator might display a <code>Failed</code> status before the installation completes. If the operator installation completes with an <code>InstallSucceeded</code> message, refresh the page.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>While the operator installs, create the service account that will be used by the log collector to collect the logs.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click the <strong>+</strong> in the top right of the screen to access the <strong>Import YAML</strong> page.</p>
+</li>
+<li>
+<p>Enter the YAML definition for the service account.</p>
+<div class="listingblock">
+<div class="title">Example <code>ServiceAccount</code> object</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Note down the name used for the service account <code>logging-collector</code> to use it later when creating the <code>ClusterLogForwarder</code> resource.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set the namespace to <code>openshift-logging</code> because that is the namespace for deploying the <code>ClusterLogForwarder</code> resource.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click the <strong>Create</strong> button.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create the <code>ClusterRoleBinding</code> objects to grant the necessary permissions to the log collector for accessing the logs that you want to collect and to write the log store, for example infrastructure and application logs.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click the <strong>+</strong> in the top right of the screen to access the <strong>Import YAML</strong> page.</p>
+</li>
+<li>
+<p>Enter the YAML definition for the <code>ClusterRoleBinding</code> resources.</p>
+<div class="listingblock">
+<div class="title">Example <code>ClusterRoleBinding</code> resources</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector:write-logs</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector-logs-writer</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector:collect-application</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">collect-application-logs</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector:collect-infrastructure</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">collect-infrastructure-logs</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The cluster role to allow the log collector to write logs to LokiStack.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The cluster role to allow the log collector to collect logs from applications.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The cluster role to allow the log collector to collect logs from infrastructure.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click the <strong>Create</strong> button.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Go to the <strong>Operators</strong> &#8594; <strong>Installed Operators</strong> page. Select the  operator and click the <strong>All instances</strong> tab.</p>
+</li>
+<li>
+<p>After granting the necessary permissions to the service account, navigate to the <strong>Installed Operators</strong> page. Select the Red Hat OpenShift Logging Operator under the <strong>Provided APIs</strong>, find the <strong>ClusterLogForwarder</strong> resource and click <strong>Create Instance</strong>.</p>
+</li>
+<li>
+<p>Select <strong>YAML view</strong>, and then use the following template to create a <code>ClusterLogForwarder</code> CR:</p>
+<div class="listingblock">
+<div class="title">Example <code>ClusterLogForwarder</code> CR</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">instance</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">logging-collector</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="na">outputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">lokistack-out</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">lokiStack</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="na">lokiStack</span><span class="pi">:</span>
+      <span class="na">target</span><span class="pi">:</span> <i class="conum" data-value="4"></i><b>(4)</b>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+        <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+      <span class="na">authentication</span><span class="pi">:</span>
+        <span class="na">token</span><span class="pi">:</span>
+          <span class="na">from</span><span class="pi">:</span> <span class="s">serviceAccount</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">ca</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">service-ca.crt</span>
+        <span class="na">configMapName</span><span class="pi">:</span> <span class="s">openshift-service-ca.crt</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">infra-app-logs</span>
+    <span class="na">inputRefs</span><span class="pi">:</span> <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="pi">-</span> <span class="s">application</span>
+    <span class="pi">-</span> <span class="s">infrastructure</span>
+    <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">lokistack-out</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify <code>openshift-logging</code> as the namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify the name of the service account created earlier.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Select the <code>lokiStack</code> output type to send logs to the <code>LokiStack</code> instance.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Point the <code>ClusterLogForwarder</code> to the <code>LokiStack</code> instance created earlier.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Select the log output types you want to send to the <code>LokiStack</code> instance.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>In the <strong>ClusterLogForwarder</strong> tab verify that you see your <code>ClusterLogForwarder</code> instance.</p>
+</li>
+<li>
+<p>In the <strong>Status</strong> column, verify that you see the messages:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Condition: observability.openshift.io/Authorized</code></p>
+</li>
+<li>
+<p><code>observability.openshift.io/Valid, Ready</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/latest/networking/ovn_kubernetes_network_provider/about-ovn-kubernetes.html">About the OVN-Kubernetes network policy</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="/logging/main/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-logging';
+  var version = '6.2';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version],
+    'openshift-logging' : ['docs_logging', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

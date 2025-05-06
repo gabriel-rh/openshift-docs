@@ -1,0 +1,986 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Configuring LokiStack for OTLP | Configuring | Red Hat OpenShift Logging 6.1</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('6.1');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+      <span>
+        <div class="alert alert-info" role="primary" id="support-info">
+          <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+          </strong>
+        </div>
+      </span>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+            <a href="https://docs.openshift.com/logging/6.1/about/about-logging.html">
+              Red Hat OpenShift Logging
+            </a>
+            <select id="version-selector" onchange="versionSelector(this);">
+              <option value="main">main</option>
+              <option value="6.2">6.2</option>
+              <option value="6.1">6.1</option>
+              <option value="6.0">6.0</option>
+            </select>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../configuring/configuring-log-forwarding.html">Configuring</a>
+      </li>
+      
+      
+      <li class="hidden-xs active">
+        Configuring LokiStack for OTLP
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/main/configuring/configuring-lokistack-otlp.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=Issue+in+file+configuring/configuring-lokistack-otlp.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About OpenShift Logging</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../about/logging-release-notes-6.1.html">Release notes</a></li>
+            <li><a class="" href="../about/about-logging.html">Logging overview</a></li>
+            <li><a class="" href="../about/cluster-logging-support.html">Cluster logging support</a></li>
+            <li><a class="" href="../about/logging-visualization.html">Visualization for logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>Installing</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../installing/installing-logging.html">Installing logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-down"></span>Configuring</a>
+      <ul id="topicGroup2" class="collapse in list-unstyled">
+            <li><a class="" href="../configuring/configuring-log-forwarding.html">Configuring log forwarding</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-storage.html">Configuring LokiStack storage</a></li>
+            <li><a class=" active" href="../configuring/configuring-lokistack-otlp.html">Configuring LokiStack for OTLP</a></li>
+            <li><a class="" href="../configuring/opentelemetry-data-model.html">OpenTelemetry data model</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../upgrading/upgrading-to-logging-60.html">Upgrading to Logging 6.0</a></li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            OTLP data ingestion in Loki
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#configuring-lokistack-otlp-data-ingestion_configuring-lokistack-otlp">Configuring LokiStack for OTLP data ingestion</a></li>
+<li><a href="#attribute-mapping_configuring-lokistack-otlp">Attribute mapping</a>
+<ul class="sectlevel2">
+<li><a href="#custom-attribute-mapping-for-openshift_configuring-lokistack-otlp">Custom attribute mapping for OpenShift</a></li>
+<li><a href="#customizing-openshift-defaults_configuring-lokistack-otlp">Customizing OpenShift defaults</a></li>
+<li><a href="#removing-recommended-attributes_configuring-lokistack-otlp">Removing recommended attributes</a></li>
+</ul>
+</li>
+<li><a href="#additional-resources_configuring-lokistack-otlp">Additional resources</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can use an API endpoint by using the OpenTelemetry Protocol (OTLP) with Logging. As OTLP is a standardized format not specifically designed for Loki, OTLP requires an additional Loki configuration to map data format of OpenTelemetry to data model of Loki. OTLP lacks concepts such as <em>stream labels</em> or <em>structured metadata</em>. Instead, OTLP provides metadata about log entries as <strong>attributes</strong>, grouped into the following three categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Resource</p>
+</li>
+<li>
+<p>Scope</p>
+</li>
+<li>
+<p>Log</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can set metadata for multiple entries simultaneously or individually as needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-lokistack-otlp-data-ingestion_configuring-lokistack-otlp"><a class="anchor" href="#configuring-lokistack-otlp-data-ingestion_configuring-lokistack-otlp"></a>Configuring LokiStack for OTLP data ingestion</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The OpenTelemetry Protocol (OTLP) output log forwarder is a Technology Preview feature only. Technology Preview features are not supported with Red Hat production service level agreements (SLAs) and might not be functionally complete. Red Hat does not recommend using them in production. These features provide early access to upcoming product features, enabling customers to test functionality and provide feedback during the development process.</p>
+</div>
+<div class="paragraph">
+<p>For more information about the support scope of Red Hat Technology Preview features, see <a href="https://access.redhat.com/support/offerings/techpreview/">Technology Preview Features Support Scope</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To configure a <code>LokiStack</code> custom resource (CR) for OTLP ingestion, follow these steps:</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Ensure that your Loki setup supports structured metadata, introduced in schema version 13 to enable OTLP log ingestion.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Set the schema version:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>When creating a new <code>LokiStack</code> CR, set <code>version: v13</code> in the storage schema configuration.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For existing configurations, add a new schema entry with <code>version: v13</code> and an <code>effectiveDate</code> in the future. For more information on updating schema versions, see <a href="https://grafana.com/docs/loki/latest/configure/storage/#upgrading-schemas">Upgrading Schemas</a> (Grafana documentation).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Configure the storage schema as follows:</p>
+<div class="listingblock">
+<div class="title">Example configure storage schema</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">storage</span><span class="pi">:</span>
+    <span class="na">schemas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">version</span><span class="pi">:</span> <span class="s">v13</span>
+      <span class="na">effectiveDate</span><span class="pi">:</span> <span class="s">2024-10-25</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the <code>effectiveDate</code> has passed, the v13 schema takes effect, enabling your <code>LokiStack</code> to store structured metadata.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="attribute-mapping_configuring-lokistack-otlp"><a class="anchor" href="#attribute-mapping_configuring-lokistack-otlp"></a>Attribute mapping</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you set the Loki Operator to the <code>openshift-logging</code> mode, Loki Operator automatically applies a default set of attribute mappings. These mappings align specific OTLP attributes with stream labels and structured metadata of Loki.</p>
+</div>
+<div class="paragraph">
+<p>For typical setups, these default mappings are sufficient. However, you might need to customize attribute mapping in the following cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using a custom collector: If your setup includes a custom collector that generates additional attributes, consider customizing the mapping to ensure these attributes are retained in Loki.</p>
+</li>
+<li>
+<p>Adjusting attribute detail levels: If the default attribute set is more detailed than necessary, you can reduce it to essential attributes only. This can avoid excessive data storage and streamline the logging process.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Attributes that are not mapped to either stream labels or structured metadata are not stored in Loki.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="custom-attribute-mapping-for-openshift_configuring-lokistack-otlp"><a class="anchor" href="#custom-attribute-mapping-for-openshift_configuring-lokistack-otlp"></a>Custom attribute mapping for OpenShift</h3>
+<div class="paragraph">
+<p>When using the Loki Operator in <code>openshift-logging</code> mode, attribute mapping follow OpenShift default values, but you can configure custom mappings to adjust default values.
+In the <code>openshift-logging</code> mode, you can configure custom attribute mappings globally for all tenants or for individual tenants as needed. When you define custom mappings, they are appended to the OpenShift default values. If you do not need default labels, you can disable them in the tenant configuration.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A major difference between the Loki Operator and Loki lies in inheritance handling. Loki copies only <code>default_resource_attributes_as_index_labels</code> to tenants by default, while the Loki Operator applies the entire global configuration to each tenant in the <code>openshift-logging</code> mode.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Within <code>LokiStack</code>, attribute mapping configuration is managed through the <code>limits</code> setting. See the following example <code>LokiStack</code> configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">limits</span><span class="pi">:</span>
+    <span class="na">global</span><span class="pi">:</span>
+      <span class="na">otlp</span><span class="pi">:</span> <span class="pi">{}</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="na">tenants</span><span class="pi">:</span>
+      <span class="na">application</span><span class="pi">:</span>
+        <span class="na">otlp</span><span class="pi">:</span> <span class="pi">{}</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Defines global OTLP attribute configuration.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>OTLP attribute configuration for the <code>application</code> tenant within <code>openshift-logging</code> mode.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Both global and per-tenant OTLP configurations can map attributes to stream labels or structured metadata. At least one stream label is required to save a log entry to Loki storage, so ensure this configuration meets that requirement.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Stream labels derive only from resource-level attributes, which the <code>LokiStack</code> resource structure reflects:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">limits</span><span class="pi">:</span>
+    <span class="na">global</span><span class="pi">:</span>
+      <span class="na">otlp</span><span class="pi">:</span>
+        <span class="na">streamLabels</span><span class="pi">:</span>
+          <span class="na">resourceAttributes</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">k8s.namespace.name"</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">k8s.pod.name"</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">k8s.container.name"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Structured metadata, in contrast, can be generated from resource, scope or log-level attributes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">limits</span><span class="pi">:</span>
+    <span class="na">global</span><span class="pi">:</span>
+      <span class="na">otlp</span><span class="pi">:</span>
+        <span class="na">streamLabels</span><span class="pi">:</span>
+<span class="c1"># ...</span>
+        <span class="na">structuredMetadata</span><span class="pi">:</span>
+          <span class="na">resourceAttributes</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">process.command_line"</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">k8s</span><span class="se">\\</span><span class="s">.pod</span><span class="se">\\</span><span class="s">.labels</span><span class="se">\\</span><span class="s">..+"</span>
+            <span class="na">regex</span><span class="pi">:</span> <span class="no">true</span>
+          <span class="na">scopeAttributes</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">service.name"</span>
+          <span class="na">logAttributes</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http.route"</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use regular expressions by setting <code>regex: true</code> for attributes names when mapping similar attributes in Loki.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Avoid using regular expressions for stream labels, as this can increase data volume.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="customizing-openshift-defaults_configuring-lokistack-otlp"><a class="anchor" href="#customizing-openshift-defaults_configuring-lokistack-otlp"></a>Customizing OpenShift defaults</h3>
+<div class="paragraph">
+<p>In <code>openshift-logging</code> mode, certain attributes are required and cannot be removed from the configuration due to their role in OpenShift functions. Other attributes, labeled <strong>recommended</strong>, might be disabled if performance is impacted.</p>
+</div>
+<div class="paragraph">
+<p>When using the <code>openshift-logging</code> mode without custom attributes, you can achieve immediate compatibility with OpenShift tools. If additional attributes are needed as stream labels or structured metadata, use custom configuration. Custom configurations can merge with default configurations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-recommended-attributes_configuring-lokistack-otlp"><a class="anchor" href="#removing-recommended-attributes_configuring-lokistack-otlp"></a>Removing recommended attributes</h3>
+<div class="paragraph">
+<p>To reduce default attributes in <code>openshift-logging</code> mode, disable recommended attributes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="c1"># ...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">tenants</span><span class="pi">:</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+    <span class="na">openshift</span><span class="pi">:</span>
+      <span class="na">otlp</span><span class="pi">:</span>
+        <span class="na">disableRecommendedAttributes</span><span class="pi">:</span> <span class="no">true</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set <code>disableRecommendedAttributes: true</code> to remove recommended attributes, which limits default attributes to the <strong>required attributes</strong>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This option is beneficial if the default attributes causes performance or storage issues. This setting might negatively impact query performance, as it removes default stream labels. You should pair this option with a custom attribute configuration to retain attributes essential for queries.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 _additional-resources">
+<h2 id="additional-resources_configuring-lokistack-otlp"><a class="anchor" href="#additional-resources_configuring-lokistack-otlp"></a>Additional resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://grafana.com/docs/loki/latest/get-started/labels/">Loki labels</a></p>
+</li>
+<li>
+<p><a href="https://grafana.com/docs/loki/latest/get-started/labels/structured-metadata/">Structured metadata</a></p>
+</li>
+<li>
+<p><a href="https://opentelemetry.io/docs/specs/otel/common/#attribute">OpenTelemetry attribute</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="/logging/main/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-logging';
+  var version = '6.1';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version],
+    'openshift-logging' : ['docs_logging', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

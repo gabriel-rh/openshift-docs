@@ -1,0 +1,1372 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Upgrading to Logging 6.0 | Upgrading | Red Hat OpenShift Logging 6.2</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('6.2');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+      <span>
+        <div class="alert alert-info" role="primary" id="support-info">
+          <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+          </strong>
+        </div>
+      </span>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+            <a href="https://docs.openshift.com/logging/6.2/about/about-logging.html">
+              Red Hat OpenShift Logging
+            </a>
+            <select id="version-selector" onchange="versionSelector(this);">
+              <option value="main">main</option>
+              <option value="6.2">6.2</option>
+              <option value="6.1">6.1</option>
+              <option value="6.0">6.0</option>
+            </select>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../upgrading/upgrading-to-logging-60.html">Upgrading</a>
+      </li>
+      
+      
+      <li class="hidden-xs active">
+        Upgrading to Logging 6.0
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/main/upgrading/upgrading-to-logging-60.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=Issue+in+file+upgrading/upgrading-to-logging-60.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About OpenShift Logging</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../about/logging-release-notes-6.2.html">Release notes</a></li>
+            <li><a class="" href="../about/about-logging.html">Logging overview</a></li>
+            <li><a class="" href="../about/cluster-logging-support.html">Cluster logging support</a></li>
+            <li><a class="" href="../about/logging-visualization.html">Visualization for logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>Installing</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../installing/installing-logging.html">Installing logging</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-right"></span>Configuring</a>
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+            <li><a class="" href="../configuring/configuring-log-forwarding.html">Configuring log forwarding</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-storage.html">Configuring LokiStack storage</a></li>
+            <li><a class="" href="../configuring/configuring-lokistack-otlp.html">Configuring LokiStack for OTLP</a></li>
+            <li><a class="" href="../configuring/opentelemetry-data-model.html">OpenTelemetry data model</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-down"></span>Upgrading</a>
+      <ul id="topicGroup3" class="collapse in list-unstyled">
+            <li><a class=" active" href="../upgrading/upgrading-to-logging-60.html">Upgrading to Logging 6.0</a></li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Upgrading to Logging 6.0
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#logging-oc-explain_upgrading-to-logging-60">Using the <code>oc explain</code> command</a>
+<ul class="sectlevel2">
+<li><a href="#resource-descriptions">Resource Descriptions</a></li>
+<li><a href="#hierarchical-structure">Hierarchical Structure</a></li>
+<li><a href="#type-information">Type Information</a></li>
+<li><a href="#default-values">Default Values</a></li>
+</ul>
+</li>
+<li><a href="#log-storage">Log Storage</a></li>
+<li><a href="#log-visualization">Log Visualization</a></li>
+<li><a href="#log-collection-and-forwarding">Log Collection and Forwarding</a></li>
+<li><a href="#management-resource-allocation-and-workload-scheduling">Management, Resource Allocation, and Workload Scheduling</a></li>
+<li><a href="#input-specifications">Input Specifications</a>
+<ul class="sectlevel2">
+<li><a href="#application-inputs">Application Inputs</a></li>
+<li><a href="#input-receivers">Input Receivers</a></li>
+</ul>
+</li>
+<li><a href="#output-specifications">Output Specifications</a></li>
+<li><a href="#secrets-and-tls-configuration">Secrets and TLS Configuration</a></li>
+<li><a href="#red-hat-managed-elasticsearch">Red Hat Managed Elasticsearch</a></li>
+<li><a href="#red-hat-managed-lokistack">Red Hat Managed LokiStack</a></li>
+<li><a href="#filters-and-pipeline-configuration">Filters and Pipeline Configuration</a></li>
+<li><a href="#validation-and-status">Validation and Status</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Logging v6.0 is a significant upgrade from previous releases, achieving several longstanding goals of Cluster Logging:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduction of distinct operators to manage logging components (e.g., collectors, storage, visualization).</p>
+</li>
+<li>
+<p>Removal of support for managed log storage and visualization based on Elastic products (i.e., Elasticsearch, Kibana).</p>
+</li>
+<li>
+<p>Deprecation of the Fluentd log collector implementation.</p>
+</li>
+<li>
+<p>Removal of support for <code>ClusterLogging.logging.openshift.io</code> and <code>ClusterLogForwarder.logging.openshift.io</code> resources.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <strong>cluster-logging-operator</strong> does not provide an automated upgrade process.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Given the various configurations for log collection, forwarding, and storage, no automated upgrade is provided by the <strong>cluster-logging-operator</strong>. This documentation assists administrators in converting existing <code>ClusterLogging.logging.openshift.io</code> and <code>ClusterLogForwarder.logging.openshift.io</code> specifications to the new API. Examples of migrated <code>ClusterLogForwarder.observability.openshift.io</code> resources for common use cases are included.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging-oc-explain_upgrading-to-logging-60"><a class="anchor" href="#logging-oc-explain_upgrading-to-logging-60"></a>Using the <code>oc explain</code> command</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>oc explain</code> command is an essential tool in the OpenShift CLI <code>oc</code> that provides detailed descriptions of the fields within Custom Resources (CRs). This command is invaluable for administrators and developers who are configuring or troubleshooting resources in an OpenShift cluster.</p>
+</div>
+<div class="sect2">
+<h3 id="resource-descriptions"><a class="anchor" href="#resource-descriptions"></a>Resource Descriptions</h3>
+<div class="paragraph">
+<p><code>oc explain</code> offers in-depth explanations of all fields associated with a specific object. This includes standard resources like pods and services, as well as more complex entities like statefulsets and custom resources defined by Operators.</p>
+</div>
+<div class="paragraph">
+<p>To view the documentation for the <code>outputs</code> field of the <code>ClusterLogForwarder</code> custom resource, you can use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc explain clusterlogforwarders.observability.openshift.io.spec.outputs</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In place of <code>clusterlogforwarder</code> the short form <code>obsclf</code> can be used.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This will display detailed information about these fields, including their types, default values, and any associated sub-fields.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hierarchical-structure"><a class="anchor" href="#hierarchical-structure"></a>Hierarchical Structure</h3>
+<div class="paragraph">
+<p>The command displays the structure of resource fields in a hierarchical format, clarifying the relationships between different configuration options.</p>
+</div>
+<div class="paragraph">
+<p>For instance, here&#8217;s how you can drill down into the <code>storage</code> configuration for a <code>LokiStack</code> custom resource:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc explain lokistacks.loki.grafana.com
+<span class="gp">$</span><span class="w"> </span>oc explain lokistacks.loki.grafana.com.spec
+<span class="gp">$</span><span class="w"> </span>oc explain lokistacks.loki.grafana.com.spec.storage
+<span class="gp">$</span><span class="w"> </span>oc explain lokistacks.loki.grafana.com.spec.storage.schemas</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each command reveals a deeper level of the resource specification, making the structure clear.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-information"><a class="anchor" href="#type-information"></a>Type Information</h3>
+<div class="paragraph">
+<p><code>oc explain</code> also indicates the type of each field (such as string, integer, or boolean), allowing you to verify that resource definitions use the correct data types.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc explain lokistacks.loki.grafana.com.spec.size</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will show that <code>size</code> should be defined using an integer value.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="default-values"><a class="anchor" href="#default-values"></a>Default Values</h3>
+<div class="paragraph">
+<p>When applicable, the command shows the default values for fields, providing insights into what values will be used if none are explicitly specified.</p>
+</div>
+<div class="paragraph">
+<p>Again using <code>lokistacks.loki.grafana.com</code> as an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc explain lokistacks.spec.template.distributor.replicas</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="go">GROUP:      loki.grafana.com
+KIND:       LokiStack
+VERSION:    v1
+
+</span><span class="gp">FIELD: replicas &lt;integer&gt;</span><span class="w">
+</span><span class="go">
+DESCRIPTION:
+    Replicas defines the number of replica pods of the component.</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="log-storage"><a class="anchor" href="#log-storage"></a>Log Storage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The only managed log storage solution available in this release is a Lokistack, managed by the <strong>loki-operator</strong>. This solution, previously available as the preferred alternative to the managed Elasticsearch offering, remains unchanged in its deployment process.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To continue using an existing Red Hat managed Elasticsearch or Kibana deployment provided by the <strong>elasticsearch-operator</strong>, remove the owner references from the <code>Elasticsearch</code> resource named <code>elasticsearch</code>, and  the <code>Kibana</code> resource named <code>kibana</code> in the <code>openshift-logging</code> namespace before removing the <code>ClusterLogging</code> resource named <code>instance</code> in the same namespace.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Temporarily set <strong>ClusterLogging</strong> to state <code>Unmanaged</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nt">-n</span> openshift-logging patch clusterlogging/instance <span class="nt">-p</span> <span class="s1">'{"spec":{"managementState": "Unmanaged"}}'</span> <span class="nt">--type</span><span class="o">=</span>merge</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove <strong>ClusterLogging</strong> <code>ownerReferences</code> from the <strong>Elasticsearch</strong> resource</p>
+<div class="paragraph">
+<p>The following command ensures that <strong>ClusterLogging</strong> no longer owns the <strong>Elasticsearch</strong> resource. Updates to the <strong>ClusterLogging</strong> resource&#8217;s <code>logStore</code> field will no longer affect the <strong>Elasticsearch</strong> resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nt">-n</span> openshift-logging patch elasticsearch/elasticsearch <span class="nt">-p</span> <span class="s1">'{"metadata":{"ownerReferences": []}}'</span> <span class="nt">--type</span><span class="o">=</span>merge</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove <strong>ClusterLogging</strong> <code>ownerReferences</code> from the <strong>Kibana</strong> resource</p>
+<div class="paragraph">
+<p>The following command ensures that <strong>ClusterLogging</strong> no longer owns the <strong>Kibana</strong> resource. Updates to the <strong>ClusterLogging</strong> resource&#8217;s <code>visualization</code> field will no longer affect the <strong>Kibana</strong> resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nt">-n</span> openshift-logging patch kibana/kibana <span class="nt">-p</span> <span class="s1">'{"metadata":{"ownerReferences": []}}'</span> <span class="nt">--type</span><span class="o">=</span>merge</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set <strong>ClusterLogging</strong> to state <code>Managed</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nt">-n</span> openshift-logging patch clusterlogging/instance <span class="nt">-p</span> <span class="s1">'{"spec":{"managementState": "Managed"}}'</span> <span class="nt">--type</span><span class="o">=</span>merge</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="log-visualization"><a class="anchor" href="#log-visualization"></a>Log Visualization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The OpenShift console UI plugin for log visualization has been moved to the <strong>cluster-observability-operator</strong> from the <strong>cluster-logging-operator</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="log-collection-and-forwarding"><a class="anchor" href="#log-collection-and-forwarding"></a>Log Collection and Forwarding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Log collection and forwarding configurations are now specified under the new <a href="https://github.com/openshift/cluster-logging-operator/blob/master/docs/reference/operator/api_observability_v1.adoc">API</a>, part of the <code>observability.openshift.io</code> API group. The following sections highlight the differences from the old API resources.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Vector is the only supported collector implementation.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="management-resource-allocation-and-workload-scheduling"><a class="anchor" href="#management-resource-allocation-and-workload-scheduling"></a>Management, Resource Allocation, and Workload Scheduling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuration for management state (e.g., Managed, Unmanaged), resource requests and limits, tolerations, and node selection is now part of the new <strong>ClusterLogForwarder</strong> API.</p>
+</div>
+<div class="listingblock">
+<div class="title">Previous Configuration</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">logging.openshift.io/v1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ClusterLogging"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">managementState</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Managed"</span>
+  <span class="na">collection</span><span class="pi">:</span>
+    <span class="na">resources</span><span class="pi">:</span>
+      <span class="na">limits</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">requests</span><span class="pi">:</span> <span class="pi">{}</span>
+    <span class="na">nodeSelector</span><span class="pi">:</span> <span class="pi">{}</span>
+    <span class="na">tolerations</span><span class="pi">:</span> <span class="pi">{}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Current Configuration</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">observability.openshift.io/v1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">managementState</span><span class="pi">:</span> <span class="s">Managed</span>
+  <span class="na">collector</span><span class="pi">:</span>
+    <span class="na">resources</span><span class="pi">:</span>
+      <span class="na">limits</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">requests</span><span class="pi">:</span> <span class="pi">{}</span>
+    <span class="na">nodeSelector</span><span class="pi">:</span> <span class="pi">{}</span>
+    <span class="na">tolerations</span><span class="pi">:</span> <span class="pi">{}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="input-specifications"><a class="anchor" href="#input-specifications"></a>Input Specifications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The input specification is an optional part of the <strong>ClusterLogForwarder</strong> specification. Administrators can continue to use the predefined values of <strong>application</strong>, <strong>infrastructure</strong>, and <strong>audit</strong> to collect these sources.</p>
+</div>
+<div class="sect2">
+<h3 id="application-inputs"><a class="anchor" href="#application-inputs"></a>Application Inputs</h3>
+<div class="paragraph">
+<p>Namespace and container inclusions and exclusions have been consolidated into a single field.</p>
+</div>
+<div class="listingblock">
+<div class="title">5.9 Application Input with Namespace and Container Includes and Excludes</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">logging.openshift.io/v1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">application-logs</span>
+     <span class="na">type</span><span class="pi">:</span> <span class="s">application</span>
+     <span class="na">application</span><span class="pi">:</span>
+       <span class="na">namespaces</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="s">foo</span>
+       <span class="pi">-</span> <span class="s">bar</span>
+       <span class="na">includes</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="na">namespace</span><span class="pi">:</span> <span class="s">my-important</span>
+         <span class="na">container</span><span class="pi">:</span> <span class="s">main</span>
+       <span class="na">excludes</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="na">container</span><span class="pi">:</span> <span class="s">too-verbose</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">6.0 Application Input with Namespace and Container Includes and Excludes</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">observability.openshift.io/v1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">application-logs</span>
+     <span class="na">type</span><span class="pi">:</span> <span class="s">application</span>
+     <span class="na">application</span><span class="pi">:</span>
+       <span class="na">includes</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="na">namespace</span><span class="pi">:</span> <span class="s">foo</span>
+       <span class="pi">-</span> <span class="na">namespace</span><span class="pi">:</span> <span class="s">bar</span>
+       <span class="pi">-</span> <span class="na">namespace</span><span class="pi">:</span> <span class="s">my-important</span>
+         <span class="na">container</span><span class="pi">:</span> <span class="s">main</span>
+       <span class="na">excludes</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="na">container</span><span class="pi">:</span> <span class="s">too-verbose</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>application</strong>, <strong>infrastructure</strong>, and <strong>audit</strong> are reserved words and cannot be used as names when defining an input.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="input-receivers"><a class="anchor" href="#input-receivers"></a>Input Receivers</h3>
+<div class="paragraph">
+<p>Changes to input receivers include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Explicit configuration of the type at the receiver level.</p>
+</li>
+<li>
+<p>Port settings moved to the receiver level.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">5.9 Input Receivers</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">logging.openshift.io/v1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">an-http</span>
+    <span class="na">receiver</span><span class="pi">:</span>
+      <span class="na">http</span><span class="pi">:</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="m">8443</span>
+        <span class="na">format</span><span class="pi">:</span> <span class="s">kubeAPIAudit</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">a-syslog</span>
+    <span class="na">receiver</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">syslog</span>
+      <span class="na">syslog</span><span class="pi">:</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="s">9442</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">6.0 Input Receivers</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">observability.openshift.io/v1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">an-http</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">receiver</span>
+    <span class="na">receiver</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">http</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">8443</span>
+      <span class="na">http</span><span class="pi">:</span>
+        <span class="na">format</span><span class="pi">:</span> <span class="s">kubeAPIAudit</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">a-syslog</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">receiver</span>
+    <span class="na">receiver</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">syslog</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="s">9442</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output-specifications"><a class="anchor" href="#output-specifications"></a>Output Specifications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>High-level changes to output specifications include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>URL settings moved to each output type specification.</p>
+</li>
+<li>
+<p>Tuning parameters moved to each output type specification.</p>
+</li>
+<li>
+<p>Separation of TLS configuration from authentication.</p>
+</li>
+<li>
+<p>Explicit configuration of keys and secret/configmap for TLS and authentication.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="secrets-and-tls-configuration"><a class="anchor" href="#secrets-and-tls-configuration"></a>Secrets and TLS Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Secrets and TLS configurations are now separated into authentication and TLS configuration for each output. They must be explicitly defined in the specification rather than relying on administrators to define secrets with recognized keys. Upgrading TLS and authorization configurations requires administrators to understand previously recognized keys to continue using existing secrets. Examples in the following sections provide details on how to configure <strong>ClusterLogForwarder</strong> secrets to forward to existing Red Hat managed log storage solutions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="red-hat-managed-elasticsearch"><a class="anchor" href="#red-hat-managed-elasticsearch"></a>Red Hat Managed Elasticsearch</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">v5.9 Forwarding to Red Hat Managed Elasticsearch</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">logging.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogging</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">instance</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">logStore</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">elasticsearch</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">v6.0 Forwarding to Red Hat Managed Elasticsearch</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">instance</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">managementState</span><span class="pi">:</span> <span class="s">Managed</span>
+  <span class="na">outputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">audit-elasticsearch</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">elasticsearch</span>
+    <span class="na">elasticsearch</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">https://elasticsearch:9200</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="m">6</span>
+      <span class="na">index</span><span class="pi">:</span> <span class="s">audit-write</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">ca</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">ca-bundle.crt</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+      <span class="na">certificate</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">tls.crt</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+      <span class="na">key</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">tls.key</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">app-elasticsearch</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">elasticsearch</span>
+    <span class="na">elasticsearch</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">https://elasticsearch:9200</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="m">6</span>
+      <span class="na">index</span><span class="pi">:</span> <span class="s">app-write</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">ca</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">ca-bundle.crt</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+      <span class="na">certificate</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">tls.crt</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+      <span class="na">key</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">tls.key</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">infra-elasticsearch</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">elasticsearch</span>
+    <span class="na">elasticsearch</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">https://elasticsearch:9200</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="m">6</span>
+      <span class="na">index</span><span class="pi">:</span> <span class="s">infra-write</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">ca</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">ca-bundle.crt</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+      <span class="na">certificate</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">tls.crt</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+      <span class="na">key</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">tls.key</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">collector</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">app</span>
+    <span class="na">inputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">application</span>
+    <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">app-elasticsearch</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">audit</span>
+    <span class="na">inputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">audit</span>
+    <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">audit-elasticsearch</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">infra</span>
+    <span class="na">inputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">infrastructure</span>
+    <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">infra-elasticsearch</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="red-hat-managed-lokistack"><a class="anchor" href="#red-hat-managed-lokistack"></a>Red Hat Managed LokiStack</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">v5.9 Forwarding to Red Hat Managed LokiStack</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">logging.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogging</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">instance</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">logStore</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">lokistack</span>
+    <span class="na">lokistack</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">v6.0 Forwarding to Red Hat Managed LokiStack</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">instance</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccount</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;service_account_name&gt;</span>
+  <span class="na">outputs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">default-lokistack</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">lokiStack</span>
+    <span class="na">lokiStack</span><span class="pi">:</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">logging-loki</span>
+        <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-logging</span>
+      <span class="na">authentication</span><span class="pi">:</span>
+        <span class="na">token</span><span class="pi">:</span>
+          <span class="na">from</span><span class="pi">:</span> <span class="s">serviceAccount</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">ca</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">service-ca.crt</span>
+        <span class="na">configMapName</span><span class="pi">:</span> <span class="s">openshift-service-ca.crt</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">outputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">default-lokistack</span>
+  <span class="pi">-</span> <span class="na">inputRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">application</span>
+    <span class="pi">-</span> <span class="s">infrastructure</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="filters-and-pipeline-configuration"><a class="anchor" href="#filters-and-pipeline-configuration"></a>Filters and Pipeline Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pipeline configurations now define only the routing of input sources to their output destinations, with any required transformations configured separately as filters. All attributes of pipelines from previous releases have been converted to filters in this release. Individual filters are defined in the <code>filters</code> specification and referenced by a pipeline.</p>
+</div>
+<div class="listingblock">
+<div class="title">5.9 Filters</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">logging.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">application-logs</span>
+     <span class="na">parse</span><span class="pi">:</span> <span class="s">json</span>
+     <span class="na">labels</span><span class="pi">:</span>
+       <span class="na">foo</span><span class="pi">:</span> <span class="s">bar</span>
+     <span class="na">detectMultilineErrors</span><span class="pi">:</span> <span class="no">true</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">6.0 Filter Configuration</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">filters</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">detectexception</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">detectMultilineException</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">parse-json</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">parse</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">labels</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">openshiftLabels</span>
+    <span class="na">openshiftLabels</span><span class="pi">:</span>
+      <span class="na">foo</span><span class="pi">:</span> <span class="s">bar</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">application-logs</span>
+    <span class="na">filterRefs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">detectexception</span>
+    <span class="pi">-</span> <span class="s">labels</span>
+    <span class="pi">-</span> <span class="s">parse-json</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="validation-and-status"><a class="anchor" href="#validation-and-status"></a>Validation and Status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Most validations are enforced when a resource is created or updated, providing immediate feedback. This is a departure from previous releases, where validation occurred post-creation and required inspecting the resource status. Some validation still occurs post-creation for cases where it is not possible to validate at creation or update time.</p>
+</div>
+<div class="paragraph">
+<p>Instances of the <code>ClusterLogForwarder.observability.openshift.io</code> must satisfy the following conditions before the operator will deploy the log collector: Authorized, Valid, Ready. An example of these conditions is:</p>
+</div>
+<div class="listingblock">
+<div class="title">6.0 Status Conditions</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">observability.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterLogForwarder</span>
+<span class="na">status</span><span class="pi">:</span>
+  <span class="na">conditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T03:28:44Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s1">'</span><span class="s">permitted</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">collect</span><span class="nv"> </span><span class="s">log</span><span class="nv"> </span><span class="s">types:</span><span class="nv"> </span><span class="s">[application]'</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ClusterRolesExist</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">observability.openshift.io/Authorized</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T12:16:45Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ValidationSuccess</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">observability.openshift.io/Valid</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T12:16:45Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ReconciliationComplete</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">Ready</span>
+  <span class="na">filterConditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T13:02:59Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s">filter "detectexception" is valid</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ValidationSuccess</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">observability.openshift.io/ValidFilter-detectexception</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T13:02:59Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s">filter "parse-json" is valid</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ValidationSuccess</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">observability.openshift.io/ValidFilter-parse-json</span>
+  <span class="na">inputConditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T12:23:03Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s">input "application1" is valid</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ValidationSuccess</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">observability.openshift.io/ValidInput-application1</span>
+  <span class="na">outputConditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T13:02:59Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s">output "default-lokistack-application1" is valid</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ValidationSuccess</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">observability.openshift.io/ValidOutput-default-lokistack-application1</span>
+  <span class="na">pipelineConditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">lastTransitionTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-09-13T03:28:44Z"</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s">pipeline "default-before" is valid</span>
+    <span class="na">reason</span><span class="pi">:</span> <span class="s">ValidationSuccess</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">observability.openshift.io/ValidPipeline-default-before</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Conditions that are satisfied and applicable have a "status" value of "True". Conditions with a status other than "True" provide a reason and a message explaining the issue.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="/logging/main/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-logging';
+  var version = '6.2';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version],
+    'openshift-logging' : ['docs_logging', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

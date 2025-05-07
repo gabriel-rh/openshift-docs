@@ -1,0 +1,2565 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Upgrading Service Mesh - Service Mesh 2.x | Service Mesh | OpenShift Dedicated </title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <span>
+          <div class="alert alert-info" role="primary" id="support-info">
+            <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+            </strong>
+          </div>
+        </span>
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+          <a href="../../welcome/index.html">OpenShift Dedicated </a>
+        
+      </li>
+      <li class="hidden-xs active">
+        Service Mesh
+      </li>
+      <li class="hidden-xs active"><a href="../../service_mesh/v2x/ossm-about.html">Service Mesh 2.x</a></li>
+      
+      <li class="hidden-xs active">
+        Upgrading Service Mesh
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/dedicated-4/service_mesh/v2x/upgrading-ossm.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=[dedicated-4]+Issue+in+file+service_mesh/v2x/upgrading-ossm.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../../welcome/index.html">Welcome</a></li>
+            <li><a class="" href="../../welcome/legal-notice.html">Legal notice</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>What's new</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_whats_new/osd-whats-new.html">What's new with OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-right"></span>Introduction to OpenShift Dedicated</a>
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_architecture/osd-understanding.html">Understanding OpenShift Dedicated</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-2-1"><span id="sgSpan-2-1" class="fa fa-caret-right"></span>&nbsp;Policies and service definition</a>
+              <ul id="topicSubGroup-2-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-service-definition.html">OpenShift Dedicated service definition</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-responsibility-matrix.html">Responsibility assignment matrix</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-process-security.html">Understanding process and security for OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-sre-access.html">SRE and service account access</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-understand-availability.html">About availability for OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-life-cycle.html">Update life cycle</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Architecture</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../../architecture/index.html">Architecture overview</a></li>
+            <li><a class="" href="../../architecture/architecture.html">Product architecture</a></li>
+            <li><a class="" href="../../architecture/osd-architecture-models-gcp.html">Architecture models</a></li>
+            <li><a class="" href="../../architecture/control-plane.html">Control plane architecture</a></li>
+            <li><a class="" href="../../architecture/nvidia-gpu-architecture-overview.html">NVIDIA GPU architecture overview</a></li>
+            <li><a class="" href="../../architecture/understanding-development.html">Understanding OpenShift development</a></li>
+            <li><a class="" href="../../architecture/admission-plug-ins.html">Admission plugins</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup4"><span id="tgSpan4" class="fa fa-angle-right"></span>Red Hat OpenShift Cluster Manager</a>
+      <ul id="topicGroup4" class="collapse  list-unstyled">
+            <li><a class="" href="../../ocm/ocm-overview.html">Red Hat OpenShift Cluster Manager</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup5"><span id="tgSpan5" class="fa fa-angle-right"></span>Planning your environment</a>
+      <ul id="topicGroup5" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_planning/osd-limits-scalability.html">Limits and scalability</a></li>
+            <li><a class="" href="../../osd_planning/gcp-ccs.html">Customer Cloud Subscriptions on GCP</a></li>
+            <li><a class="" href="../../osd_planning/aws-ccs.html">Customer Cloud Subscriptions on AWS</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup6"><span id="tgSpan6" class="fa fa-angle-right"></span>Getting started</a>
+      <ul id="topicGroup6" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_getting_started/osd-understanding-your-cloud-deployment-options.html">Understanding your cloud deployment options</a></li>
+            <li><a class="" href="../../osd_getting_started/osd-getting-started.html">Getting started with OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup7"><span id="tgSpan7" class="fa fa-angle-right"></span>OpenShift Dedicated clusters on GCP</a>
+      <ul id="topicGroup7" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-psc-enabled-private-cluster.html">Private Service Connect overview</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-with-workload-identity-federation.html">Creating a cluster on GCP with Workload Identity Federation authentication</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-sa.html">Creating a cluster on GCP with Service Account authentication</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-redhat-account.html">Creating a cluster on GCP with a Red Hat cloud account</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/osd-deleting-a-cluster-gcp.html">Deleting an OpenShift Dedicated cluster on GCP</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup8"><span id="tgSpan8" class="fa fa-angle-right"></span>OpenShift Dedicated clusters on AWS</a>
+      <ul id="topicGroup8" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_aws_clusters/creating-an-aws-cluster.html">Creating a cluster on AWS</a></li>
+            <li><a class="" href="../../osd_aws_clusters/osd-deleting-a-cluster-aws.html">Deleting an OpenShift Dedicated cluster on AWS</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup9"><span id="tgSpan9" class="fa fa-angle-right"></span>Support</a>
+      <ul id="topicGroup9" class="collapse  list-unstyled">
+            <li><a class="" href="../../support/index.html">Support overview</a></li>
+            <li><a class="" href="../../support/managing-cluster-resources.html">Managing your cluster resources</a></li>
+            <li><a class="" href="../../support/getting-support.html">Getting support</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-3"><span id="sgSpan-9-3" class="fa fa-caret-right"></span>&nbsp;Remote health monitoring with connected clusters</a>
+              <ul id="topicSubGroup-9-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../support/remote_health_monitoring/about-remote-health-monitoring.html">About remote health monitoring</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/showing-data-collected-by-remote-health-monitoring.html">Showing data collected by remote health monitoring</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/using-insights-to-identify-issues-with-your-cluster.html">Using Insights to identify issues with your cluster</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/using-insights-operator.html">Using Insights Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../support/gathering-cluster-data.html">Gathering data about your cluster</a></li>
+            <li><a class="" href="../../support/summarizing-cluster-specifications.html">Summarizing cluster specifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-6"><span id="sgSpan-9-6" class="fa fa-caret-right"></span>&nbsp;Troubleshooting</a>
+              <ul id="topicSubGroup-9-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../support/troubleshooting/verifying-node-health.html">Verifying node health</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/investigating-pod-issues.html">Investigating pod issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-s2i.html">Troubleshooting the Source-to-Image process</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-storage-issues.html">Troubleshooting storage issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/investigating-monitoring-issues.html">Investigating monitoring issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/diagnosing-oc-issues.html">Diagnosing OpenShift CLI (oc) issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/sd-managed-resources.html">OpenShift Dedicated managed resources</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup10"><span id="tgSpan10" class="fa fa-angle-right"></span>Web console</a>
+      <ul id="topicGroup10" class="collapse  list-unstyled">
+            <li><a class="" href="../../web_console/web-console-overview.html">Web console overview</a></li>
+            <li><a class="" href="../../web_console/web-console.html">Accessing the web console</a></li>
+            <li><a class="" href="../../web_console/using-dashboard-to-get-cluster-information.html">Viewing cluster information</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-3"><span id="sgSpan-10-3" class="fa fa-caret-right"></span>&nbsp;Dynamic plugins</a>
+              <ul id="topicSubGroup-10-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../web_console/dynamic-plugin/overview-dynamic-plugin.html">Overview of dynamic plugins</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugins-get-started.html">Getting started with dynamic plugins</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/deploy-plugin-cluster.html">Deploy your plugin on a cluster</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugin-example.html">Dynamic plugin example</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugins-reference.html">Dynamic plugin reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-4"><span id="sgSpan-10-4" class="fa fa-caret-right"></span>&nbsp;Web terminal</a>
+              <ul id="topicSubGroup-10-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../web_console/web_terminal/installing-web-terminal.html">Installing the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/odc-using-web-terminal.html">Using the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/troubleshooting-web-terminal.html">Troubleshooting the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/uninstalling-web-terminal.html">Uninstalling the web terminal</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../web_console/creating-quick-start-tutorials.html">About quick start tutorials</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup11"><span id="tgSpan11" class="fa fa-angle-right"></span>CLI tools</a>
+      <ul id="topicGroup11" class="collapse  list-unstyled">
+            <li><a class="" href="../../cli_reference/index.html">CLI tools overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-1"><span id="sgSpan-11-1" class="fa fa-caret-right"></span>&nbsp;OpenShift CLI (oc)</a>
+              <ul id="topicSubGroup-11-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/openshift_cli/getting-started-cli.html">Getting started with the OpenShift CLI</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/configuring-cli.html">Configuring the OpenShift CLI</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/usage-oc-kubectl.html">Usage of oc and kubectl commands</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/managing-cli-profiles.html">Managing CLI profiles</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/extending-cli-plugins.html">Extending the OpenShift CLI with plugins</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/developer-cli-commands.html">OpenShift CLI developer command reference</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/administrator-cli-commands.html">OpenShift CLI administrator command reference</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../cli_reference/odo-important-update.html">Developer CLI (odo)</a></li>
+            <li><a class="" href="../../cli_reference/kn-cli-tools.html">Knative CLI (kn) for use with OpenShift Serverless</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-4"><span id="sgSpan-11-4" class="fa fa-caret-right"></span>&nbsp;Pipelines CLI (tkn)</a>
+              <ul id="topicSubGroup-11-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/tkn_cli/installing-tkn.html">Installing tkn</a></li>
+                  <li><a class="" href="../../cli_reference/tkn_cli/op-configuring-tkn.html">Configuring tkn</a></li>
+                  <li><a class="" href="../../cli_reference/tkn_cli/op-tkn-reference.html">Basic tkn commands</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-5"><span id="sgSpan-11-5" class="fa fa-caret-right"></span>&nbsp;opm CLI</a>
+              <ul id="topicSubGroup-11-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/opm/cli-opm-install.html">Installing the opm CLI</a></li>
+                  <li><a class="" href="../../cli_reference/opm/cli-opm-ref.html">opm CLI reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-6"><span id="sgSpan-11-6" class="fa fa-caret-right"></span>&nbsp;Operator SDK</a>
+              <ul id="topicSubGroup-11-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/osdk/cli-osdk-install.html">Installing the Operator SDK CLI</a></li>
+                  <li><a class="" href="../../cli_reference/osdk/cli-osdk-ref.html">Operator SDK CLI reference</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup12"><span id="tgSpan12" class="fa fa-angle-right"></span>Cluster administration</a>
+      <ul id="topicGroup12" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_cluster_admin/osd-cluster-notifications.html">Cluster notifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-12-1"><span id="sgSpan-12-1" class="fa fa-caret-right"></span>&nbsp;Configuring private connections</a>
+              <ul id="topicSubGroup-12-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_cluster_admin/osd_private_connections/aws-private-connections.html">Configuring private connections for AWS</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_private_connections/private-cluster.html">Configuring a private cluster</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../osd_cluster_admin/osd-cluster-autoscaling.html">Cluster autoscaling</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-12-3"><span id="sgSpan-12-3" class="fa fa-caret-right"></span>&nbsp;Nodes</a>
+              <ul id="topicSubGroup-12-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-nodes-machinepools-about.html">About machine pools</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-managing-worker-nodes.html">Managing compute nodes</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-nodes-about-autoscaling-nodes.html">About autoscaling nodes on a cluster</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup13"><span id="tgSpan13" class="fa fa-angle-right"></span>Security and compliance</a>
+      <ul id="topicGroup13" class="collapse  list-unstyled">
+            <li><a class="" href="../../security/audit-log-view.html">Viewing audit logs</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup14"><span id="tgSpan14" class="fa fa-angle-right"></span>Authentication and authorization</a>
+      <ul id="topicGroup14" class="collapse  list-unstyled">
+            <li><a class="" href="../../authentication/index.html">Authentication and authorization overview</a></li>
+            <li><a class="" href="../../authentication/understanding-authentication.html">Understanding authentication</a></li>
+            <li><a class="" href="../../authentication/managing-oauth-access-tokens.html">Managing user-owned OAuth access tokens</a></li>
+            <li><a class="" href="../../authentication/sd-configuring-identity-providers.html">Configuring identity providers</a></li>
+            <li><a class="" href="../../authentication/osd-revoking-cluster-privileges.html">Revoking privileges and access to an OpenShift Dedicated cluster</a></li>
+            <li><a class="" href="../../authentication/osd-admin-roles.html">Managing administration roles and users</a></li>
+            <li><a class="" href="../../authentication/using-rbac.html">Using RBAC to define and apply permissions</a></li>
+            <li><a class="" href="../../authentication/understanding-and-creating-service-accounts.html">Understanding and creating service accounts</a></li>
+            <li><a class="" href="../../authentication/using-service-accounts-in-applications.html">Using service accounts in applications</a></li>
+            <li><a class="" href="../../authentication/using-service-accounts-as-oauth-client.html">Using a service account as an OAuth client</a></li>
+            <li><a class="" href="../../authentication/tokens-scoping.html">Scoping tokens</a></li>
+            <li><a class="" href="../../authentication/bound-service-account-tokens.html">Using bound service account tokens</a></li>
+            <li><a class="" href="../../authentication/managing-security-context-constraints.html">Managing security context constraints</a></li>
+            <li><a class="" href="../../authentication/understanding-and-managing-pod-security-admission.html">Understanding and managing pod security admission</a></li>
+            <li><a class="" href="../../authentication/ldap-syncing.html">Syncing LDAP groups</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup15"><span id="tgSpan15" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup15" class="collapse  list-unstyled">
+            <li><a class="" href="../../upgrading/osd-upgrades.html">Upgrading OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup16"><span id="tgSpan16" class="fa fa-angle-right"></span>CI/CD</a>
+      <ul id="topicGroup16" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-0"><span id="sgSpan-16-0" class="fa fa-caret-right"></span>&nbsp;CI/CD overview</a>
+              <ul id="topicSubGroup-16-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/overview/index.html">About CI/CD</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-1"><span id="sgSpan-16-1" class="fa fa-caret-right"></span>&nbsp;Builds using Shipwright</a>
+              <ul id="topicSubGroup-16-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/builds_using_shipwright/overview-openshift-builds.html">Overview of Builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-2"><span id="sgSpan-16-2" class="fa fa-caret-right"></span>&nbsp;Builds using BuildConfig</a>
+              <ul id="topicSubGroup-16-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/builds/understanding-image-builds.html">Understanding image builds</a></li>
+                  <li><a class="" href="../../cicd/builds/understanding-buildconfigs.html">Understanding build configurations</a></li>
+                  <li><a class="" href="../../cicd/builds/creating-build-inputs.html">Creating build inputs</a></li>
+                  <li><a class="" href="../../cicd/builds/managing-build-output.html">Managing build output</a></li>
+                  <li><a class="" href="../../cicd/builds/build-strategies.html">Using build strategies</a></li>
+                  <li><a class="" href="../../cicd/builds/basic-build-operations.html">Performing and configuring basic builds</a></li>
+                  <li><a class="" href="../../cicd/builds/triggering-builds-build-hooks.html">Triggering and modifying builds</a></li>
+                  <li><a class="" href="../../cicd/builds/advanced-build-operations.html">Performing advanced builds</a></li>
+                  <li><a class="" href="../../cicd/builds/running-entitled-builds.html">Using Red Hat subscriptions in builds</a></li>
+                  <li><a class="" href="../../cicd/builds/troubleshooting-builds.html">Troubleshooting builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-3"><span id="sgSpan-16-3" class="fa fa-caret-right"></span>&nbsp;Pipelines</a>
+              <ul id="topicSubGroup-16-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/pipelines/about-pipelines.html">About OpenShift Pipelines</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-4"><span id="sgSpan-16-4" class="fa fa-caret-right"></span>&nbsp;GitOps</a>
+              <ul id="topicSubGroup-16-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/gitops/about-redhat-openshift-gitops.html">About OpenShift GitOps</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-5"><span id="sgSpan-16-5" class="fa fa-caret-right"></span>&nbsp;Jenkins</a>
+              <ul id="topicSubGroup-16-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/jenkins/images-other-jenkins.html">Configuring Jenkins images</a></li>
+                  <li><a class="" href="../../cicd/jenkins/images-other-jenkins-agent.html">Jenkins agent</a></li>
+                  <li><a class="" href="../../cicd/jenkins/migrating-from-jenkins-to-openshift-pipelines.html">Migrating from Jenkins to OpenShift Pipelines</a></li>
+                  <li><a class="" href="../../cicd/jenkins/important-changes-to-openshift-jenkins-images.html">Important changes to OpenShift Jenkins images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup17"><span id="tgSpan17" class="fa fa-angle-right"></span>Images</a>
+      <ul id="topicGroup17" class="collapse  list-unstyled">
+            <li><a class="" href="../../openshift_images/index.html">Overview of images</a></li>
+            <li><a class="" href="../../openshift_images/configuring-samples-operator.html">Overview of the Cluster Samples Operator</a></li>
+            <li><a class="" href="../../openshift_images/samples-operator-alt-registry.html">Using the Cluster Samples Operator with an alternate registry</a></li>
+            <li><a class="" href="../../openshift_images/create-images.html">Creating images</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-4"><span id="sgSpan-17-4" class="fa fa-caret-right"></span>&nbsp;Managing images</a>
+              <ul id="topicSubGroup-17-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../openshift_images/managing_images/managing-images-overview.html">Managing images overview</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/tagging-images.html">Tagging images</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/image-pull-policy.html">Image pull policy</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/using-image-pull-secrets.html">Using image pull secrets</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../openshift_images/image-streams-manage.html">Managing image streams</a></li>
+            <li><a class="" href="../../openshift_images/using-imagestreams-with-kube-resources.html">Using image streams with Kubernetes resources</a></li>
+            <li><a class="" href="../../openshift_images/triggering-updates-on-imagestream-changes.html">Triggering updates on image stream changes</a></li>
+            <li><a class="" href="../../openshift_images/image-configuration.html">Image configuration resources</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-9"><span id="sgSpan-17-9" class="fa fa-caret-right"></span>&nbsp;Using images</a>
+              <ul id="topicSubGroup-17-9" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../openshift_images/using_images/using-images-overview.html">Using images overview</a></li>
+                  <li><a class="" href="../../openshift_images/using_images/using-s21-images.html">Source-to-image</a></li>
+                  <li><a class="" href="../../openshift_images/using_images/customizing-s2i-images.html">Customizing source-to-image images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup18"><span id="tgSpan18" class="fa fa-angle-right"></span>Add-on services</a>
+      <ul id="topicGroup18" class="collapse  list-unstyled">
+            <li><a class="" href="../../adding_service_cluster/adding-service.html">Adding services to a cluster</a></li>
+            <li><a class="" href="../../adding_service_cluster/available-services.html">Available services</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup19"><span id="tgSpan19" class="fa fa-angle-right"></span>Storage</a>
+      <ul id="topicGroup19" class="collapse  list-unstyled">
+            <li><a class="" href="../../storage/index.html">Storage overview</a></li>
+            <li><a class="" href="../../storage/understanding-ephemeral-storage.html">Understanding ephemeral storage</a></li>
+            <li><a class="" href="../../storage/understanding-persistent-storage.html">Understanding persistent storage</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-19-3"><span id="sgSpan-19-3" class="fa fa-caret-right"></span>&nbsp;Configuring persistent storage</a>
+              <ul id="topicSubGroup-19-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../storage/persistent_storage/persistent-storage-aws.html">Persistent storage using AWS Elastic Block Store</a></li>
+                  <li><a class="" href="../../storage/persistent_storage/persistent-storage-gce.html">Persistent storage using GCE Persistent Disk</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-19-4"><span id="sgSpan-19-4" class="fa fa-caret-right"></span>&nbsp;Using Container Storage Interface (CSI)</a>
+              <ul id="topicSubGroup-19-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi.html">Configuring CSI volumes</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-sc-manage.html">Managing the default storage class</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-ebs.html">AWS Elastic Block Store CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-aws-efs.html">AWS Elastic File Service CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-gcp-pd.html">GCP PD CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-google-cloud-file.html">GCP Filestore CSI Driver Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../storage/generic-ephemeral-vols.html">Generic ephemeral volumes</a></li>
+            <li><a class="" href="../../storage/dynamic-provisioning.html">Dynamic provisioning</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup20"><span id="tgSpan20" class="fa fa-angle-right"></span>Registry</a>
+      <ul id="topicGroup20" class="collapse  list-unstyled">
+            <li><a class="" href="../../registry/index.html">Registry overview</a></li>
+            <li><a class="" href="../../registry/configuring-registry-operator.html">Image Registry Operator in OpenShift Dedicated</a></li>
+            <li><a class="" href="../../registry/accessing-the-registry.html">Accessing the registry</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup21"><span id="tgSpan21" class="fa fa-angle-right"></span>Operators</a>
+      <ul id="topicGroup21" class="collapse  list-unstyled">
+            <li><a class="" href="../../operators/index.html">Operators overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-1"><span id="sgSpan-21-1" class="fa fa-caret-right"></span>&nbsp;Understanding Operators</a>
+              <ul id="topicSubGroup-21-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/understanding/olm-what-operators-are.html">What are Operators?</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-packaging-format.html">Packaging format</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-common-terms.html">Common terms</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-1-3"><span id="ssgSpan-21-1-3" class="fa fa-caret-right"></span>&nbsp;Operator Lifecycle Manager (OLM)</a>
+                  <ul id="topicSubSubGroup-21-1-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-olm.html" style="padding-left: 70px;">Concepts and resources</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-arch.html" style="padding-left: 70px;">Architecture</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-workflow.html" style="padding-left: 70px;">Workflow</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-dependency-resolution.html" style="padding-left: 70px;">Dependency resolution</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-operatorgroups.html" style="padding-left: 70px;">Operator groups</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-colocation.html" style="padding-left: 70px;">Multitenancy and Operator colocation</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-operatorconditions.html" style="padding-left: 70px;">Operator conditions</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-metrics.html" style="padding-left: 70px;">Metrics</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-webhooks.html" style="padding-left: 70px;">Webhooks</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../operators/understanding/olm-understanding-operatorhub.html">OperatorHub</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-rh-catalogs.html">Red Hat-provided Operator catalogs</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-multitenancy.html">Operators in multitenant clusters</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-1-7"><span id="ssgSpan-21-1-7" class="fa fa-caret-right"></span>&nbsp;CRDs</a>
+                  <ul id="topicSubSubGroup-21-1-7" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/understanding/crds/crd-managing-resources-from-crds.html" style="padding-left: 70px;">Managing resources from CRDs</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-2"><span id="sgSpan-21-2" class="fa fa-caret-right"></span>&nbsp;User tasks</a>
+              <ul id="topicSubGroup-21-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/user/olm-creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-3"><span id="sgSpan-21-3" class="fa fa-caret-right"></span>&nbsp;Administrator tasks</a>
+              <ul id="topicSubGroup-21-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/admin/olm-adding-operators-to-cluster.html">Adding Operators to a cluster</a></li>
+                  <li><a class="" href="../../operators/admin/olm-upgrading-operators.html">Updating installed Operators</a></li>
+                  <li><a class="" href="../../operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a></li>
+                  <li><a class="" href="../../operators/admin/olm-configuring-proxy-support.html">Configuring proxy support</a></li>
+                  <li><a class="" href="../../operators/admin/olm-status.html">Viewing Operator status</a></li>
+                  <li><a class="" href="../../operators/admin/olm-managing-operatorconditions.html">Managing Operator conditions</a></li>
+                  <li><a class="" href="../../operators/admin/olm-managing-custom-catalogs.html">Managing custom catalogs</a></li>
+                  <li><a class="" href="../../operators/admin/olm-cs-podsched.html">Catalog source pod scheduling</a></li>
+                  <li><a class="" href="../../operators/admin/olm-troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-4"><span id="sgSpan-21-4" class="fa fa-caret-right"></span>&nbsp;Developing Operators</a>
+              <ul id="topicSubGroup-21-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/operator_sdk/osdk-about.html">About the Operator SDK</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-installing-cli.html">Installing the Operator SDK CLI</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-2"><span id="ssgSpan-21-4-2" class="fa fa-caret-right"></span>&nbsp;Go-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-2" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-updating-projects.html" style="padding-left: 70px;">Updating Go-based projects</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-3"><span id="ssgSpan-21-4-3" class="fa fa-caret-right"></span>&nbsp;Ansible-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-updating-projects.html" style="padding-left: 70px;">Updating Ansible-based projects</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-support.html" style="padding-left: 70px;">Ansible support</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-k8s-collection.html" style="padding-left: 70px;">Kubernetes Collection for Ansible</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-inside-operator.html" style="padding-left: 70px;">Using Ansible inside an Operator</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-cr-status.html" style="padding-left: 70px;">Custom resource status management</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-4"><span id="ssgSpan-21-4-4" class="fa fa-caret-right"></span>&nbsp;Helm-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-4" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-updating-projects.html" style="padding-left: 70px;">Updating Helm-based projects</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-support.html" style="padding-left: 70px;">Helm support</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../operators/operator_sdk/osdk-generating-csvs.html">Defining cluster service versions (CSVs)</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-working-bundle-images.html">Working with bundle images</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-complying-with-psa.html">Complying with pod security admission</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-scorecard.html">Validating Operators using the scorecard</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-bundle-validate.html">Validating Operator bundles</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-ha-sno.html">High-availability or single-node cluster detection and support</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-monitoring-prometheus.html">Configuring built-in monitoring with Prometheus</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-leader-election.html">Configuring leader election</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-pruning-utility.html">Object pruning utility</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-pkgman-to-bundle.html">Migrating package manifest projects to bundle format</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-cli-ref.html">Operator SDK CLI reference</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-migrating-to-v0-1-0.html">Migrating to Operator SDK v0.1.0</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup22"><span id="tgSpan22" class="fa fa-angle-right"></span>Networking</a>
+      <ul id="topicGroup22" class="collapse  list-unstyled">
+            <li><a class="" href="../../networking/about-managed-networking.html">About networking</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-1"><span id="sgSpan-22-1" class="fa fa-caret-right"></span>&nbsp;Networking Operators</a>
+              <ul id="topicSubGroup-22-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/networking_operators/dns-operator.html">DNS Operator in OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../networking/networking_operators/ingress-operator.html">Ingress Operator in OpenShift Dedicated</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../networking/network-verification.html">Network verification</a></li>
+            <li><a class="" href="../../networking/configuring-cluster-wide-proxy.html">Configuring a cluster-wide proxy during installation</a></li>
+            <li><a class="" href="../../networking/cidr-range-definitions.html">CIDR range definitions</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-5"><span id="sgSpan-22-5" class="fa fa-caret-right"></span>&nbsp;Network security</a>
+              <ul id="topicSubGroup-22-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/network_security/network-policy-apis.html">Understanding network policy APIs</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-5-1"><span id="ssgSpan-22-5-1" class="fa fa-caret-right"></span>&nbsp;Network policy</a>
+                  <ul id="topicSubSubGroup-22-5-1" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../networking/network_security/network_policy/about-network-policy.html" style="padding-left: 70px;">About network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/creating-network-policy.html" style="padding-left: 70px;">Creating a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/viewing-network-policy.html" style="padding-left: 70px;">Viewing a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/deleting-network-policy.html" style="padding-left: 70px;">Deleting a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/multitenant-network-policy.html" style="padding-left: 70px;">Configuring multitenant isolation with network policy</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-6"><span id="sgSpan-22-6" class="fa fa-caret-right"></span>&nbsp;OVN-Kubernetes network plugin</a>
+              <ul id="topicSubGroup-22-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/about-ovn-kubernetes.html">About the OVN-Kubernetes network plugin</a></li>
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/migrate-from-openshift-sdn-osd.html">Migrating from the OpenShift SDN network plugin</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-7"><span id="sgSpan-22-7" class="fa fa-caret-right"></span>&nbsp;OpenShift SDN network plugin</a>
+              <ul id="topicSubGroup-22-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/enabling-multicast.html">Enabling multicast for a project</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-8"><span id="sgSpan-22-8" class="fa fa-caret-right"></span>&nbsp;Configuring Routes</a>
+              <ul id="topicSubGroup-22-8" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/routes/route-configuration.html">Route configuration</a></li>
+                  <li><a class="" href="../../networking/routes/secured-routes.html">Secured routes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup23"><span id="tgSpan23" class="fa fa-angle-right"></span>Building applications</a>
+      <ul id="topicGroup23" class="collapse  list-unstyled">
+            <li><a class="" href="../../applications/index.html">Building applications overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-1"><span id="sgSpan-23-1" class="fa fa-caret-right"></span>&nbsp;Projects</a>
+              <ul id="topicSubGroup-23-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/projects/working-with-projects.html">Working with projects</a></li>
+                  <li><a class="" href="../../applications/projects/configuring-project-creation.html">Configuring project creation</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-2"><span id="sgSpan-23-2" class="fa fa-caret-right"></span>&nbsp;Creating applications</a>
+              <ul id="topicSubGroup-23-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/creating_applications/using-templates.html">Using templates</a></li>
+                  <li><a class="" href="../../applications/creating_applications/odc-creating-applications-using-developer-perspective.html">Creating applications using the Developer perspective</a></li>
+                  <li><a class="" href="../../applications/creating_applications/creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>
+                  <li><a class="" href="../../applications/creating_applications/creating-applications-using-cli.html">Creating applications using the CLI</a></li>
+                  <li><a class="" href="../../applications/creating_applications/templates-using-ruby-on-rails.html">Creating applications using Ruby on Rails</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../applications/odc-viewing-application-composition-using-topology-view.html">Viewing application composition using the Topology view</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-4"><span id="sgSpan-23-4" class="fa fa-caret-right"></span>&nbsp;Working with Helm charts</a>
+              <ul id="topicSubGroup-23-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/working_with_helm_charts/understanding-helm.html">Understanding Helm</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/installing-helm.html">Installing Helm</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/configuring-custom-helm-chart-repositories.html">Configuring custom Helm chart repositories</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/odc-working-with-helm-releases.html">Working with Helm releases</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-5"><span id="sgSpan-23-5" class="fa fa-caret-right"></span>&nbsp;Deployments</a>
+              <ul id="topicSubGroup-23-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/deployments/osd-config-custom-domains-applications.html">Custom domains for applications</a></li>
+                  <li><a class="" href="../../applications/deployments/what-deployments-are.html">Understanding Deployments and DeploymentConfigs</a></li>
+                  <li><a class="" href="../../applications/deployments/managing-deployment-processes.html">Managing deployment processes</a></li>
+                  <li><a class="" href="../../applications/deployments/deployment-strategies.html">Using deployment strategies</a></li>
+                  <li><a class="" href="../../applications/deployments/route-based-deployment-strategies.html">Using route-based deployment strategies</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-6"><span id="sgSpan-23-6" class="fa fa-caret-right"></span>&nbsp;Quotas</a>
+              <ul id="topicSubGroup-23-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a></li>
+                  <li><a class="" href="../../applications/quotas/quotas-setting-across-multiple-projects.html">Resource quotas across multiple projects</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../applications/config-maps.html">Using config maps with applications</a></li>
+            <li><a class="" href="../../applications/odc-monitoring-project-and-application-metrics-using-developer-perspective.html">Monitoring project and application metrics using the Developer perspective</a></li>
+            <li><a class="" href="../../applications/application-health.html">Monitoring application health</a></li>
+            <li><a class="" href="../../applications/odc-editing-applications.html">Editing applications</a></li>
+            <li><a class="" href="../../applications/working-with-quotas.html">Working with quotas</a></li>
+            <li><a class="" href="../../applications/pruning-objects.html">Pruning objects to reclaim resources</a></li>
+            <li><a class="" href="../../applications/idling-applications.html">Idling applications</a></li>
+            <li><a class="" href="../../applications/odc-deleting-applications.html">Deleting applications</a></li>
+            <li><a class="" href="../../applications/red-hat-marketplace.html">Using the Red Hat Marketplace</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup24"><span id="tgSpan24" class="fa fa-angle-right"></span>Nodes</a>
+      <ul id="topicGroup24" class="collapse  list-unstyled">
+            <li><a class="" href="../../nodes/index.html">Overview of nodes</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-1"><span id="sgSpan-24-1" class="fa fa-caret-right"></span>&nbsp;Working with pods</a>
+              <ul id="topicSubGroup-24-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/pods/nodes-pods-using.html">About pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-viewing.html">Viewing pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-configuring.html">Configuring a cluster for pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-secrets.html">Providing sensitive data to pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-configmaps.html">Creating and using config maps</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-priority.html">Including pod priority in pod scheduling decisions</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-2"><span id="sgSpan-24-2" class="fa fa-caret-right"></span>&nbsp;Automatically scaling pods with the Custom Metrics Autoscaler Operator</a>
+              <ul id="topicSubGroup-24-2" class="nav-tertiary list-unstyled collapse">
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-24-2-0"><span id="ssgSpan-24-2-0" class="fa fa-caret-right"></span>&nbsp;Release notes</a>
+                  <ul id="topicSubSubGroup-24-2-0" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn.html" style="padding-left: 70px;">Custom Metrics Autoscaler Operator release notes</a></li>
+                    <li><a class="" href="../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn-past.html" style="padding-left: 70px;">Past releases</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom.html">Custom Metrics Autoscaler Operator overview</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-install.html">Installing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-trigger.html">Understanding the custom metrics autoscaler triggers</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-trigger-auth.html">Understanding the custom metrics autoscaler trigger authentications</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-pausing.html">Pausing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-audit-log.html">Gathering audit logs</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-debugging.html">Gathering debugging data</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-metrics.html">Viewing Operator metrics</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-adding.html">Understanding how to add custom metrics autoscalers</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-removing.html">Removing the Custom Metrics Autoscaler Operator</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-3"><span id="sgSpan-24-3" class="fa fa-caret-right"></span>&nbsp;Controlling pod placement onto nodes (scheduling)</a>
+              <ul id="topicSubGroup-24-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-about.html">About pod placement using the scheduler</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-pod-affinity.html">Placing pods relative to other pods using pod affinity and anti-affinity rules</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-node-affinity.html">Controlling pod placement on nodes using node affinity rules</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-overcommit.html">Placing pods onto overcommited nodes</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-pod-topology-spread-constraints.html">Controlling pod placement using pod topology spread constraints</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-4"><span id="sgSpan-24-4" class="fa fa-caret-right"></span>&nbsp;Using jobs and daemon sets</a>
+              <ul id="topicSubGroup-24-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/jobs/nodes-pods-daemonsets.html">Running background tasks on nodes automatically with daemon sets</a></li>
+                  <li><a class="" href="../../nodes/jobs/nodes-nodes-jobs.html">Running tasks in pods using jobs</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-5"><span id="sgSpan-24-5" class="fa fa-caret-right"></span>&nbsp;Working with nodes</a>
+              <ul id="topicSubGroup-24-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/nodes/nodes-nodes-viewing.html">Viewing and listing the nodes in your cluster</a></li>
+                  <li><a class="" href="../../nodes/nodes/nodes-node-tuning-operator.html">Using the Node Tuning Operator</a></li>
+                  <li><a class="" href="../../nodes/nodes/nodes-remediating-fencing-maintaining-rhwa.html">Remediating, fencing, and maintaining nodes</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-6"><span id="sgSpan-24-6" class="fa fa-caret-right"></span>&nbsp;Working with containers</a>
+              <ul id="topicSubGroup-24-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/containers/nodes-containers-using.html">Understanding containers</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-init.html">Using Init Containers to perform tasks before a pod is deployed</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-volumes.html">Using volumes to persist container data</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-projected-volumes.html">Mapping volumes using projected volumes</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-downward-api.html">Allowing containers to consume API objects</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-copying-files.html">Copying files to or from a container</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-remote-commands.html">Executing remote commands in a container</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-port-forwarding.html">Using port forwarding to access applications in a container</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-7"><span id="sgSpan-24-7" class="fa fa-caret-right"></span>&nbsp;Working with clusters</a>
+              <ul id="topicSubGroup-24-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/clusters/nodes-containers-events.html">Viewing system event information in a cluster</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-resource-levels.html">Analyzing cluster resource levels</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-limit-ranges.html">Setting limit ranges</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-resource-configure.html">Configuring cluster memory to meet container memory and risk requirements</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-overcommit.html">Configuring your cluster to place pods on overcommited nodes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup25"><span id="tgSpan25" class="fa fa-angle-right"></span>Observability</a>
+      <ul id="topicGroup25" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-25-0"><span id="sgSpan-25-0" class="fa fa-caret-right"></span>&nbsp;Observability overview</a>
+              <ul id="topicSubGroup-25-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../observability/overview/index.html">About Observability</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-25-1"><span id="sgSpan-25-1" class="fa fa-caret-right"></span>&nbsp;Monitoring</a>
+              <ul id="topicSubGroup-25-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../observability/monitoring/monitoring-overview.html">Monitoring overview</a></li>
+                  <li><a class="" href="../../observability/monitoring/sd-accessing-monitoring-for-user-defined-projects.html">Accessing monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/configuring-the-monitoring-stack.html">Configuring the monitoring stack</a></li>
+                  <li><a class="" href="../../observability/monitoring/sd-disabling-monitoring-for-user-defined-projects.html">Disabling monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/enabling-alert-routing-for-user-defined-projects.html">Enabling alert routing for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/managing-metrics.html">Managing metrics</a></li>
+                  <li><a class="" href="../../observability/monitoring/managing-alerts.html">Managing alerts</a></li>
+                  <li><a class="" href="../../observability/monitoring/reviewing-monitoring-dashboards.html">Reviewing monitoring dashboards</a></li>
+                  <li><a class="" href="../../observability/monitoring/accessing-third-party-monitoring-apis.html">Accessing third-party monitoring APIs</a></li>
+                  <li><a class="" href="../../observability/monitoring/troubleshooting-monitoring-issues.html">Troubleshooting monitoring issues</a></li>
+                  <li><a class="" href="../../observability/monitoring/config-map-reference-for-the-cluster-monitoring-operator.html">Config map reference for the Cluster Monitoring Operator</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup26"><span id="tgSpan26" class="fa fa-angle-down"></span>Service Mesh</a>
+      <ul id="topicGroup26" class="collapse in list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-0"><span id="sgSpan-26-0" class="fa fa-caret-down"></span>&nbsp;Service Mesh 2.x</a>
+              <ul id="topicSubGroup-26-0" class="nav-tertiary list-unstyled collapse in">
+
+                  <li><a class="" href="../../service_mesh/v2x/ossm-about.html">About OpenShift Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/servicemesh-release-notes.html">Service Mesh 2.x release notes</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-architecture.html">Service Mesh architecture</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-deployment-models.html">Service Mesh deployment models</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-vs-community.html">Service Mesh and Istio differences</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/preparing-ossm-installation.html">Preparing to install Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/installing-ossm.html">Installing the Operators</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-create-smcp.html">Creating the ServiceMeshControlPlane</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-create-mesh.html">Adding workloads to a service mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/prepare-to-deploy-applications-ossm.html">Enabling sidecar injection</a></li>
+                  <li><a class=" active" href="../../service_mesh/v2x/upgrading-ossm.html">Upgrading Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-profiles-users.html">Managing users and profiles</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-security.html">Security</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-traffic-manage.html">Traffic management</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-observability.html">Metrics, logs, and traces</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-performance-scalability.html">Performance and scalability</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-deploy-production.html">Deploying to production</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-federation.html">Federation</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-extensions.html">Extensions</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-threescale-webassembly-module.html">3scale WebAssembly for 2.1</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/threescale-adapter.html">3scale Istio adapter for 2.0</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-troubleshooting-istio.html">Troubleshooting Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-smcp.html">Control plane configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-kiali.html">Kiali configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-jaeger.html">Jaeger configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/removing-ossm.html">Uninstalling Service Mesh</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup27"><span id="tgSpan27" class="fa fa-angle-right"></span>Serverless</a>
+      <ul id="topicGroup27" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-27-0"><span id="sgSpan-27-0" class="fa fa-caret-right"></span>&nbsp;About Serverless</a>
+              <ul id="topicSubGroup-27-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../serverless/about/about-serverless.html">Serverless overview</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Upgrading Service Mesh
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#ossm-versioning_ossm-upgrade">Understanding versioning</a>
+<ul class="sectlevel2">
+<li><a href="#how-versioning-affects-service-mesh-upgrades">How versioning affects Service Mesh upgrades</a></li>
+<li><a href="#ossm-versions_ossm-upgrade">Understanding Service Mesh versions</a></li>
+</ul>
+</li>
+<li><a href="#ossm-upgrade-considerations_ossm-upgrade">Upgrade considerations</a>
+<ul class="sectlevel2">
+<li><a href="#ossm-upgrade-known-issues_ossm-upgrade">Known issues that may affect upgrade</a></li>
+</ul>
+</li>
+<li><a href="#ossm-upgrading-operator_ossm-upgrade">Upgrading the Operators</a></li>
+<li><a href="#upgrading-control-plane">Upgrading the control plane</a>
+<ul class="sectlevel2">
+<li><a href="#ossm-upgrade-25-26-changes_ossm-upgrade">Upgrade changes from version 2.5 to version 2.6</a></li>
+<li><a href="#ossm-upgrade-24-25-changes_ossm-upgrade">Upgrade changes from version 2.4 to version 2.5</a></li>
+<li><a href="#ossm-upgrade-23-24-changes_ossm-upgrade">Upgrade changes from version 2.3 to version 2.4</a></li>
+<li><a href="#ossm-upgrade-22-23-changes_ossm-upgrade">Upgrade changes from version 2.2 to version 2.3</a></li>
+<li><a href="#ossm-upgrade-21-22-changes_ossm-upgrade">Upgrade changes from version 2.1 to version 2.2</a></li>
+<li><a href="#ossm-upgrade-20-21-changes_ossm-upgrade">Upgrade changes from version 2.0 to version 2.1</a></li>
+<li><a href="#ossm-upgrading-smcp_ossm-upgrade">Upgrading the Service Mesh control plane</a></li>
+<li><a href="#ossm-migrating-to-20_ossm-upgrade">Migrating Red Hat OpenShift Service Mesh from version 1.1 to version 2.0</a></li>
+</ul>
+</li>
+<li><a href="#upgrading-data-plane">Upgrading the data plane</a>
+<ul class="sectlevel2">
+<li><a href="#ossm-upgrading-apps-workloads_ossm-upgrade">Updating your applications and workloads</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To access the most current features of Red Hat OpenShift Service Mesh, upgrade to the current version, 2.6.7.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ossm-versioning_ossm-upgrade"><a class="anchor" href="#ossm-versioning_ossm-upgrade"></a>Understanding versioning</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Red Hat uses semantic versioning for product releases. Semantic Versioning is a 3-component number in the format of X.Y.Z, where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>X stands for a Major version. Major releases usually denote some sort of breaking change: architectural changes, API changes, schema changes, and similar major updates.</p>
+</li>
+<li>
+<p>Y stands for a Minor version. Minor releases contain new features and functionality while maintaining backwards compatibility.</p>
+</li>
+<li>
+<p>Z stands for a Patch version (also known as a z-stream release). Patch releases are used to addresses Common Vulnerabilities and Exposures (CVEs) and release bug fixes. New features and functionality are generally not released as part of a Patch release.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="how-versioning-affects-service-mesh-upgrades"><a class="anchor" href="#how-versioning-affects-service-mesh-upgrades"></a>How versioning affects Service Mesh upgrades</h3>
+<div class="paragraph">
+<p>Depending on the version of the update you are making, the upgrade process is different.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Patch updates</strong> - Patch upgrades are managed by the Operator Lifecycle Manager (OLM); they happen automatically when you update your Operators.</p>
+</li>
+<li>
+<p><strong>Minor upgrades</strong> - Minor upgrades require both updating to the most recent Red Hat OpenShift Service Mesh Operator version and manually modifying the <code>spec.version</code> value in your <code>ServiceMeshControlPlane</code> resources.</p>
+</li>
+<li>
+<p><strong>Major upgrades</strong> - Major upgrades require both updating to the most recent Red Hat OpenShift Service Mesh Operator version and manually modifying the <code>spec.version</code> value in your <code>ServiceMeshControlPlane</code> resources. Because major upgrades can contain changes that are not backwards compatible, additional manual changes might be required.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-versions_ossm-upgrade"><a class="anchor" href="#ossm-versions_ossm-upgrade"></a>Understanding Service Mesh versions</h3>
+<div class="paragraph">
+<p>In order to understand what version of Red Hat OpenShift Service Mesh you have deployed on your system, you need to understand how each of the component versions is managed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Operator</strong> version - The most current Operator version is 2.6.7. The Operator version number only indicates the version of the currently installed Operator. Because the Red Hat OpenShift Service Mesh Operator supports multiple versions of the Service Mesh control plane, the version of the Operator does not determine the version of your deployed <code>ServiceMeshControlPlane</code> resources.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Upgrading to the latest Operator version automatically applies patch updates, but does not automatically upgrade your Service Mesh control plane to the latest minor version.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><strong>ServiceMeshControlPlane</strong> version - The <code>ServiceMeshControlPlane</code> version determines what version of Red Hat OpenShift Service Mesh you are using. The value of the <code>spec.version</code> field in the <code>ServiceMeshControlPlane</code> resource controls the architecture and configuration settings that are used to install and deploy Red Hat OpenShift Service Mesh. When you create the Service Mesh control plane you can set the version in one of two ways:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To configure in the Form View, select the version from the <strong>Control Plane Version</strong> menu.</p>
+</li>
+<li>
+<p>To configure in the YAML View, set the value for <code>spec.version</code> in the YAML file.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Operator Lifecycle Manager (OLM) does not manage Service Mesh control plane upgrades, so the version number for your Operator and <code>ServiceMeshControlPlane</code> (SMCP) may not match, unless you have manually upgraded your SMCP.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ossm-upgrade-considerations_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-considerations_ossm-upgrade"></a>Upgrade considerations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>maistra.io/</code> label or annotation should not be used on a user-created custom resource, because it indicates that the resource was generated by and should be managed by the Red Hat OpenShift Service Mesh Operator.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>During the upgrade, the Operator makes changes, including deleting or replacing files, to resources that include the following labels or annotations that indicate that the resource is managed by the Operator.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Before upgrading check for user-created custom resources that include the following labels or annotations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>maistra.io/</code> AND the <code>app.kubernetes.io/managed-by</code> label set to <code>maistra-istio-operator</code> (Red Hat OpenShift Service Mesh)</p>
+</li>
+<li>
+<p><code>kiali.io/</code> (Kiali)</p>
+</li>
+<li>
+<p><code>jaegertracing.io/</code> (Red Hat OpenShift distributed tracing platform (Jaeger))</p>
+</li>
+<li>
+<p><code>logging.openshift.io/</code> (Red Hat Elasticsearch)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Before upgrading, check your user-created custom resources for labels or annotations that indicate they are Operator managed. Remove the label or annotation from custom resources that you do not want to be managed by the Operator.</p>
+</div>
+<div class="paragraph">
+<p>When upgrading to version 2.0, the Operator only deletes resources with these labels in the same namespace as the SMCP.</p>
+</div>
+<div class="paragraph">
+<p>When upgrading to version 2.1, the Operator deletes resources with these labels in all namespaces.</p>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrade-known-issues_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-known-issues_ossm-upgrade"></a>Known issues that may affect upgrade</h3>
+<div class="paragraph">
+<p>Known issues that may affect your upgrade include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When upgrading an Operator, custom configurations for Jaeger or Kiali might be reverted. Before upgrading an Operator, note any custom configuration settings for the Jaeger or Kiali objects in the Service Mesh production deployment so that you can recreate them.</p>
+</li>
+<li>
+<p>Red Hat OpenShift Service Mesh does not support the use of <code>EnvoyFilter</code> configuration except where explicitly documented. This is due to tight coupling with the underlying Envoy APIs, meaning that backward compatibility cannot be maintained. If you are using Envoy Filters, and the configuration generated by Istio has changed due to the lastest version of Envoy introduced by upgrading your <code>ServiceMeshControlPlane</code>, that has the potential to break any <code>EnvoyFilter</code> you may have implemented.</p>
+</li>
+<li>
+<p><a href="https://issues.redhat.com/browse/OSSM-1505">OSSM-1505</a> <code>ServiceMeshExtension</code> does not work with OpenShift Dedicated version 4.11. Because <code>ServiceMeshExtension</code> has been deprecated in Red Hat OpenShift Service Mesh 2.2, this known issue will not be fixed and you must migrate your extensions to <code>WasmPluging</code></p>
+</li>
+<li>
+<p><a href="https://issues.redhat.com/browse/OSSM-1396">OSSM-1396</a> If a gateway resource contains the <code>spec.externalIPs</code> setting, rather than being recreated when the <code>ServiceMeshControlPlane</code> is updated, the gateway is removed and never recreated.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://issues.redhat.com/browse/OSSM-1052">OSSM-1052</a> When configuring a Service <code>ExternalIP</code> for the ingressgateway in the Service Mesh control plane, the service is not created. The schema for the SMCP is missing the parameter for the service.</p>
+<div class="paragraph">
+<p>Workaround: Disable the gateway creation in the SMCP spec and manage the gateway deployment entirely manually (including Service, Role and RoleBinding).</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ossm-upgrading-operator_ossm-upgrade"><a class="anchor" href="#ossm-upgrading-operator_ossm-upgrade"></a>Upgrading the Operators</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to keep your Service Mesh patched with the latest security fixes, bug fixes, and software updates, you must keep your Operators updated. You initiate patch updates by upgrading your Operators.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The version of the Operator does <strong>not</strong> determine the version of your service mesh. The version of your deployed Service Mesh control plane determines your version of Service Mesh.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Because the Red Hat OpenShift Service Mesh Operator supports multiple versions of the Service Mesh control plane, updating the Red Hat OpenShift Service Mesh Operator does <em>not</em> update the <code>spec.version</code> value of your deployed <code>ServiceMeshControlPlane</code>. Also note that the <code>spec.version</code> value is a two digit number, for example 2.2, and that patch updates, for example 2.2.1, are not reflected in the SMCP version value.</p>
+</div>
+<div class="paragraph">
+<p>Operator Lifecycle Manager (OLM) controls the installation, upgrade, and role-based access control (RBAC) of Operators in a cluster. The OLM runs by default in OpenShift Dedicated. OLM queries for available Operators as well as upgrades for installed Operators.</p>
+</div>
+<div class="paragraph">
+<p>Whether or not you have to take action to upgrade your Operators depends on the settings you selected when installing them. When you installed each of your Operators, you selected an <strong>Update Channel</strong> and an <strong>Approval Strategy</strong>. The combination of these two settings determine when and how your Operators are updated.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Interaction of Update Channel and Approval Strategy</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Versioned channel</th>
+<th class="tableblock halign-left valign-top">"Stable" or "Preview" Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>Automatic</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Automatically updates the Operator for minor and patch releases for that version only. Will not automatically update to the next major version (that is, from version 2.0 to 3.0). Manual change to Operator subscription required to update to the next major version.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Automatically updates Operator for all major, minor, and patch releases.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>Manual</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Manual updates required for minor and patch releases for the specified version. Manual change to Operator subscription required to update to the next major version.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Manual updates required for all major, minor, and patch releases.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>When you update your Red Hat OpenShift Service Mesh Operator the Operator Lifecycle Manager (OLM) removes the old Operator pod and starts a new pod. Once the new Operator pod starts, the reconciliation process checks the <code>ServiceMeshControlPlane</code> (SMCP), and if there are updated container images available for any of the Service Mesh control plane components, it replaces those Service Mesh control plane pods with ones that use the new container images.</p>
+</div>
+<div class="paragraph">
+<p>When you upgrade the Kiali and Red Hat OpenShift distributed tracing platform (Jaeger) Operators, the OLM reconciliation process scans the cluster and upgrades the managed instances to the version of the new Operator. For example, if you update the Red Hat OpenShift distributed tracing platform (Jaeger) Operator from version 1.30.2 to version 1.34.1, the Operator scans for running instances of distributed tracing platform (Jaeger) and upgrades them to 1.34.1 as well.</p>
+</div>
+<div class="paragraph">
+<p>To stay on a particular patch version of Red Hat OpenShift Service Mesh, you would need to disable automatic updates and remain on that specific version of the Operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="upgrading-control-plane"><a class="anchor" href="#upgrading-control-plane"></a>Upgrading the control plane</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You must manually update the control plane for minor and major releases. The community Istio project recommends canary upgrades, Red Hat OpenShift Service Mesh only supports in-place upgrades. Red Hat OpenShift Service Mesh requires that you upgrade from each minor release to the next minor release in sequence. For example, you must upgrade from version 2.0 to version 2.1, and then upgrade to version 2.2. You cannot update from Red Hat OpenShift Service Mesh 2.0 to 2.2 directly.</p>
+</div>
+<div class="paragraph">
+<p>When you upgrade the service mesh control plane, all Operator managed resources, for example gateways, are also upgraded.</p>
+</div>
+<div class="paragraph">
+<p>Although you can deploy multiple versions of the control plane in the same cluster, Red Hat OpenShift Service Mesh does not support canary upgrades of the service mesh. That is, you can have different SCMP resources with different values for <code>spec.version</code>, but they cannot be managing the same mesh.</p>
+</div>
+<div class="paragraph">
+<p>For more information about migrating your extensions, refer to <a href="../../service_mesh/v2x/ossm-extensions.html#ossm-extensions-migration-overview_ossm-extensions">Migrating from ServiceMeshExtension to WasmPlugin resources</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrade-25-26-changes_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-25-26-changes_ossm-upgrade"></a>Upgrade changes from version 2.5 to version 2.6</h3>
+<div class="sect3">
+<h4 id="red-hat-openshift-distributed-tracing-platform-jaeger-default-setting-change"><a class="anchor" href="#red-hat-openshift-distributed-tracing-platform-jaeger-default-setting-change"></a>Red Hat OpenShift distributed tracing platform (Jaeger) default setting change</h4>
+<div class="paragraph">
+<p>This release disables Red Hat OpenShift distributed tracing platform (Jaeger) by default for new instances of the <code>ServiceMeshControlPlane</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>When updating existing instances of the <code>ServiceMeshControlPlane</code> resource to Red Hat OpenShift Service Mesh version 2.6, distributed tracing platform (Jaeger) remains enabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Red Hat OpenShift Service Mesh 2.6 is the last release that includes support for Red Hat OpenShift distributed tracing platform (Jaeger) and OpenShift Elasticsearch Operator. Both distributed tracing platform (Jaeger) and OpenShift Elasticsearch Operator will be removed in the next release. If you are currently using distributed tracing platform (Jaeger) and OpenShift Elasticsearch Operator, you must migrate to Red Hat OpenShift distributed tracing platform (Tempo) and Red Hat build of OpenTelemetry.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="envoy-sidecar-container-default-setting-change"><a class="anchor" href="#envoy-sidecar-container-default-setting-change"></a>Envoy sidecar container default setting change</h4>
+<div class="paragraph">
+<p>To enhance pod startup times, Istio now includes a <code>startupProbe</code> in sidecar containers by default. The pod&#8217;s readiness probes do not start until the Envoy sidecar has started.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrade-24-25-changes_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-24-25-changes_ossm-upgrade"></a>Upgrade changes from version 2.4 to version 2.5</h3>
+<div class="sect3">
+<h4 id="istio-openshift-routing-ior-default-setting-change"><a class="anchor" href="#istio-openshift-routing-ior-default-setting-change"></a>Istio OpenShift Routing (IOR) default setting change</h4>
+<div class="paragraph">
+<p>The default setting for Istio OpenShift Routing (IOR) has changed. The setting is now disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>You can use IOR by setting the <code>enabled</code> field to <code>true</code> in the <code>spec.gateways.openshiftRoute</code> specification of the <code>ServiceMeshControlPlane</code> resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">maistra.io/v2</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceMeshControlPlane</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">gateways</span><span class="pi">:</span>
+    <span class="na">openshiftRoute</span><span class="pi">:</span>
+      <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="istio-proxy-concurrency-configuration-enhancement"><a class="anchor" href="#istio-proxy-concurrency-configuration-enhancement"></a>Istio proxy concurrency configuration enhancement</h4>
+<div class="paragraph">
+<p>For consistency across deployments, Istio now configures the <code>concurrency</code> parameter based on the CPU limit allocated to the proxy container. For example, a limit of 2500m would set the <code>concurrency</code> parameter to 3. If you set the <code>concurrency</code> parameter to a value, Istio uses that value to configure how many threads the proxy runs instead of using the CPU limit.</p>
+</div>
+<div class="paragraph">
+<p>Previously, the default setting for the parameter was 2.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrade-23-24-changes_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-23-24-changes_ossm-upgrade"></a>Upgrade changes from version 2.3 to version 2.4</h3>
+<div class="paragraph">
+<p>Upgrading the Service Mesh control plane from version 2.3 to 2.4 introduces the following behavioral changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Support for Istio OpenShift Routing (IOR) has been deprecated. IOR functionality is still enabled, but it will be removed in a future release.</p>
+</li>
+<li>
+<p>The following cipher suites are no longer supported, and were removed from the list of ciphers used in client and server side TLS negotiations.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ECDHE-ECDSA-AES128-SHA</p>
+</li>
+<li>
+<p>ECDHE-RSA-AES128-SHA</p>
+</li>
+<li>
+<p>AES128-GCM-SHA256</p>
+</li>
+<li>
+<p>AES128-SHA</p>
+</li>
+<li>
+<p>ECDHE-ECDSA-AES256-SHA</p>
+</li>
+<li>
+<p>ECDHE-RSA-AES256-SHA</p>
+</li>
+<li>
+<p>AES256-GCM-SHA384</p>
+</li>
+<li>
+<p>AES256-SHA</p>
+<div class="paragraph">
+<p>Applications that require access to services that use one of these cipher suites will fail to connect when the proxy initiates a TLS connection.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrade-22-23-changes_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-22-23-changes_ossm-upgrade"></a>Upgrade changes from version 2.2 to version 2.3</h3>
+<div class="paragraph">
+<p>Upgrading the Service Mesh control plane from version 2.2 to 2.3 introduces the following behavioral changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This release requires use of the <code>WasmPlugin</code> API. Support for the <code>ServiceMeshExtension</code> API, which was deprecated in 2.2, has now been removed. If you attempt to upgrade while using the <code>ServiceMeshExtension</code> API, then the upgrade fails.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrade-21-22-changes_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-21-22-changes_ossm-upgrade"></a>Upgrade changes from version 2.1 to version 2.2</h3>
+<div class="paragraph">
+<p>Upgrading the Service Mesh control plane from version 2.1 to 2.2 introduces the following behavioral changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>istio-node</code> DaemonSet is renamed to <code>istio-cni-node</code> to match the name in upstream Istio.</p>
+</li>
+<li>
+<p>Istio 1.10 updated Envoy to send traffic to the application container using <code>eth0</code> rather than <code>lo</code> by default.</p>
+</li>
+<li>
+<p>This release adds support for the <code>WasmPlugin</code> API and deprecates the <code>ServiceMeshExtension</code> API.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrade-20-21-changes_ossm-upgrade"><a class="anchor" href="#ossm-upgrade-20-21-changes_ossm-upgrade"></a>Upgrade changes from version 2.0 to version 2.1</h3>
+<div class="paragraph">
+<p>Upgrading the Service Mesh control plane from version 2.0 to 2.1 introduces the following architectural and behavioral changes.</p>
+</div>
+<div class="paragraph">
+<div class="title">Architecture changes</div>
+<p>Mixer has been completely removed in Red Hat OpenShift Service Mesh 2.1. Upgrading from a Red Hat OpenShift Service Mesh 2.0.x release to 2.1 will be blocked if Mixer is enabled.</p>
+</div>
+<div class="paragraph">
+<p>If you see the following message when upgrading from v2.0 to v2.1, update the existing <code>Mixer</code> type to <code>Istiod</code> type in the existing Control Plane spec before you update the <code>.spec.version</code> field:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="text">An error occurred
+admission webhook smcp.validation.maistra.io denied the request: [support for policy.type "Mixer" and policy.Mixer options have been removed in v2.1, please use another alternative, support for telemetry.type "Mixer" and telemetry.Mixer options have been removed in v2.1, please use another alternative]”</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">maistra.io/v2</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceMeshControlPlane</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">policy</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">Istiod</span>
+  <span class="na">telemetry</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">Istiod</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">v2.6</span></code></pre>
+</div>
+</div>
+<div id="ossm-upgrading-differences-behavior_ossm-upgrade" class="ulist">
+<div class="title">Behavioral changes</div>
+<ul>
+<li>
+<p><code>AuthorizationPolicy</code> updates:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>With the PROXY protocol, if you are using <code>ipBlocks</code> and <code>notIpBlocks</code> to specify remote IP addresses, update the configuration to use <code>remoteIpBlocks</code> and <code>notRemoteIpBlocks</code> instead.</p>
+</li>
+<li>
+<p>Added support for nested JSON Web Token (JWT) claims.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>EnvoyFilter</code> breaking changes&gt;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Must use <code>typed_config</code></p>
+</li>
+<li>
+<p>xDS v2 is no longer supported</p>
+</li>
+<li>
+<p>Deprecated filter names</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Older versions of proxies may report 503 status codes when receiving 1xx or 204 status codes from newer proxies.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrading-smcp_ossm-upgrade"><a class="anchor" href="#ossm-upgrading-smcp_ossm-upgrade"></a>Upgrading the Service Mesh control plane</h3>
+<div class="paragraph">
+<p>To upgrade Red Hat OpenShift Service Mesh, you must update the version field of the Red Hat OpenShift Service Mesh <code>ServiceMeshControlPlane</code> v2 resource. Then, once it is configured and applied, restart the application pods to update each sidecar proxy and its configuration.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You are running OpenShift Dedicated 4.9 or later.</p>
+</li>
+<li>
+<p>You have the latest Red Hat OpenShift Service Mesh Operator.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Switch to the project that contains your <code>ServiceMeshControlPlane</code> resource. In this example, <code>istio-system</code> is the name of the Service Mesh control plane project.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc project istio-system</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check your v2 <code>ServiceMeshControlPlane</code> resource configuration to verify it is valid.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Run the following command to view your <code>ServiceMeshControlPlane</code> resource as a v2 resource.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get smcp <span class="nt">-o</span> yaml</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Back up your Service Mesh control plane configuration.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Update the <code>.spec.version</code> field and apply the configuration.</p>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">maistra.io/v2</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceMeshControlPlane</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">basic</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">v2.6</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, instead of using the command line, you can use the web console to edit the Service Mesh control plane. In the OpenShift Dedicated web console, click <strong>Project</strong> and select the project name you just entered.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>Operators</strong> &#8594; <strong>Installed Operators</strong>.</p>
+</li>
+<li>
+<p>Find your <code>ServiceMeshControlPlane</code> instance.</p>
+</li>
+<li>
+<p>Select <strong>YAML view</strong> and update text of the YAML file, as shown in the previous example.</p>
+</li>
+<li>
+<p>Click <strong>Save</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ossm-migrating-to-20_ossm-upgrade"><a class="anchor" href="#ossm-migrating-to-20_ossm-upgrade"></a>Migrating Red Hat OpenShift Service Mesh from version 1.1 to version 2.0</h3>
+<div class="paragraph">
+<p>Upgrading from version 1.1 to 2.0 requires manual steps that migrate your workloads and application to a new instance of Red Hat OpenShift Service Mesh running the new version.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must upgrade to OpenShift Dedicated 4.7. before you upgrade to Red Hat OpenShift Service Mesh 2.0.</p>
+</li>
+<li>
+<p>You must have Red Hat OpenShift Service Mesh version 2.0 operator. If you selected the <strong>automatic</strong> upgrade path, the operator automatically downloads the latest information. However, there are steps you must take to use the features in Red Hat OpenShift Service Mesh version 2.0.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="ossm-migrating_ossm-upgrade"><a class="anchor" href="#ossm-migrating_ossm-upgrade"></a>Upgrading Red Hat OpenShift Service Mesh</h4>
+<div class="paragraph">
+<p>To upgrade Red Hat OpenShift Service Mesh, you must create an instance of Red Hat OpenShift Service Mesh <code>ServiceMeshControlPlane</code> v2 resource in a new namespace. Then, once it is configured, move your microservice applications and workloads from your old mesh to the new service mesh.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Check your v1 <code>ServiceMeshControlPlane</code> resource configuration to make sure it is valid.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Run the following command to view your <code>ServiceMeshControlPlane</code> resource as a v2 resource.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get smcp <span class="nt">-o</span> yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the <code>spec.techPreview.errored.message</code> field in the output for information about any invalid fields.</p>
+</li>
+<li>
+<p>If there are invalid fields in your v1 resource, the resource is not reconciled and cannot be edited as a v2 resource. All updates to v2 fields will be overridden by the original v1 settings. To fix the invalid fields, you can replace, patch, or edit the v1 version of the resource. You can also delete the resource without fixing it. After the resource has been fixed, it can be reconciled, and you can to modify or view the v2 version of the resource.</p>
+</li>
+<li>
+<p>To fix the resource by editing a file, use <code>oc get</code> to retrieve the resource, edit the text file locally, and replace the resource with the file you edited.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get smcp.v1.maistra.io &lt;smcp_name&gt; <span class="o">&gt;</span> smcp-resource.yaml
+<span class="gp">#</span>Edit the smcp-resource.yaml file.
+<span class="gp">$</span><span class="w"> </span>oc replace <span class="nt">-f</span> smcp-resource.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To fix the resource using patching, use <code>oc patch</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc patch smcp.v1.maistra.io &lt;smcp_name&gt; <span class="nt">--type</span> json <span class="nt">--patch</span> <span class="s1">'[{"op": "replace","path":"/spec/path/to/bad/setting","value":"corrected-value"}]'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To fix the resource by editing with command-line tools, use <code>oc edit</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc edit smcp.v1.maistra.io &lt;smcp_name&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Back up your Service Mesh control plane configuration. Switch to the project that contains your <code>ServiceMeshControlPlane</code> resource.  In this example, <code>istio-system</code> is the name of the Service Mesh control plane project.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc project istio-system</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enter the following command to retrieve the current configuration. Your &lt;smcp_name&gt; is specified in the metadata of your <code>ServiceMeshControlPlane</code> resource, for example <code>basic-install</code> or <code>full-install</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get servicemeshcontrolplanes.v1.maistra.io &lt;smcp_name&gt; <span class="nt">-o</span> yaml <span class="o">&gt;</span> &lt;smcp_name&gt;.v1.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Convert your <code>ServiceMeshControlPlane</code> to a v2 control plane version that contains information about your configuration as a starting point.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get smcp &lt;smcp_name&gt; <span class="nt">-o</span> yaml <span class="o">&gt;</span> &lt;smcp_name&gt;.v2.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a project. In the OpenShift Dedicated console Project menu, click <code>New Project</code> and enter a name for your project, <code>istio-system-upgrade</code>, for example. Or, you can run this command from the CLI.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc new-project istio-system-upgrade</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update the <code>metadata.namespace</code> field in your v2 <code>ServiceMeshControlPlane</code> with your new project name. In this example, use <code>istio-system-upgrade</code>.</p>
+</li>
+<li>
+<p>Update the <code>version</code> field from 1.1 to 2.0 or remove it in your v2 <code>ServiceMeshControlPlane</code>.</p>
+</li>
+<li>
+<p>Create a <code>ServiceMeshControlPlane</code> in the new namespace. On the command line, run the following command to deploy the control plane with the v2 version of the <code>ServiceMeshControlPlane</code> that you retrieved. In this example, replace `&lt;smcp_name.v2&gt; `with the path to your file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc create <span class="nt">-n</span> istio-system-upgrade <span class="nt">-f</span> &lt;smcp_name&gt;.v2.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can use the console to create the Service Mesh control plane. In the OpenShift Dedicated web console, click <strong>Project</strong>. Then, select the project name you just entered.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>Operators</strong> &#8594; <strong>Installed Operators</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Create ServiceMeshControlPlane</strong>.</p>
+</li>
+<li>
+<p>Select <strong>YAML view</strong> and paste text of the YAML file you retrieved into the field. Check that the <code>apiVersion</code> field is set to <code>maistra.io/v2</code> and modify the <code>metadata.namespace</code> field to use the new namespace, for example <code>istio-system-upgrade</code>.</p>
+</li>
+<li>
+<p>Click <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ossm-migrating-smcp_ossm-upgrade"><a class="anchor" href="#ossm-migrating-smcp_ossm-upgrade"></a>Configuring the 2.0 ServiceMeshControlPlane</h4>
+<div class="paragraph">
+<p>The <code>ServiceMeshControlPlane</code> resource has been changed for Red Hat OpenShift Service Mesh version 2.0. After you created a v2 version of the <code>ServiceMeshControlPlane</code> resource, modify it to take advantage of the new features and to fit your deployment. Consider the following changes to the specification and behavior of Red Hat OpenShift Service Mesh 2.0 as you are modifying your <code>ServiceMeshControlPlane</code> resource. You can also refer to the Red Hat OpenShift Service Mesh 2.0 product documentation for new information to features you use. The v2 resource must be used for Red Hat OpenShift Service Mesh 2.0 installations.</p>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-differences-arch_ossm-upgrade"><a class="anchor" href="#ossm-migrating-differences-arch_ossm-upgrade"></a>Architecture changes</h5>
+<div class="paragraph">
+<p>The architectural units used by previous versions have been replaced by Istiod. In 2.0 the Service Mesh control plane components Mixer, Pilot, Citadel, Galley, and the sidecar injector functionality have been combined into a single component, Istiod.</p>
+</div>
+<div class="paragraph">
+<p>Although Mixer is no longer supported as a control plane component, Mixer policy and telemetry plugins are now supported through WASM extensions in Istiod. Mixer can be enabled for policy and telemetry if you need to integrate legacy Mixer plugins.</p>
+</div>
+<div class="paragraph">
+<p>Secret Discovery Service (SDS) is used to distribute certificates and keys to sidecars directly from Istiod. In Red Hat OpenShift Service Mesh version 1.1, secrets were generated by Citadel, which were used by the proxies to retrieve their client certificates and keys.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-differences-annotation_ossm-upgrade"><a class="anchor" href="#ossm-migrating-differences-annotation_ossm-upgrade"></a>Annotation changes</h5>
+<div class="paragraph">
+<p>The following annotations are no longer supported in v2.0. If you are using one of these annotations, you must update your workload before moving it to a v2.0 Service Mesh control plane.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sidecar.maistra.io/proxyCPULimit</code> has been replaced with <code>sidecar.istio.io/proxyCPULimit</code>. If you were using <code>sidecar.maistra.io</code> annotations on your workloads, you must modify those workloads to use <code>sidecar.istio.io</code> equivalents instead.</p>
+</li>
+<li>
+<p><code>sidecar.maistra.io/proxyMemoryLimit</code> has been replaced with <code>sidecar.istio.io/proxyMemoryLimit</code></p>
+</li>
+<li>
+<p><code>sidecar.istio.io/discoveryAddress</code> is no longer supported. Also, the default discovery address has moved from <code>pilot.&lt;control_plane_namespace&gt;.svc:15010</code> (or port 15011, if mtls is enabled) to <code>istiod-&lt;smcp_name&gt;.&lt;control_plane_namespace&gt;.svc:15012</code>.</p>
+</li>
+<li>
+<p>The health status port is no longer configurable and is hard-coded to 15021.  * If you were defining a custom status port, for example, <code>status.sidecar.istio.io/port</code>, you must remove the override before moving the workload to a v2.0 Service Mesh control plane. Readiness checks can still be disabled by setting the status port to <code>0</code>.</p>
+</li>
+<li>
+<p>Kubernetes Secret resources are no longer used to distribute client certificates for sidecars. Certificates are now distributed through Istiod&#8217;s SDS service. If you were relying on mounted secrets, they are longer available for workloads in v2.0 Service Mesh control planes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-differences-behavior_ossm-upgrade"><a class="anchor" href="#ossm-migrating-differences-behavior_ossm-upgrade"></a>Behavioral changes</h5>
+<div class="paragraph">
+<p>Some features in Red Hat OpenShift Service Mesh 2.0 work differently than they did in previous versions.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The readiness port on gateways has moved from <code>15020</code> to <code>15021</code>.</p>
+</li>
+<li>
+<p>The target host visibility includes VirtualService, as well as ServiceEntry resources. It includes any restrictions applied through Sidecar resources.</p>
+</li>
+<li>
+<p>Automatic mutual TLS is enabled by default. Proxy to proxy communication is automatically configured to use mTLS, regardless of global PeerAuthentication policies in place.</p>
+</li>
+<li>
+<p>Secure connections are always used when proxies communicate with the Service Mesh control plane regardless of <code>spec.security.controlPlane.mtls</code> setting. The <code>spec.security.controlPlane.mtls</code> setting is only used when configuring connections for Mixer telemetry or policy.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-unsupported-resources_ossm-upgrade"><a class="anchor" href="#ossm-migrating-unsupported-resources_ossm-upgrade"></a>Migration details for unsupported resources</h5>
+<div class="paragraph">
+<div class="title">Policy (authentication.istio.io/v1alpha1)</div>
+<p>Policy resources must be migrated to new resource types for use with v2.0 Service Mesh control planes, PeerAuthentication and RequestAuthentication. Depending on the specific configuration in your Policy resource, you may have to configure multiple resources to achieve the same effect.</p>
+</div>
+<div class="paragraph">
+<div class="title">Mutual TLS</div>
+<p>Mutual TLS enforcement is accomplished using the <code>security.istio.io/v1beta1</code> PeerAuthentication resource. The legacy <code>spec.peers.mtls.mode</code> field maps directly to the new resource&#8217;s <code>spec.mtls.mode</code> field. Selection criteria has changed from specifying a service name in <code>spec.targets[x].name</code> to a label selector in <code>spec.selector.matchLabels</code>. In PeerAuthentication, the labels must match the selector on the services named in the targets list. Any port-specific settings will need to be mapped into <code>spec.portLevelMtls</code>.</p>
+</div>
+<div class="paragraph">
+<div class="title">Authentication</div>
+<p>Additional authentication methods specified in <code>spec.origins</code>, must be mapped into a <code>security.istio.io/v1beta1</code> RequestAuthentication resource.  <code>spec.selector.matchLabels</code> must be configured similarly to the same field on PeerAuthentication. Configuration specific to JWT principals from <code>spec.origins.jwt</code> items map to similar fields in <code>spec.rules</code> items.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>spec.origins[x].jwt.triggerRules</code> specified in the Policy must be mapped into one or more <code>security.istio.io/v1beta1</code> AuthorizationPolicy resources. Any <code>spec.selector.labels</code> must be configured similarly to the same field on RequestAuthentication.</p>
+</li>
+<li>
+<p><code>spec.origins[x].jwt.triggerRules.excludedPaths</code> must be mapped into an AuthorizationPolicy whose spec.action is set to ALLOW, with <code>spec.rules[x].to.operation.path</code> entries matching the excluded paths.</p>
+</li>
+<li>
+<p><code>spec.origins[x].jwt.triggerRules.includedPaths</code> must be mapped into a separate AuthorizationPolicy whose <code>spec.action</code> is set to <code>ALLOW</code>, with <code>spec.rules[x].to.operation.path</code> entries matching the included paths, and <code>spec.rules.[x].from.source.requestPrincipals</code> entries that align with the <code>specified spec.origins[x].jwt.issuer</code> in the Policy resource.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">ServiceMeshPolicy (maistra.io/v1)</div>
+<p>ServiceMeshPolicy was configured automatically for the Service Mesh control plane through the <code>spec.istio.global.mtls.enabled</code> in the v1 resource or <code>spec.security.dataPlane.mtls</code> in the v2 resource setting. For v2 control planes, a functionally equivalent PeerAuthentication resource is created during installation. This feature is deprecated in Red Hat OpenShift Service Mesh version 2.0</p>
+</div>
+<div class="paragraph">
+<div class="title">RbacConfig, ServiceRole, ServiceRoleBinding (rbac.istio.io/v1alpha1)</div>
+<p>These resources were replaced by the <code>security.istio.io/v1beta1</code> AuthorizationPolicy resource.</p>
+</div>
+<div class="paragraph">
+<p>Mimicking RbacConfig behavior requires writing a default AuthorizationPolicy whose settings depend on the spec.mode specified in the RbacConfig.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When <code>spec.mode</code> is set to <code>OFF</code>, no resource is required as the default policy is ALLOW, unless an AuthorizationPolicy applies to the request.</p>
+</li>
+<li>
+<p>When <code>spec.mode</code> is set to ON, set <code>spec: {}</code>.  You must create AuthorizationPolicy policies for all services in the mesh.</p>
+</li>
+<li>
+<p><code>spec.mode</code> is set to <code>ON_WITH_INCLUSION</code>, must create an AuthorizationPolicy with <code>spec: {}</code> in each included namespace. Inclusion of individual services is not supported by AuthorizationPolicy. However, as soon as any AuthorizationPolicy is created that applies to the workloads for the service, all other requests not explicitly allowed will be denied.</p>
+</li>
+<li>
+<p>When <code>spec.mode</code> is set to <code>ON_WITH_EXCLUSION</code>, it is not supported by AuthorizationPolicy. A global DENY policy can be created, but an AuthorizationPolicy must be created for every workload in the mesh because there is no allow-all policy that can be applied to either a namespace or a workload.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>AuthorizationPolicy includes configuration for both the selector to which the configuration applies, which is similar to the function ServiceRoleBinding provides and the rules which should be applied, which is similar to the function ServiceRole provides.</p>
+</div>
+<div class="paragraph">
+<div class="title">ServiceMeshRbacConfig (maistra.io/v1)</div>
+<p>This resource is replaced by using a <code>security.istio.io/v1beta1</code> AuthorizationPolicy resource with an empty spec.selector in the Service Mesh control plane&#8217;s namespace.  This policy will be the default authorization policy applied to all workloads in the mesh.  For specific migration details, see RbacConfig above.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-mixer_ossm-upgrade"><a class="anchor" href="#ossm-migrating-mixer_ossm-upgrade"></a>Mixer plugins</h5>
+<div class="paragraph">
+<p>Mixer components are disabled by default in version 2.0. If you rely on Mixer plugins for your workload, you must configure your version 2.0 <code>ServiceMeshControlPlane</code> to include the Mixer components.</p>
+</div>
+<div class="paragraph">
+<p>To enable the Mixer policy components, add the following snippet to your <code>ServiceMeshControlPlane</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">policy</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">Mixer</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To enable the Mixer telemetry components, add the following snippet to your <code>ServiceMeshControlPlane</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">telemetry</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">Mixer</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Legacy mixer plugins can also be migrated to WASM and integrated using the new ServiceMeshExtension (maistra.io/v1alpha1) custom resource.</p>
+</div>
+<div class="paragraph">
+<p>Built-in WASM filters included in the upstream Istio distribution are not available in Red Hat OpenShift Service Mesh 2.0.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-mtls_ossm-upgrade"><a class="anchor" href="#ossm-migrating-mtls_ossm-upgrade"></a>Mutual TLS changes</h5>
+<div class="paragraph">
+<p>When using mTLS with workload specific PeerAuthentication policies, a corresponding DestinationRule is required to allow traffic if the workload policy differs from the namespace/global policy.</p>
+</div>
+<div class="paragraph">
+<p>Auto mTLS is enabled by default, but can be disabled by setting <code>spec.security.dataPlane.automtls</code> to false in the <code>ServiceMeshControlPlane</code> resource. When disabling auto mTLS, DestinationRules may be required for proper communication between services. For example, setting PeerAuthentication to <code>STRICT</code> for one namespace may prevent services in other namespaces from accessing them, unless a DestinationRule configures TLS mode for the services in the namespace.</p>
+</div>
+<div class="paragraph">
+<p>For information about mTLS, see <a href="../../service_mesh/v2x/ossm-security.html#ossm-security-mtls_ossm-security">Enabling mutual Transport Layer Security (mTLS)</a></p>
+</div>
+<div class="sect5">
+<h6 id="other-mtls-examples"><a class="anchor" href="#other-mtls-examples"></a>Other mTLS Examples</h6>
+<div class="paragraph">
+<p>To disable mTLS For productpage service in the bookinfo sample application, your Policy resource was configured the following way for Red Hat OpenShift Service Mesh v1.1.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Policy resource</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">authentication.istio.io/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Policy</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">productpage-mTLS-disable</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">targets</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">productpage</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To disable mTLS For productpage service in the bookinfo sample application, use the following example to configure your PeerAuthentication resource for Red Hat OpenShift Service Mesh v2.0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example PeerAuthentication resource</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">security.istio.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PeerAuthentication</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">productpage-mTLS-disable</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">mtls</span><span class="pi">:</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">DISABLE</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="c1"># this should match the selector for the "productpage" service</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">productpage</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To enable mTLS With JWT authentication for the <code>productpage</code> service in the bookinfo sample application, your Policy resource was configured the following way for Red Hat OpenShift Service Mesh v1.1.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Policy resource</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">authentication.istio.io/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Policy</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">productpage-mTLS-with-JWT</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">targets</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">productpage</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">number</span><span class="pi">:</span> <span class="m">9000</span>
+  <span class="na">peers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">mtls</span><span class="pi">:</span>
+  <span class="na">origins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">jwt</span><span class="pi">:</span>
+      <span class="na">issuer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://securetoken.google.com"</span>
+      <span class="na">audiences</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">productpage"</span>
+      <span class="na">jwksUri</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://www.googleapis.com/oauth2/v1/certs"</span>
+      <span class="na">jwtHeaders</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">x-goog-iap-jwt-assertion"</span>
+      <span class="na">triggerRules</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">excludedPaths</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">exact</span><span class="pi">:</span> <span class="s">/health_check</span>
+  <span class="na">principalBinding</span><span class="pi">:</span> <span class="s">USE_ORIGIN</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To enable mTLS With JWT authentication for the productpage service in the bookinfo sample application, use the following example to configure your PeerAuthentication resource for Red Hat OpenShift Service Mesh v2.0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example PeerAuthentication resource</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="c1">#require mtls for productpage:9000</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">security.istio.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PeerAuthentication</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">productpage-mTLS-with-JWT</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="c1"># this should match the selector for the "productpage" service</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">productpage</span>
+  <span class="na">portLevelMtls</span><span class="pi">:</span>
+    <span class="na">9000</span><span class="pi">:</span>
+      <span class="na">mode</span><span class="pi">:</span> <span class="s">STRICT</span>
+<span class="nn">---</span>
+<span class="c1">#JWT authentication for productpage</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">security.istio.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">RequestAuthentication</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">productpage-mTLS-with-JWT</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="c1"># this should match the selector for the "productpage" service</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">productpage</span>
+  <span class="na">jwtRules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">issuer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://securetoken.google.com"</span>
+    <span class="na">audiences</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">productpage"</span>
+    <span class="na">jwksUri</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://www.googleapis.com/oauth2/v1/certs"</span>
+    <span class="na">fromHeaders</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">x-goog-iap-jwt-assertion"</span>
+<span class="nn">---</span>
+<span class="c1">#Require JWT token to access product page service from</span>
+<span class="c1">#any client to all paths except /health_check</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">security.istio.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">AuthorizationPolicy</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">productpage-mTLS-with-JWT</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;namespace&gt;</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">action</span><span class="pi">:</span> <span class="s">ALLOW</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="c1"># this should match the selector for the "productpage" service</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">productpage</span>
+  <span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">to</span><span class="pi">:</span> <span class="c1"># require JWT token to access all other paths</span>
+      <span class="pi">-</span> <span class="na">operation</span><span class="pi">:</span>
+          <span class="na">notPaths</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">/health_check</span>
+    <span class="na">from</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">source</span><span class="pi">:</span>
+          <span class="c1"># if using principalBinding: USE_PEER in the Policy,</span>
+          <span class="c1"># then use principals, e.g.</span>
+          <span class="c1"># principals:</span>
+          <span class="c1"># - “*”</span>
+          <span class="na">requestPrincipals</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">“*”</span>
+  <span class="pi">-</span> <span class="na">to</span><span class="pi">:</span> <span class="c1"># no JWT token required to access health_check</span>
+      <span class="pi">-</span> <span class="na">operation</span><span class="pi">:</span>
+          <span class="na">paths</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">/health_check</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ossm-migrating-config-recipes_ossm-upgrade"><a class="anchor" href="#ossm-migrating-config-recipes_ossm-upgrade"></a>Configuration recipes</h4>
+<div class="paragraph">
+<p>You can configure the following items with these configuration recipes.</p>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-config-mtls_ossm-upgrade"><a class="anchor" href="#ossm-migrating-config-mtls_ossm-upgrade"></a>Mutual TLS in a data plane</h5>
+<div class="paragraph">
+<p>Mutual TLS for data plane communication is configured through <code>spec.security.dataPlane.mtls</code> in the <code>ServiceMeshControlPlane</code> resource, which is <code>false</code> by default.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-config-sign-key_ossm-upgrade"><a class="anchor" href="#ossm-migrating-config-sign-key_ossm-upgrade"></a>Custom signing key</h5>
+<div class="paragraph">
+<p>Istiod manages client certificates and private keys used by service proxies. By default, Istiod uses a self-signed certificate for signing, but you can configure a custom certificate and private key. For more information about how to configure signing keys, see <a href="../../service_mesh/v2x/ossm-security.html#ossm-cert-manage_ossm-security">Adding an external certificate authority key and certificate</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-config-tracing_ossm-upgrade"><a class="anchor" href="#ossm-migrating-config-tracing_ossm-upgrade"></a>Tracing</h5>
+<div class="paragraph">
+<p>Tracing is configured in <code>spec.tracing</code>. Currently, the only type of tracer that is supported is <code>Jaeger</code>. Sampling is a scaled integer representing 0.01% increments, for example, 1 is 0.01% and 10000 is 100%. The tracing implementation and sampling rate can be specified:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">tracing</span><span class="pi">:</span>
+    <span class="na">sampling</span><span class="pi">:</span> <span class="m">100</span> <span class="c1"># 1%</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">Jaeger</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jaeger is configured in the <code>addons</code> section of the <code>ServiceMeshControlPlane</code> resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">addons</span><span class="pi">:</span>
+    <span class="na">jaeger</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">jaeger</span>
+      <span class="na">install</span><span class="pi">:</span>
+        <span class="na">storage</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">Memory</span> <span class="c1"># or Elasticsearch for production mode</span>
+          <span class="na">memory</span><span class="pi">:</span>
+            <span class="na">maxTraces</span><span class="pi">:</span> <span class="m">100000</span>
+          <span class="na">elasticsearch</span><span class="pi">:</span> <span class="c1"># the following values only apply if storage:type:=Elasticsearch</span>
+            <span class="na">storage</span><span class="pi">:</span> <span class="c1"># specific storageclass configuration for the Jaeger Elasticsearch (optional)</span>
+              <span class="na">size</span><span class="pi">:</span> <span class="s2">"</span><span class="s">100G"</span>
+              <span class="na">storageClassName</span><span class="pi">:</span> <span class="s2">"</span><span class="s">storageclass"</span>
+            <span class="na">nodeCount</span><span class="pi">:</span> <span class="m">3</span>
+            <span class="na">redundancyPolicy</span><span class="pi">:</span> <span class="s">SingleRedundancy</span>
+  <span class="na">runtime</span><span class="pi">:</span>
+    <span class="na">components</span><span class="pi">:</span>
+      <span class="s">tracing.jaeger</span><span class="pi">:</span> <span class="pi">{}</span> <span class="c1"># general Jaeger specific runtime configuration (optional)</span>
+      <span class="s">tracing.jaeger.elasticsearch</span><span class="pi">:</span> <span class="c1">#runtime configuration for Jaeger Elasticsearch deployment (optional)</span>
+        <span class="na">container</span><span class="pi">:</span>
+          <span class="na">resources</span><span class="pi">:</span>
+            <span class="na">requests</span><span class="pi">:</span>
+              <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1Gi"</span>
+              <span class="na">cpu</span><span class="pi">:</span> <span class="s2">"</span><span class="s">500m"</span>
+            <span class="na">limits</span><span class="pi">:</span>
+              <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1Gi"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Jaeger installation can be customized with the <code>install</code> field. Container configuration, such as resource limits is configured in <code>spec.runtime.components.jaeger</code> related fields. If a Jaeger resource matching the value of <code>spec.addons.jaeger.name</code> exists, the Service Mesh control plane will be configured to use the existing installation. Use an existing Jaeger resource to fully customize your Jaeger installation.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ossm-migrating-config-vis_ossm-upgrade"><a class="anchor" href="#ossm-migrating-config-vis_ossm-upgrade"></a>Visualization</h5>
+<div class="paragraph">
+<p>Kiali and Grafana are configured under the <code>addons</code> section of the <code>ServiceMeshControlPlane</code> resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">addons</span><span class="pi">:</span>
+    <span class="na">grafana</span><span class="pi">:</span>
+      <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">install</span><span class="pi">:</span> <span class="pi">{}</span> <span class="c1"># customize install</span>
+    <span class="na">kiali</span><span class="pi">:</span>
+      <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">kiali</span>
+      <span class="na">install</span><span class="pi">:</span> <span class="pi">{}</span> <span class="c1"># customize install</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Grafana and Kiali installations can be customized through their respective <code>install</code> fields. Container customization, such as resource limits, is configured in <code>spec.runtime.components.kiali</code> and <code>spec.runtime.components.grafana</code>. If an existing Kiali resource matching the value of name exists, the Service Mesh control plane configures the Kiali resource for use with the control plane. Some fields in the Kiali resource are overridden, such as the <code>accessible_namespaces</code> list, as well as the endpoints for Grafana, Prometheus, and tracing. Use an existing resource to fully customize your Kiali installation.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="resource-utilization-and-scheduling"><a class="anchor" href="#resource-utilization-and-scheduling"></a>Resource utilization and scheduling</h5>
+<div class="paragraph">
+<p>Resources are configured under <code>spec.runtime.&lt;component&gt;</code>. The following component names are supported.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Versions supported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Citadel container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">galley</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Galley container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pilot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pilot/Istiod container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mixer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">istio-telemetry and istio-policy containers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mixer.policy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">istio-policy container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mixer.telemetry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">istio-telemetry container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>global.oauthproxy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">oauth-proxy container used with various addons</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sidecarInjectorWebhook</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sidecar injector webhook container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tracing.jaeger</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">general Jaeger container - not all settings may be applied. Complete customization of Jaeger installation is supported by specifying an existing Jaeger resource in the Service Mesh control plane configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tracing.jaeger.agent</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">settings specific to Jaeger agent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tracing.jaeger.allInOne</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">settings specific to Jaeger allInOne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tracing.jaeger.collector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">settings specific to Jaeger collector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tracing.jaeger.elasticsearch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">settings specific to Jaeger elasticsearch deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tracing.jaeger.query</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">settings specific to Jaeger query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prometheus container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kiali</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kiali container - complete customization of Kiali installation is supported by specifying an existing Kiali resource in the Service Mesh control plane configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grafana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grafana container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3scale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3scale container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0/1.1/2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wasmExtensions.cacher</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WASM extensions cacher container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v2.0 - tech preview</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Some components support resource limiting and scheduling. For more information, see <a href="../../service_mesh/v2x/ossm-performance-scalability.html#ossm-performance-scalability">Performance and scalability</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ossm-migrrating-apps_ossm-upgrade"><a class="anchor" href="#ossm-migrrating-apps_ossm-upgrade"></a>Next steps for migrating your applications and workloads</h4>
+<div class="paragraph">
+<p>Move the application workload to the new mesh and remove the old instances to complete your upgrade.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="upgrading-data-plane"><a class="anchor" href="#upgrading-data-plane"></a>Upgrading the data plane</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Your data plane will still function after you have upgraded the control plane. But in order to apply updates to the Envoy proxy and any changes to the proxy configuration, you must restart your application pods and workloads.</p>
+</div>
+<div class="sect2">
+<h3 id="ossm-upgrading-apps-workloads_ossm-upgrade"><a class="anchor" href="#ossm-upgrading-apps-workloads_ossm-upgrade"></a>Updating your applications and workloads</h3>
+<div class="paragraph">
+<p>To complete the migration, restart all of the application pods in the mesh to upgrade the Envoy sidecar proxies and their configuration.</p>
+</div>
+<div class="paragraph">
+<p>To perform a rolling update of a deployment use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc rollout restart &lt;deployment&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You must perform a rolling update for all applications that make up the mesh.</p>
+</div>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-dedicated';
+  var version = '';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

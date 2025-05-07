@@ -1,0 +1,2386 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Triggering and modifying builds - Builds using BuildConfig | CI/CD | OpenShift Dedicated </title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <span>
+          <div class="alert alert-info" role="primary" id="support-info">
+            <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+            </strong>
+          </div>
+        </span>
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+          <a href="../../welcome/index.html">OpenShift Dedicated </a>
+        
+      </li>
+      <li class="hidden-xs active">
+        CI/CD
+      </li>
+      <li class="hidden-xs active"><a href="../../cicd/builds/understanding-image-builds.html">Builds using BuildConfig</a></li>
+      
+      <li class="hidden-xs active">
+        Triggering and modifying builds
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/dedicated-4/cicd/builds/triggering-builds-build-hooks.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=[dedicated-4]+Issue+in+file+cicd/builds/triggering-builds-build-hooks.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../../welcome/index.html">Welcome</a></li>
+            <li><a class="" href="../../welcome/legal-notice.html">Legal notice</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>What's new</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_whats_new/osd-whats-new.html">What's new with OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-right"></span>Introduction to OpenShift Dedicated</a>
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_architecture/osd-understanding.html">Understanding OpenShift Dedicated</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-2-1"><span id="sgSpan-2-1" class="fa fa-caret-right"></span>&nbsp;Policies and service definition</a>
+              <ul id="topicSubGroup-2-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-service-definition.html">OpenShift Dedicated service definition</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-responsibility-matrix.html">Responsibility assignment matrix</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-process-security.html">Understanding process and security for OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-sre-access.html">SRE and service account access</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-understand-availability.html">About availability for OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-life-cycle.html">Update life cycle</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Architecture</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../../architecture/index.html">Architecture overview</a></li>
+            <li><a class="" href="../../architecture/architecture.html">Product architecture</a></li>
+            <li><a class="" href="../../architecture/osd-architecture-models-gcp.html">Architecture models</a></li>
+            <li><a class="" href="../../architecture/control-plane.html">Control plane architecture</a></li>
+            <li><a class="" href="../../architecture/nvidia-gpu-architecture-overview.html">NVIDIA GPU architecture overview</a></li>
+            <li><a class="" href="../../architecture/understanding-development.html">Understanding OpenShift development</a></li>
+            <li><a class="" href="../../architecture/admission-plug-ins.html">Admission plugins</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup4"><span id="tgSpan4" class="fa fa-angle-right"></span>Red Hat OpenShift Cluster Manager</a>
+      <ul id="topicGroup4" class="collapse  list-unstyled">
+            <li><a class="" href="../../ocm/ocm-overview.html">Red Hat OpenShift Cluster Manager</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup5"><span id="tgSpan5" class="fa fa-angle-right"></span>Planning your environment</a>
+      <ul id="topicGroup5" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_planning/osd-limits-scalability.html">Limits and scalability</a></li>
+            <li><a class="" href="../../osd_planning/gcp-ccs.html">Customer Cloud Subscriptions on GCP</a></li>
+            <li><a class="" href="../../osd_planning/aws-ccs.html">Customer Cloud Subscriptions on AWS</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup6"><span id="tgSpan6" class="fa fa-angle-right"></span>Getting started</a>
+      <ul id="topicGroup6" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_getting_started/osd-understanding-your-cloud-deployment-options.html">Understanding your cloud deployment options</a></li>
+            <li><a class="" href="../../osd_getting_started/osd-getting-started.html">Getting started with OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup7"><span id="tgSpan7" class="fa fa-angle-right"></span>OpenShift Dedicated clusters on GCP</a>
+      <ul id="topicGroup7" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-psc-enabled-private-cluster.html">Private Service Connect overview</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-with-workload-identity-federation.html">Creating a cluster on GCP with Workload Identity Federation authentication</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-sa.html">Creating a cluster on GCP with Service Account authentication</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-redhat-account.html">Creating a cluster on GCP with a Red Hat cloud account</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/osd-deleting-a-cluster-gcp.html">Deleting an OpenShift Dedicated cluster on GCP</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup8"><span id="tgSpan8" class="fa fa-angle-right"></span>OpenShift Dedicated clusters on AWS</a>
+      <ul id="topicGroup8" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_aws_clusters/creating-an-aws-cluster.html">Creating a cluster on AWS</a></li>
+            <li><a class="" href="../../osd_aws_clusters/osd-deleting-a-cluster-aws.html">Deleting an OpenShift Dedicated cluster on AWS</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup9"><span id="tgSpan9" class="fa fa-angle-right"></span>Support</a>
+      <ul id="topicGroup9" class="collapse  list-unstyled">
+            <li><a class="" href="../../support/index.html">Support overview</a></li>
+            <li><a class="" href="../../support/managing-cluster-resources.html">Managing your cluster resources</a></li>
+            <li><a class="" href="../../support/getting-support.html">Getting support</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-3"><span id="sgSpan-9-3" class="fa fa-caret-right"></span>&nbsp;Remote health monitoring with connected clusters</a>
+              <ul id="topicSubGroup-9-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../support/remote_health_monitoring/about-remote-health-monitoring.html">About remote health monitoring</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/showing-data-collected-by-remote-health-monitoring.html">Showing data collected by remote health monitoring</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/using-insights-to-identify-issues-with-your-cluster.html">Using Insights to identify issues with your cluster</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/using-insights-operator.html">Using Insights Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../support/gathering-cluster-data.html">Gathering data about your cluster</a></li>
+            <li><a class="" href="../../support/summarizing-cluster-specifications.html">Summarizing cluster specifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-6"><span id="sgSpan-9-6" class="fa fa-caret-right"></span>&nbsp;Troubleshooting</a>
+              <ul id="topicSubGroup-9-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../support/troubleshooting/verifying-node-health.html">Verifying node health</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/investigating-pod-issues.html">Investigating pod issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-s2i.html">Troubleshooting the Source-to-Image process</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-storage-issues.html">Troubleshooting storage issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/investigating-monitoring-issues.html">Investigating monitoring issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/diagnosing-oc-issues.html">Diagnosing OpenShift CLI (oc) issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/sd-managed-resources.html">OpenShift Dedicated managed resources</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup10"><span id="tgSpan10" class="fa fa-angle-right"></span>Web console</a>
+      <ul id="topicGroup10" class="collapse  list-unstyled">
+            <li><a class="" href="../../web_console/web-console-overview.html">Web console overview</a></li>
+            <li><a class="" href="../../web_console/web-console.html">Accessing the web console</a></li>
+            <li><a class="" href="../../web_console/using-dashboard-to-get-cluster-information.html">Viewing cluster information</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-3"><span id="sgSpan-10-3" class="fa fa-caret-right"></span>&nbsp;Dynamic plugins</a>
+              <ul id="topicSubGroup-10-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../web_console/dynamic-plugin/overview-dynamic-plugin.html">Overview of dynamic plugins</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugins-get-started.html">Getting started with dynamic plugins</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/deploy-plugin-cluster.html">Deploy your plugin on a cluster</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugin-example.html">Dynamic plugin example</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugins-reference.html">Dynamic plugin reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-4"><span id="sgSpan-10-4" class="fa fa-caret-right"></span>&nbsp;Web terminal</a>
+              <ul id="topicSubGroup-10-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../web_console/web_terminal/installing-web-terminal.html">Installing the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/odc-using-web-terminal.html">Using the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/troubleshooting-web-terminal.html">Troubleshooting the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/uninstalling-web-terminal.html">Uninstalling the web terminal</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../web_console/creating-quick-start-tutorials.html">About quick start tutorials</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup11"><span id="tgSpan11" class="fa fa-angle-right"></span>CLI tools</a>
+      <ul id="topicGroup11" class="collapse  list-unstyled">
+            <li><a class="" href="../../cli_reference/index.html">CLI tools overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-1"><span id="sgSpan-11-1" class="fa fa-caret-right"></span>&nbsp;OpenShift CLI (oc)</a>
+              <ul id="topicSubGroup-11-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/openshift_cli/getting-started-cli.html">Getting started with the OpenShift CLI</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/configuring-cli.html">Configuring the OpenShift CLI</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/usage-oc-kubectl.html">Usage of oc and kubectl commands</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/managing-cli-profiles.html">Managing CLI profiles</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/extending-cli-plugins.html">Extending the OpenShift CLI with plugins</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/developer-cli-commands.html">OpenShift CLI developer command reference</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/administrator-cli-commands.html">OpenShift CLI administrator command reference</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../cli_reference/odo-important-update.html">Developer CLI (odo)</a></li>
+            <li><a class="" href="../../cli_reference/kn-cli-tools.html">Knative CLI (kn) for use with OpenShift Serverless</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-4"><span id="sgSpan-11-4" class="fa fa-caret-right"></span>&nbsp;Pipelines CLI (tkn)</a>
+              <ul id="topicSubGroup-11-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/tkn_cli/installing-tkn.html">Installing tkn</a></li>
+                  <li><a class="" href="../../cli_reference/tkn_cli/op-configuring-tkn.html">Configuring tkn</a></li>
+                  <li><a class="" href="../../cli_reference/tkn_cli/op-tkn-reference.html">Basic tkn commands</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-5"><span id="sgSpan-11-5" class="fa fa-caret-right"></span>&nbsp;opm CLI</a>
+              <ul id="topicSubGroup-11-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/opm/cli-opm-install.html">Installing the opm CLI</a></li>
+                  <li><a class="" href="../../cli_reference/opm/cli-opm-ref.html">opm CLI reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-6"><span id="sgSpan-11-6" class="fa fa-caret-right"></span>&nbsp;Operator SDK</a>
+              <ul id="topicSubGroup-11-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/osdk/cli-osdk-install.html">Installing the Operator SDK CLI</a></li>
+                  <li><a class="" href="../../cli_reference/osdk/cli-osdk-ref.html">Operator SDK CLI reference</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup12"><span id="tgSpan12" class="fa fa-angle-right"></span>Cluster administration</a>
+      <ul id="topicGroup12" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_cluster_admin/osd-cluster-notifications.html">Cluster notifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-12-1"><span id="sgSpan-12-1" class="fa fa-caret-right"></span>&nbsp;Configuring private connections</a>
+              <ul id="topicSubGroup-12-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_cluster_admin/osd_private_connections/aws-private-connections.html">Configuring private connections for AWS</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_private_connections/private-cluster.html">Configuring a private cluster</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../osd_cluster_admin/osd-cluster-autoscaling.html">Cluster autoscaling</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-12-3"><span id="sgSpan-12-3" class="fa fa-caret-right"></span>&nbsp;Nodes</a>
+              <ul id="topicSubGroup-12-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-nodes-machinepools-about.html">About machine pools</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-managing-worker-nodes.html">Managing compute nodes</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-nodes-about-autoscaling-nodes.html">About autoscaling nodes on a cluster</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup13"><span id="tgSpan13" class="fa fa-angle-right"></span>Security and compliance</a>
+      <ul id="topicGroup13" class="collapse  list-unstyled">
+            <li><a class="" href="../../security/audit-log-view.html">Viewing audit logs</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup14"><span id="tgSpan14" class="fa fa-angle-right"></span>Authentication and authorization</a>
+      <ul id="topicGroup14" class="collapse  list-unstyled">
+            <li><a class="" href="../../authentication/index.html">Authentication and authorization overview</a></li>
+            <li><a class="" href="../../authentication/understanding-authentication.html">Understanding authentication</a></li>
+            <li><a class="" href="../../authentication/managing-oauth-access-tokens.html">Managing user-owned OAuth access tokens</a></li>
+            <li><a class="" href="../../authentication/sd-configuring-identity-providers.html">Configuring identity providers</a></li>
+            <li><a class="" href="../../authentication/osd-revoking-cluster-privileges.html">Revoking privileges and access to an OpenShift Dedicated cluster</a></li>
+            <li><a class="" href="../../authentication/osd-admin-roles.html">Managing administration roles and users</a></li>
+            <li><a class="" href="../../authentication/using-rbac.html">Using RBAC to define and apply permissions</a></li>
+            <li><a class="" href="../../authentication/understanding-and-creating-service-accounts.html">Understanding and creating service accounts</a></li>
+            <li><a class="" href="../../authentication/using-service-accounts-in-applications.html">Using service accounts in applications</a></li>
+            <li><a class="" href="../../authentication/using-service-accounts-as-oauth-client.html">Using a service account as an OAuth client</a></li>
+            <li><a class="" href="../../authentication/tokens-scoping.html">Scoping tokens</a></li>
+            <li><a class="" href="../../authentication/bound-service-account-tokens.html">Using bound service account tokens</a></li>
+            <li><a class="" href="../../authentication/managing-security-context-constraints.html">Managing security context constraints</a></li>
+            <li><a class="" href="../../authentication/understanding-and-managing-pod-security-admission.html">Understanding and managing pod security admission</a></li>
+            <li><a class="" href="../../authentication/ldap-syncing.html">Syncing LDAP groups</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup15"><span id="tgSpan15" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup15" class="collapse  list-unstyled">
+            <li><a class="" href="../../upgrading/osd-upgrades.html">Upgrading OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup16"><span id="tgSpan16" class="fa fa-angle-down"></span>CI/CD</a>
+      <ul id="topicGroup16" class="collapse in list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-0"><span id="sgSpan-16-0" class="fa fa-caret-right"></span>&nbsp;CI/CD overview</a>
+              <ul id="topicSubGroup-16-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/overview/index.html">About CI/CD</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-1"><span id="sgSpan-16-1" class="fa fa-caret-right"></span>&nbsp;Builds using Shipwright</a>
+              <ul id="topicSubGroup-16-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/builds_using_shipwright/overview-openshift-builds.html">Overview of Builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-2"><span id="sgSpan-16-2" class="fa fa-caret-down"></span>&nbsp;Builds using BuildConfig</a>
+              <ul id="topicSubGroup-16-2" class="nav-tertiary list-unstyled collapse in">
+
+                  <li><a class="" href="../../cicd/builds/understanding-image-builds.html">Understanding image builds</a></li>
+                  <li><a class="" href="../../cicd/builds/understanding-buildconfigs.html">Understanding build configurations</a></li>
+                  <li><a class="" href="../../cicd/builds/creating-build-inputs.html">Creating build inputs</a></li>
+                  <li><a class="" href="../../cicd/builds/managing-build-output.html">Managing build output</a></li>
+                  <li><a class="" href="../../cicd/builds/build-strategies.html">Using build strategies</a></li>
+                  <li><a class="" href="../../cicd/builds/basic-build-operations.html">Performing and configuring basic builds</a></li>
+                  <li><a class=" active" href="../../cicd/builds/triggering-builds-build-hooks.html">Triggering and modifying builds</a></li>
+                  <li><a class="" href="../../cicd/builds/advanced-build-operations.html">Performing advanced builds</a></li>
+                  <li><a class="" href="../../cicd/builds/running-entitled-builds.html">Using Red Hat subscriptions in builds</a></li>
+                  <li><a class="" href="../../cicd/builds/troubleshooting-builds.html">Troubleshooting builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-3"><span id="sgSpan-16-3" class="fa fa-caret-right"></span>&nbsp;Pipelines</a>
+              <ul id="topicSubGroup-16-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/pipelines/about-pipelines.html">About OpenShift Pipelines</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-4"><span id="sgSpan-16-4" class="fa fa-caret-right"></span>&nbsp;GitOps</a>
+              <ul id="topicSubGroup-16-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/gitops/about-redhat-openshift-gitops.html">About OpenShift GitOps</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-5"><span id="sgSpan-16-5" class="fa fa-caret-right"></span>&nbsp;Jenkins</a>
+              <ul id="topicSubGroup-16-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/jenkins/images-other-jenkins.html">Configuring Jenkins images</a></li>
+                  <li><a class="" href="../../cicd/jenkins/images-other-jenkins-agent.html">Jenkins agent</a></li>
+                  <li><a class="" href="../../cicd/jenkins/migrating-from-jenkins-to-openshift-pipelines.html">Migrating from Jenkins to OpenShift Pipelines</a></li>
+                  <li><a class="" href="../../cicd/jenkins/important-changes-to-openshift-jenkins-images.html">Important changes to OpenShift Jenkins images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup17"><span id="tgSpan17" class="fa fa-angle-right"></span>Images</a>
+      <ul id="topicGroup17" class="collapse  list-unstyled">
+            <li><a class="" href="../../openshift_images/index.html">Overview of images</a></li>
+            <li><a class="" href="../../openshift_images/configuring-samples-operator.html">Overview of the Cluster Samples Operator</a></li>
+            <li><a class="" href="../../openshift_images/samples-operator-alt-registry.html">Using the Cluster Samples Operator with an alternate registry</a></li>
+            <li><a class="" href="../../openshift_images/create-images.html">Creating images</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-4"><span id="sgSpan-17-4" class="fa fa-caret-right"></span>&nbsp;Managing images</a>
+              <ul id="topicSubGroup-17-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../openshift_images/managing_images/managing-images-overview.html">Managing images overview</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/tagging-images.html">Tagging images</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/image-pull-policy.html">Image pull policy</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/using-image-pull-secrets.html">Using image pull secrets</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../openshift_images/image-streams-manage.html">Managing image streams</a></li>
+            <li><a class="" href="../../openshift_images/using-imagestreams-with-kube-resources.html">Using image streams with Kubernetes resources</a></li>
+            <li><a class="" href="../../openshift_images/triggering-updates-on-imagestream-changes.html">Triggering updates on image stream changes</a></li>
+            <li><a class="" href="../../openshift_images/image-configuration.html">Image configuration resources</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-9"><span id="sgSpan-17-9" class="fa fa-caret-right"></span>&nbsp;Using images</a>
+              <ul id="topicSubGroup-17-9" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../openshift_images/using_images/using-images-overview.html">Using images overview</a></li>
+                  <li><a class="" href="../../openshift_images/using_images/using-s21-images.html">Source-to-image</a></li>
+                  <li><a class="" href="../../openshift_images/using_images/customizing-s2i-images.html">Customizing source-to-image images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup18"><span id="tgSpan18" class="fa fa-angle-right"></span>Add-on services</a>
+      <ul id="topicGroup18" class="collapse  list-unstyled">
+            <li><a class="" href="../../adding_service_cluster/adding-service.html">Adding services to a cluster</a></li>
+            <li><a class="" href="../../adding_service_cluster/available-services.html">Available services</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup19"><span id="tgSpan19" class="fa fa-angle-right"></span>Storage</a>
+      <ul id="topicGroup19" class="collapse  list-unstyled">
+            <li><a class="" href="../../storage/index.html">Storage overview</a></li>
+            <li><a class="" href="../../storage/understanding-ephemeral-storage.html">Understanding ephemeral storage</a></li>
+            <li><a class="" href="../../storage/understanding-persistent-storage.html">Understanding persistent storage</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-19-3"><span id="sgSpan-19-3" class="fa fa-caret-right"></span>&nbsp;Configuring persistent storage</a>
+              <ul id="topicSubGroup-19-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../storage/persistent_storage/persistent-storage-aws.html">Persistent storage using AWS Elastic Block Store</a></li>
+                  <li><a class="" href="../../storage/persistent_storage/persistent-storage-gce.html">Persistent storage using GCE Persistent Disk</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-19-4"><span id="sgSpan-19-4" class="fa fa-caret-right"></span>&nbsp;Using Container Storage Interface (CSI)</a>
+              <ul id="topicSubGroup-19-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi.html">Configuring CSI volumes</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-sc-manage.html">Managing the default storage class</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-ebs.html">AWS Elastic Block Store CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-aws-efs.html">AWS Elastic File Service CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-gcp-pd.html">GCP PD CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-google-cloud-file.html">GCP Filestore CSI Driver Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../storage/generic-ephemeral-vols.html">Generic ephemeral volumes</a></li>
+            <li><a class="" href="../../storage/dynamic-provisioning.html">Dynamic provisioning</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup20"><span id="tgSpan20" class="fa fa-angle-right"></span>Registry</a>
+      <ul id="topicGroup20" class="collapse  list-unstyled">
+            <li><a class="" href="../../registry/index.html">Registry overview</a></li>
+            <li><a class="" href="../../registry/configuring-registry-operator.html">Image Registry Operator in OpenShift Dedicated</a></li>
+            <li><a class="" href="../../registry/accessing-the-registry.html">Accessing the registry</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup21"><span id="tgSpan21" class="fa fa-angle-right"></span>Operators</a>
+      <ul id="topicGroup21" class="collapse  list-unstyled">
+            <li><a class="" href="../../operators/index.html">Operators overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-1"><span id="sgSpan-21-1" class="fa fa-caret-right"></span>&nbsp;Understanding Operators</a>
+              <ul id="topicSubGroup-21-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/understanding/olm-what-operators-are.html">What are Operators?</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-packaging-format.html">Packaging format</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-common-terms.html">Common terms</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-1-3"><span id="ssgSpan-21-1-3" class="fa fa-caret-right"></span>&nbsp;Operator Lifecycle Manager (OLM)</a>
+                  <ul id="topicSubSubGroup-21-1-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-olm.html" style="padding-left: 70px;">Concepts and resources</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-arch.html" style="padding-left: 70px;">Architecture</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-workflow.html" style="padding-left: 70px;">Workflow</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-dependency-resolution.html" style="padding-left: 70px;">Dependency resolution</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-operatorgroups.html" style="padding-left: 70px;">Operator groups</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-colocation.html" style="padding-left: 70px;">Multitenancy and Operator colocation</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-operatorconditions.html" style="padding-left: 70px;">Operator conditions</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-metrics.html" style="padding-left: 70px;">Metrics</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-webhooks.html" style="padding-left: 70px;">Webhooks</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../operators/understanding/olm-understanding-operatorhub.html">OperatorHub</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-rh-catalogs.html">Red Hat-provided Operator catalogs</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-multitenancy.html">Operators in multitenant clusters</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-1-7"><span id="ssgSpan-21-1-7" class="fa fa-caret-right"></span>&nbsp;CRDs</a>
+                  <ul id="topicSubSubGroup-21-1-7" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/understanding/crds/crd-managing-resources-from-crds.html" style="padding-left: 70px;">Managing resources from CRDs</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-2"><span id="sgSpan-21-2" class="fa fa-caret-right"></span>&nbsp;User tasks</a>
+              <ul id="topicSubGroup-21-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/user/olm-creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-3"><span id="sgSpan-21-3" class="fa fa-caret-right"></span>&nbsp;Administrator tasks</a>
+              <ul id="topicSubGroup-21-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/admin/olm-adding-operators-to-cluster.html">Adding Operators to a cluster</a></li>
+                  <li><a class="" href="../../operators/admin/olm-upgrading-operators.html">Updating installed Operators</a></li>
+                  <li><a class="" href="../../operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a></li>
+                  <li><a class="" href="../../operators/admin/olm-configuring-proxy-support.html">Configuring proxy support</a></li>
+                  <li><a class="" href="../../operators/admin/olm-status.html">Viewing Operator status</a></li>
+                  <li><a class="" href="../../operators/admin/olm-managing-operatorconditions.html">Managing Operator conditions</a></li>
+                  <li><a class="" href="../../operators/admin/olm-managing-custom-catalogs.html">Managing custom catalogs</a></li>
+                  <li><a class="" href="../../operators/admin/olm-cs-podsched.html">Catalog source pod scheduling</a></li>
+                  <li><a class="" href="../../operators/admin/olm-troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-4"><span id="sgSpan-21-4" class="fa fa-caret-right"></span>&nbsp;Developing Operators</a>
+              <ul id="topicSubGroup-21-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/operator_sdk/osdk-about.html">About the Operator SDK</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-installing-cli.html">Installing the Operator SDK CLI</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-2"><span id="ssgSpan-21-4-2" class="fa fa-caret-right"></span>&nbsp;Go-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-2" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-updating-projects.html" style="padding-left: 70px;">Updating Go-based projects</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-3"><span id="ssgSpan-21-4-3" class="fa fa-caret-right"></span>&nbsp;Ansible-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-updating-projects.html" style="padding-left: 70px;">Updating Ansible-based projects</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-support.html" style="padding-left: 70px;">Ansible support</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-k8s-collection.html" style="padding-left: 70px;">Kubernetes Collection for Ansible</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-inside-operator.html" style="padding-left: 70px;">Using Ansible inside an Operator</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-cr-status.html" style="padding-left: 70px;">Custom resource status management</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-4"><span id="ssgSpan-21-4-4" class="fa fa-caret-right"></span>&nbsp;Helm-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-4" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-updating-projects.html" style="padding-left: 70px;">Updating Helm-based projects</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-support.html" style="padding-left: 70px;">Helm support</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../operators/operator_sdk/osdk-generating-csvs.html">Defining cluster service versions (CSVs)</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-working-bundle-images.html">Working with bundle images</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-complying-with-psa.html">Complying with pod security admission</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-scorecard.html">Validating Operators using the scorecard</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-bundle-validate.html">Validating Operator bundles</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-ha-sno.html">High-availability or single-node cluster detection and support</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-monitoring-prometheus.html">Configuring built-in monitoring with Prometheus</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-leader-election.html">Configuring leader election</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-pruning-utility.html">Object pruning utility</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-pkgman-to-bundle.html">Migrating package manifest projects to bundle format</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-cli-ref.html">Operator SDK CLI reference</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-migrating-to-v0-1-0.html">Migrating to Operator SDK v0.1.0</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup22"><span id="tgSpan22" class="fa fa-angle-right"></span>Networking</a>
+      <ul id="topicGroup22" class="collapse  list-unstyled">
+            <li><a class="" href="../../networking/about-managed-networking.html">About networking</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-1"><span id="sgSpan-22-1" class="fa fa-caret-right"></span>&nbsp;Networking Operators</a>
+              <ul id="topicSubGroup-22-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/networking_operators/dns-operator.html">DNS Operator in OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../networking/networking_operators/ingress-operator.html">Ingress Operator in OpenShift Dedicated</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../networking/network-verification.html">Network verification</a></li>
+            <li><a class="" href="../../networking/configuring-cluster-wide-proxy.html">Configuring a cluster-wide proxy during installation</a></li>
+            <li><a class="" href="../../networking/cidr-range-definitions.html">CIDR range definitions</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-5"><span id="sgSpan-22-5" class="fa fa-caret-right"></span>&nbsp;Network security</a>
+              <ul id="topicSubGroup-22-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/network_security/network-policy-apis.html">Understanding network policy APIs</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-5-1"><span id="ssgSpan-22-5-1" class="fa fa-caret-right"></span>&nbsp;Network policy</a>
+                  <ul id="topicSubSubGroup-22-5-1" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../networking/network_security/network_policy/about-network-policy.html" style="padding-left: 70px;">About network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/creating-network-policy.html" style="padding-left: 70px;">Creating a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/viewing-network-policy.html" style="padding-left: 70px;">Viewing a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/deleting-network-policy.html" style="padding-left: 70px;">Deleting a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/multitenant-network-policy.html" style="padding-left: 70px;">Configuring multitenant isolation with network policy</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-6"><span id="sgSpan-22-6" class="fa fa-caret-right"></span>&nbsp;OVN-Kubernetes network plugin</a>
+              <ul id="topicSubGroup-22-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/about-ovn-kubernetes.html">About the OVN-Kubernetes network plugin</a></li>
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/migrate-from-openshift-sdn-osd.html">Migrating from the OpenShift SDN network plugin</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-7"><span id="sgSpan-22-7" class="fa fa-caret-right"></span>&nbsp;OpenShift SDN network plugin</a>
+              <ul id="topicSubGroup-22-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/enabling-multicast.html">Enabling multicast for a project</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-8"><span id="sgSpan-22-8" class="fa fa-caret-right"></span>&nbsp;Configuring Routes</a>
+              <ul id="topicSubGroup-22-8" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/routes/route-configuration.html">Route configuration</a></li>
+                  <li><a class="" href="../../networking/routes/secured-routes.html">Secured routes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup23"><span id="tgSpan23" class="fa fa-angle-right"></span>Building applications</a>
+      <ul id="topicGroup23" class="collapse  list-unstyled">
+            <li><a class="" href="../../applications/index.html">Building applications overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-1"><span id="sgSpan-23-1" class="fa fa-caret-right"></span>&nbsp;Projects</a>
+              <ul id="topicSubGroup-23-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/projects/working-with-projects.html">Working with projects</a></li>
+                  <li><a class="" href="../../applications/projects/configuring-project-creation.html">Configuring project creation</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-2"><span id="sgSpan-23-2" class="fa fa-caret-right"></span>&nbsp;Creating applications</a>
+              <ul id="topicSubGroup-23-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/creating_applications/using-templates.html">Using templates</a></li>
+                  <li><a class="" href="../../applications/creating_applications/odc-creating-applications-using-developer-perspective.html">Creating applications using the Developer perspective</a></li>
+                  <li><a class="" href="../../applications/creating_applications/creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>
+                  <li><a class="" href="../../applications/creating_applications/creating-applications-using-cli.html">Creating applications using the CLI</a></li>
+                  <li><a class="" href="../../applications/creating_applications/templates-using-ruby-on-rails.html">Creating applications using Ruby on Rails</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../applications/odc-viewing-application-composition-using-topology-view.html">Viewing application composition using the Topology view</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-4"><span id="sgSpan-23-4" class="fa fa-caret-right"></span>&nbsp;Working with Helm charts</a>
+              <ul id="topicSubGroup-23-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/working_with_helm_charts/understanding-helm.html">Understanding Helm</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/installing-helm.html">Installing Helm</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/configuring-custom-helm-chart-repositories.html">Configuring custom Helm chart repositories</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/odc-working-with-helm-releases.html">Working with Helm releases</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-5"><span id="sgSpan-23-5" class="fa fa-caret-right"></span>&nbsp;Deployments</a>
+              <ul id="topicSubGroup-23-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/deployments/osd-config-custom-domains-applications.html">Custom domains for applications</a></li>
+                  <li><a class="" href="../../applications/deployments/what-deployments-are.html">Understanding Deployments and DeploymentConfigs</a></li>
+                  <li><a class="" href="../../applications/deployments/managing-deployment-processes.html">Managing deployment processes</a></li>
+                  <li><a class="" href="../../applications/deployments/deployment-strategies.html">Using deployment strategies</a></li>
+                  <li><a class="" href="../../applications/deployments/route-based-deployment-strategies.html">Using route-based deployment strategies</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-6"><span id="sgSpan-23-6" class="fa fa-caret-right"></span>&nbsp;Quotas</a>
+              <ul id="topicSubGroup-23-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a></li>
+                  <li><a class="" href="../../applications/quotas/quotas-setting-across-multiple-projects.html">Resource quotas across multiple projects</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../applications/config-maps.html">Using config maps with applications</a></li>
+            <li><a class="" href="../../applications/odc-monitoring-project-and-application-metrics-using-developer-perspective.html">Monitoring project and application metrics using the Developer perspective</a></li>
+            <li><a class="" href="../../applications/application-health.html">Monitoring application health</a></li>
+            <li><a class="" href="../../applications/odc-editing-applications.html">Editing applications</a></li>
+            <li><a class="" href="../../applications/working-with-quotas.html">Working with quotas</a></li>
+            <li><a class="" href="../../applications/pruning-objects.html">Pruning objects to reclaim resources</a></li>
+            <li><a class="" href="../../applications/idling-applications.html">Idling applications</a></li>
+            <li><a class="" href="../../applications/odc-deleting-applications.html">Deleting applications</a></li>
+            <li><a class="" href="../../applications/red-hat-marketplace.html">Using the Red Hat Marketplace</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup24"><span id="tgSpan24" class="fa fa-angle-right"></span>Nodes</a>
+      <ul id="topicGroup24" class="collapse  list-unstyled">
+            <li><a class="" href="../../nodes/index.html">Overview of nodes</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-1"><span id="sgSpan-24-1" class="fa fa-caret-right"></span>&nbsp;Working with pods</a>
+              <ul id="topicSubGroup-24-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/pods/nodes-pods-using.html">About pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-viewing.html">Viewing pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-configuring.html">Configuring a cluster for pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-secrets.html">Providing sensitive data to pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-configmaps.html">Creating and using config maps</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-priority.html">Including pod priority in pod scheduling decisions</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-2"><span id="sgSpan-24-2" class="fa fa-caret-right"></span>&nbsp;Automatically scaling pods with the Custom Metrics Autoscaler Operator</a>
+              <ul id="topicSubGroup-24-2" class="nav-tertiary list-unstyled collapse">
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-24-2-0"><span id="ssgSpan-24-2-0" class="fa fa-caret-right"></span>&nbsp;Release notes</a>
+                  <ul id="topicSubSubGroup-24-2-0" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn.html" style="padding-left: 70px;">Custom Metrics Autoscaler Operator release notes</a></li>
+                    <li><a class="" href="../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn-past.html" style="padding-left: 70px;">Past releases</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom.html">Custom Metrics Autoscaler Operator overview</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-install.html">Installing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-trigger.html">Understanding the custom metrics autoscaler triggers</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-trigger-auth.html">Understanding the custom metrics autoscaler trigger authentications</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-pausing.html">Pausing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-audit-log.html">Gathering audit logs</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-debugging.html">Gathering debugging data</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-metrics.html">Viewing Operator metrics</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-adding.html">Understanding how to add custom metrics autoscalers</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-removing.html">Removing the Custom Metrics Autoscaler Operator</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-3"><span id="sgSpan-24-3" class="fa fa-caret-right"></span>&nbsp;Controlling pod placement onto nodes (scheduling)</a>
+              <ul id="topicSubGroup-24-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-about.html">About pod placement using the scheduler</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-pod-affinity.html">Placing pods relative to other pods using pod affinity and anti-affinity rules</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-node-affinity.html">Controlling pod placement on nodes using node affinity rules</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-overcommit.html">Placing pods onto overcommited nodes</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-pod-topology-spread-constraints.html">Controlling pod placement using pod topology spread constraints</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-4"><span id="sgSpan-24-4" class="fa fa-caret-right"></span>&nbsp;Using jobs and daemon sets</a>
+              <ul id="topicSubGroup-24-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/jobs/nodes-pods-daemonsets.html">Running background tasks on nodes automatically with daemon sets</a></li>
+                  <li><a class="" href="../../nodes/jobs/nodes-nodes-jobs.html">Running tasks in pods using jobs</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-5"><span id="sgSpan-24-5" class="fa fa-caret-right"></span>&nbsp;Working with nodes</a>
+              <ul id="topicSubGroup-24-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/nodes/nodes-nodes-viewing.html">Viewing and listing the nodes in your cluster</a></li>
+                  <li><a class="" href="../../nodes/nodes/nodes-node-tuning-operator.html">Using the Node Tuning Operator</a></li>
+                  <li><a class="" href="../../nodes/nodes/nodes-remediating-fencing-maintaining-rhwa.html">Remediating, fencing, and maintaining nodes</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-6"><span id="sgSpan-24-6" class="fa fa-caret-right"></span>&nbsp;Working with containers</a>
+              <ul id="topicSubGroup-24-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/containers/nodes-containers-using.html">Understanding containers</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-init.html">Using Init Containers to perform tasks before a pod is deployed</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-volumes.html">Using volumes to persist container data</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-projected-volumes.html">Mapping volumes using projected volumes</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-downward-api.html">Allowing containers to consume API objects</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-copying-files.html">Copying files to or from a container</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-remote-commands.html">Executing remote commands in a container</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-port-forwarding.html">Using port forwarding to access applications in a container</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-7"><span id="sgSpan-24-7" class="fa fa-caret-right"></span>&nbsp;Working with clusters</a>
+              <ul id="topicSubGroup-24-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/clusters/nodes-containers-events.html">Viewing system event information in a cluster</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-resource-levels.html">Analyzing cluster resource levels</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-limit-ranges.html">Setting limit ranges</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-resource-configure.html">Configuring cluster memory to meet container memory and risk requirements</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-overcommit.html">Configuring your cluster to place pods on overcommited nodes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup25"><span id="tgSpan25" class="fa fa-angle-right"></span>Observability</a>
+      <ul id="topicGroup25" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-25-0"><span id="sgSpan-25-0" class="fa fa-caret-right"></span>&nbsp;Observability overview</a>
+              <ul id="topicSubGroup-25-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../observability/overview/index.html">About Observability</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-25-1"><span id="sgSpan-25-1" class="fa fa-caret-right"></span>&nbsp;Monitoring</a>
+              <ul id="topicSubGroup-25-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../observability/monitoring/monitoring-overview.html">Monitoring overview</a></li>
+                  <li><a class="" href="../../observability/monitoring/sd-accessing-monitoring-for-user-defined-projects.html">Accessing monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/configuring-the-monitoring-stack.html">Configuring the monitoring stack</a></li>
+                  <li><a class="" href="../../observability/monitoring/sd-disabling-monitoring-for-user-defined-projects.html">Disabling monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/enabling-alert-routing-for-user-defined-projects.html">Enabling alert routing for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/managing-metrics.html">Managing metrics</a></li>
+                  <li><a class="" href="../../observability/monitoring/managing-alerts.html">Managing alerts</a></li>
+                  <li><a class="" href="../../observability/monitoring/reviewing-monitoring-dashboards.html">Reviewing monitoring dashboards</a></li>
+                  <li><a class="" href="../../observability/monitoring/accessing-third-party-monitoring-apis.html">Accessing third-party monitoring APIs</a></li>
+                  <li><a class="" href="../../observability/monitoring/troubleshooting-monitoring-issues.html">Troubleshooting monitoring issues</a></li>
+                  <li><a class="" href="../../observability/monitoring/config-map-reference-for-the-cluster-monitoring-operator.html">Config map reference for the Cluster Monitoring Operator</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup26"><span id="tgSpan26" class="fa fa-angle-right"></span>Service Mesh</a>
+      <ul id="topicGroup26" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-0"><span id="sgSpan-26-0" class="fa fa-caret-right"></span>&nbsp;Service Mesh 2.x</a>
+              <ul id="topicSubGroup-26-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../service_mesh/v2x/ossm-about.html">About OpenShift Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/servicemesh-release-notes.html">Service Mesh 2.x release notes</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-architecture.html">Service Mesh architecture</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-deployment-models.html">Service Mesh deployment models</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-vs-community.html">Service Mesh and Istio differences</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/preparing-ossm-installation.html">Preparing to install Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/installing-ossm.html">Installing the Operators</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-create-smcp.html">Creating the ServiceMeshControlPlane</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-create-mesh.html">Adding workloads to a service mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/prepare-to-deploy-applications-ossm.html">Enabling sidecar injection</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/upgrading-ossm.html">Upgrading Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-profiles-users.html">Managing users and profiles</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-security.html">Security</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-traffic-manage.html">Traffic management</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-observability.html">Metrics, logs, and traces</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-performance-scalability.html">Performance and scalability</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-deploy-production.html">Deploying to production</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-federation.html">Federation</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-extensions.html">Extensions</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-threescale-webassembly-module.html">3scale WebAssembly for 2.1</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/threescale-adapter.html">3scale Istio adapter for 2.0</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-troubleshooting-istio.html">Troubleshooting Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-smcp.html">Control plane configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-kiali.html">Kiali configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-jaeger.html">Jaeger configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/removing-ossm.html">Uninstalling Service Mesh</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup27"><span id="tgSpan27" class="fa fa-angle-right"></span>Serverless</a>
+      <ul id="topicGroup27" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-27-0"><span id="sgSpan-27-0" class="fa fa-caret-right"></span>&nbsp;About Serverless</a>
+              <ul id="topicSubGroup-27-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../serverless/about/about-serverless.html">Serverless overview</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Triggering and modifying builds
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#builds-triggers_triggering-builds-build-hooks">Build triggers</a>
+<ul class="sectlevel2">
+<li><a href="#builds-webhook-triggers_triggering-builds-build-hooks">Webhook triggers</a></li>
+<li><a href="#builds-using-image-change-triggers_triggering-builds-build-hooks">Using image change triggers</a></li>
+<li><a href="#builds-image-change-trigger-identification_triggering-builds-build-hooks">Identifying the image change trigger of a build</a></li>
+<li><a href="#builds-configuration-change-triggers_triggering-builds-build-hooks">Configuration change triggers</a></li>
+</ul>
+</li>
+<li><a href="#builds-build-hooks_triggering-builds-build-hooks">Build hooks</a>
+<ul class="sectlevel2">
+<li><a href="#builds-configuring-post-commit-build-hooks_triggering-builds-build-hooks">Configuring post commit build hooks</a></li>
+<li><a href="#builds-using-cli-post-commit-build-hooks_triggering-builds-build-hooks">Using the CLI to set post commit build hooks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following sections outline how to trigger builds and modify builds using build hooks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="builds-triggers_triggering-builds-build-hooks"><a class="anchor" href="#builds-triggers_triggering-builds-build-hooks"></a>Build triggers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When defining a <code>BuildConfig</code>, you can define triggers to control the circumstances in which the <code>BuildConfig</code> should be run. The following build triggers are available:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Webhook</p>
+</li>
+<li>
+<p>Image change</p>
+</li>
+<li>
+<p>Configuration change</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="builds-webhook-triggers_triggering-builds-build-hooks"><a class="anchor" href="#builds-webhook-triggers_triggering-builds-build-hooks"></a>Webhook triggers</h3>
+<div class="paragraph">
+<p>Webhook triggers allow you to trigger a new build by sending a request to the OpenShift Dedicated API endpoint. You can define these triggers using GitHub, GitLab, Bitbucket, or Generic webhooks.</p>
+</div>
+<div class="paragraph">
+<p>Currently, OpenShift Dedicated webhooks only support the analogous versions of the push event for each of the Git-based Source Code Management (SCM) systems. All other event types are ignored.</p>
+</div>
+<div class="paragraph">
+<p>When the push events are processed, the OpenShift Dedicated control plane host confirms if the branch reference inside the event matches the branch reference in the corresponding <code>BuildConfig</code>. If so, it then checks out the exact commit reference noted in the webhook event on the OpenShift Dedicated build. If they do not match, no build is triggered.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>oc new-app</code> and <code>oc new-build</code> create GitHub and Generic webhook triggers automatically, but any other needed webhook triggers must be added manually. You can manually add triggers by setting triggers.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For all webhooks, you must define a secret with a key named <code>WebHookSecretKey</code> and the value being the value to be supplied when invoking the webhook. The webhook definition must then reference the secret. The secret ensures the uniqueness of the URL, preventing others from triggering the build. The value of the key is compared to the secret provided during the webhook invocation.</p>
+</div>
+<div class="paragraph">
+<p>For example here is a GitHub webhook with a reference to a secret named <code>mysecret</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GitHub"</span>
+<span class="na">github</span><span class="pi">:</span>
+  <span class="na">secretReference</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysecret"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The secret is then defined as follows. Note that the value of the secret is base64 encoded as is required for any <code>data</code> field of a <code>Secret</code> object.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+  <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+  <span class="na">metadata</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">mysecret</span>
+    <span class="na">creationTimestamp</span><span class="pi">:</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">WebHookSecretKey</span><span class="pi">:</span> <span class="s">c2VjcmV0dmFsdWUx</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="unauthenticated-users-system-webhook_triggering-builds-build-hooks"><a class="anchor" href="#unauthenticated-users-system-webhook_triggering-builds-build-hooks"></a>Adding unauthenticated users to the system:webhook role binding</h4>
+<div class="paragraph">
+<p>As a cluster administrator, you can add unauthenticated users to the <code>system:webhook</code> role binding in OpenShift Dedicated for specific namespaces. The <code>system:webhook</code> role binding allows users to trigger builds from external systems that do not use an OpenShift Dedicated authentication mechanism. Unauthenticated users do not have access to non-public role bindings by default. This is a change from OpenShift Dedicated versions before 4.16.</p>
+</div>
+<div class="paragraph">
+<p>Adding unauthenticated users to the <code>system:webhook</code> role binding is required to successfully trigger builds from GitHub, GitLab, and Bitbucket.</p>
+</div>
+<div class="paragraph">
+<p>If it is necessary to allow unauthenticated users access to a cluster, you can do so by adding unauthenticated users to the <code>system:webhook</code> role binding in each required namespace. This method is more secure than adding unauthenticated users to the <code>system:webhook</code> cluster role binding. However, if you have a large number of namespaces, it is possible to add unauthenticated users to the <code>system:webhook</code> cluster role binding which would apply the change to all namespaces.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Always verify compliance with your organization&#8217;s security standards when modifying unauthenticated access.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have access to the cluster as a user with the <code>cluster-admin</code> role.</p>
+</li>
+<li>
+<p>You have installed the OpenShift CLI (<code>oc</code>).</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a YAML file named <code>add-webhooks-unauth.yaml</code> and add the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">RoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="s">rbac.authorization.kubernetes.io/autoupdate</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">webhook-access-unauthenticated</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">&lt;namespace&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">Role</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">system:webhook"</span>
+<span class="na">subjects</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">Group</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">system:unauthenticated"</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The namespace of your <code>BuildConfig</code>.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Apply the configuration by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc apply <span class="nt">-f</span> add-webhooks-unauth.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="../../authentication/using-rbac.html#unauthenticated-users-cluster-role-bindings-concept_using-rbac">Cluster role bindings for unauthenticated groups</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="builds-using-github-webhooks_triggering-builds-build-hooks"><a class="anchor" href="#builds-using-github-webhooks_triggering-builds-build-hooks"></a>Using GitHub webhooks</h4>
+<div class="paragraph">
+<p>GitHub webhooks handle the call made by GitHub when a repository is updated. When defining the trigger, you must specify a secret, which is part of the URL you supply to GitHub when configuring the webhook.</p>
+</div>
+<div class="paragraph">
+<p>Example GitHub webhook definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GitHub"</span>
+<span class="na">github</span><span class="pi">:</span>
+  <span class="na">secretReference</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysecret"</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The secret used in the webhook trigger configuration is not the same as the <code>secret</code> field you encounter when configuring webhook in GitHub UI. The secret in the webhook trigger configuration makes the webhook URL unique and hard to predict. The secret configured in the GitHub UI is an optional string field that is used to create an HMAC hex digest of the body, which is sent as an <code>X-Hub-Signature</code> header.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The payload URL is returned as the GitHub Webhook URL by the <code>oc describe</code>
+command (see Displaying Webhook URLs), and is structured as follows:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">https://&lt;openshift_api_host:port&gt;</span>/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/github</code></pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Create a <code>BuildConfig</code> from a GitHub repository.</p>
+</li>
+<li>
+<p><code>system:unauthenticated</code> has access to the <code>system:webhook</code> role in the required namespaces. Or, <code>system:unauthenticated</code> has access to the <code>system:webhook</code> cluster role.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Configure a GitHub Webhook.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>After creating a <code>BuildConfig</code> object from a GitHub repository, run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc describe bc/&lt;name_of_your_BuildConfig&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command generates a webhook GitHub URL.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">https://api.starter-us-east-1.openshift.com:443/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;</span>/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/github</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Cut and paste this URL into GitHub, from the GitHub web console.</p>
+</li>
+<li>
+<p>In your GitHub repository, select <strong>Add Webhook</strong> from <strong>Settings &#8594; Webhooks</strong>.</p>
+</li>
+<li>
+<p>Paste the URL output into the <strong>Payload URL</strong> field.</p>
+</li>
+<li>
+<p>Change the <strong>Content Type</strong> from GitHub&#8217;s default <code>application/x-www-form-urlencoded</code> to <code>application/json</code>.</p>
+</li>
+<li>
+<p>Click <strong>Add webhook</strong>.</p>
+<div class="paragraph">
+<p>You should see a message from GitHub stating that your webhook was successfully configured.</p>
+</div>
+<div class="paragraph">
+<p>Now, when you push a change to your GitHub repository, a new build automatically starts, and upon a successful build a new deployment starts.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="https://gogs.io">Gogs</a> supports the same webhook payload format as GitHub. Therefore, if you are using a Gogs server, you can define a GitHub webhook trigger on your <code>BuildConfig</code> and trigger it by your Gogs server as well.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Given a file containing a valid JSON payload, such as <code>payload.json</code>, you can manually trigger the webhook with the following <code>curl</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>curl <span class="nt">-H</span> <span class="s2">"X-GitHub-Event: push"</span> <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-k</span> <span class="nt">-X</span> POST <span class="nt">--data-binary</span> @payload.json https://&lt;openshift_api_host:port&gt;/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/github</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-k</code> argument is only necessary if your API server does not have a properly
+signed certificate.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The build will only be triggered if the <code>ref</code> value from GitHub webhook event matches the <code>ref</code> value specified in the <code>source.git</code> field of the <code>BuildConfig</code> resource.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://gogs.io">Gogs</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="builds-using-gitlab-webhooks_triggering-builds-build-hooks"><a class="anchor" href="#builds-using-gitlab-webhooks_triggering-builds-build-hooks"></a>Using GitLab webhooks</h4>
+<div class="paragraph">
+<p>GitLab webhooks handle the call made by GitLab when a repository is updated. As with the GitHub triggers, you must specify a secret. The following example is a trigger definition YAML within the <code>BuildConfig</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GitLab"</span>
+<span class="na">gitlab</span><span class="pi">:</span>
+  <span class="na">secretReference</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysecret"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The payload URL is returned as the GitLab Webhook URL by the <code>oc describe</code> command, and is structured as follows:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">https://&lt;openshift_api_host:port&gt;</span>/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/gitlab</code></pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p><code>system:unauthenticated</code> has access to the <code>system:webhook</code> role in the required namespaces. Or, <code>system:unauthenticated</code> has access to the <code>system:webhook</code> cluster role.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Configure a GitLab Webhook.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get the webhook URL by entering the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc describe bc &lt;name&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the webhook URL, replacing <code>&lt;secret&gt;</code> with your secret value.</p>
+</li>
+<li>
+<p>Follow the <a href="https://docs.gitlab.com/ce/user/project/integrations/webhooks.html#webhooks">GitLab setup instructions</a>
+to paste the webhook URL into your GitLab repository settings.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Given a file containing a valid JSON payload, such as <code>payload.json</code>, you can
+manually trigger the webhook with the following <code>curl</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>curl <span class="nt">-H</span> <span class="s2">"X-GitLab-Event: Push Hook"</span> <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-k</span> <span class="nt">-X</span> POST <span class="nt">--data-binary</span> @payload.json https://&lt;openshift_api_host:port&gt;/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/gitlab</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-k</code> argument is only necessary if your API server does not have a properly
+signed certificate.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="builds-using-bitbucket-webhooks_triggering-builds-build-hooks"><a class="anchor" href="#builds-using-bitbucket-webhooks_triggering-builds-build-hooks"></a>Using Bitbucket webhooks</h4>
+<div class="paragraph">
+<p><a href="https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html">Bitbucket webhooks</a> handle the call made by Bitbucket when a repository is updated. Similar to GitHub and GitLab triggers, you must specify a secret. The following example is a trigger definition YAML within the <code>BuildConfig</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Bitbucket"</span>
+<span class="na">bitbucket</span><span class="pi">:</span>
+  <span class="na">secretReference</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysecret"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The payload URL is returned as the Bitbucket Webhook URL by the <code>oc describe</code> command, and is structured as follows:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example output</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">https://&lt;openshift_api_host:port&gt;</span>/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/bitbucket</code></pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p><code>system:unauthenticated</code> has access to the <code>system:webhook</code> role in the required namespaces. Or, <code>system:unauthenticated</code> has access to the <code>system:webhook</code> cluster role.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Configure a Bitbucket Webhook.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get the webhook URL by entering the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc describe bc &lt;name&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the webhook URL, replacing <code>&lt;secret&gt;</code> with your secret value.</p>
+</li>
+<li>
+<p>Follow the <a href="https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html">Bitbucket setup instructions</a> to paste the webhook URL into your Bitbucket repository settings.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Given a file containing a valid JSON payload, such as <code>payload.json</code>, you can
+manually trigger the webhook by entering the following <code>curl</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>curl <span class="nt">-H</span> <span class="s2">"X-Event-Key: repo:push"</span> <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-k</span> <span class="nt">-X</span> POST <span class="nt">--data-binary</span> @payload.json https://&lt;openshift_api_host:port&gt;/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/bitbucket</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-k</code> argument is only necessary if your API server does not have a properly signed certificate.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="builds-using-generic-webhooks_triggering-builds-build-hooks"><a class="anchor" href="#builds-using-generic-webhooks_triggering-builds-build-hooks"></a>Using generic webhooks</h4>
+<div class="paragraph">
+<p>Generic webhooks are called from any system capable of making a web request. As with the other webhooks, you must specify a secret, which is part of the URL that the caller must use to trigger the build. The secret ensures the uniqueness of the URL, preventing others from triggering the build. The following is an example trigger definition YAML within the <code>BuildConfig</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Generic"</span>
+<span class="na">generic</span><span class="pi">:</span>
+  <span class="na">secretReference</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysecret"</span>
+  <span class="na">allowEnv</span><span class="pi">:</span> <span class="no">true</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set to <code>true</code> to allow a generic webhook to pass in environment variables.</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>To set up the caller, supply the calling system with the URL of the generic
+webhook endpoint for your build.</p>
+<div class="listingblock">
+<div class="title">Example generic webhook endpoint URL</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code>https://&lt;openshift_api_host:port&gt;/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/generic</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The caller must call the webhook as a <code>POST</code> operation.</p>
+</div>
+</li>
+<li>
+<p>To call the webhook manually, enter the following <code>curl</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>curl <span class="nt">-X</span> POST <span class="nt">-k</span> https://&lt;openshift_api_host:port&gt;/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/generic</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The HTTP verb must be set to <code>POST</code>. The insecure <code>-k</code> flag is specified to ignore certificate validation. This second flag is not necessary if your cluster has properly signed certificates.</p>
+</div>
+<div class="paragraph">
+<p>The endpoint can accept an optional payload with the following format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">git</span><span class="pi">:</span>
+  <span class="na">uri</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;url</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">repository&gt;"</span>
+  <span class="na">ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;optional</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">reference&gt;"</span>
+  <span class="na">commit</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;commit</span><span class="nv"> </span><span class="s">hash</span><span class="nv"> </span><span class="s">identifying</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">specific</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">commit&gt;"</span>
+  <span class="na">author</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;author</span><span class="nv"> </span><span class="s">name&gt;"</span>
+    <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;author</span><span class="nv"> </span><span class="s">e-mail&gt;"</span>
+  <span class="na">committer</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;committer</span><span class="nv"> </span><span class="s">name&gt;"</span>
+    <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;committer</span><span class="nv"> </span><span class="s">e-mail&gt;"</span>
+  <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;commit</span><span class="nv"> </span><span class="s">message&gt;"</span>
+<span class="na">env</span><span class="pi">:</span> <i class="conum" data-value="1"></i><b>(1)</b>
+   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;variable</span><span class="nv"> </span><span class="s">name&gt;"</span>
+     <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;variable</span><span class="nv"> </span><span class="s">value&gt;"</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Similar to the <code>BuildConfig</code> environment variables, the environment variables defined here are made available to your build. If these variables collide with the <code>BuildConfig</code> environment variables, these variables take precedence. By default, environment variables passed by webhook are ignored. Set the <code>allowEnv</code> field to <code>true</code> on the webhook definition to enable this behavior.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>To pass this payload using <code>curl</code>, define it in a file named <code>payload_file.yaml</code> and run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>curl <span class="nt">-H</span> <span class="s2">"Content-Type: application/yaml"</span> <span class="nt">--data-binary</span> @payload_file.yaml <span class="nt">-X</span> POST <span class="nt">-k</span> https://&lt;openshift_api_host:port&gt;/apis/build.openshift.io/v1/namespaces/&lt;namespace&gt;/buildconfigs/&lt;name&gt;/webhooks/&lt;secret&gt;/generic</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The arguments are the same as the previous example with the addition of a header and a payload. The <code>-H</code> argument sets the <code>Content-Type</code> header to <code>application/yaml</code> or <code>application/json</code> depending on your payload format. The <code>--data-binary</code> argument is used to send a binary payload with newlines intact with the <code>POST</code> request.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>OpenShift Dedicated permits builds to be triggered by the generic webhook even if an invalid request payload is presented, for example, invalid content type, unparsable or invalid content, and so on. This behavior is maintained for backwards compatibility. If an invalid request payload is presented, OpenShift Dedicated returns a warning in JSON format as part of its <code>HTTP 200 OK</code> response.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="builds-displaying-webhook-urls_triggering-builds-build-hooks"><a class="anchor" href="#builds-displaying-webhook-urls_triggering-builds-build-hooks"></a>Displaying webhook URLs</h4>
+<div class="paragraph">
+<p>You can use the <code>oc describe</code> command to display webhook URLs associated with a build configuration. If the command does not display any webhook URLs, then no webhook trigger is currently defined for that build configuration.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To display any webhook URLs associated with a <code>BuildConfig</code>, run the following command:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc describe bc &lt;name&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-using-image-change-triggers_triggering-builds-build-hooks"><a class="anchor" href="#builds-using-image-change-triggers_triggering-builds-build-hooks"></a>Using image change triggers</h3>
+<div class="paragraph">
+<p>As a developer, you can configure your build to run automatically every time a base image changes.</p>
+</div>
+<div class="paragraph">
+<p>You can use image change triggers to automatically invoke your build when a new version of an upstream image is available. For example, if a build is based on a RHEL image, you can trigger that build to run any time the RHEL image changes. As a result, the application image is always running on the latest RHEL base image.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Image streams that point to container images in <a href="http://docs.docker.com/v1.7/reference/api/hub_registry_spec/#docker-registry-1-0">v1 container registries</a> only trigger a build once when the image stream tag becomes available and not on subsequent image updates. This is due to the lack of uniquely identifiable images in v1 container registries.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Define an <code>ImageStream</code> that points to the upstream image you want to use as a trigger:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageStream"</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ruby-20-centos7"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This defines the image stream that is tied to a container image repository located at <code><em>&lt;system-registry&gt;</em>/<em>&lt;namespace&gt;</em>/ruby-20-centos7</code>. The <code>&lt;system-registry&gt;</code> is defined as a service with the name <code>docker-registry</code> running in OpenShift Dedicated.</p>
+</div>
+</li>
+<li>
+<p>If an image stream is the base image for the build, set the <code>from</code> field in the build strategy to point to the <code>ImageStream</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">strategy</span><span class="pi">:</span>
+  <span class="na">sourceStrategy</span><span class="pi">:</span>
+    <span class="na">from</span><span class="pi">:</span>
+      <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageStreamTag"</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ruby-20-centos7:latest"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the <code>sourceStrategy</code> definition is consuming the <code>latest</code> tag of the image stream named <code>ruby-20-centos7</code> located within this namespace.</p>
+</div>
+</li>
+<li>
+<p>Define a build with one or more triggers that point to <code>ImageStreams</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageChange"</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">imageChange</span><span class="pi">:</span> <span class="pi">{}</span>
+<span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageChange"</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="na">imageChange</span><span class="pi">:</span>
+  <span class="na">from</span><span class="pi">:</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageStreamTag"</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">custom-image:latest"</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>An image change trigger that monitors the <code>ImageStream</code> and <code>Tag</code> as defined by the build strategy&#8217;s <code>from</code> field. The <code>imageChange</code> object here must be empty.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>An image change trigger that monitors an arbitrary image stream. The <code>imageChange</code> part, in this case, must include a <code>from</code> field that references the <code>ImageStreamTag</code> to monitor.</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When using an image change trigger for the strategy image stream, the generated build is supplied with an immutable docker tag that points to the latest image corresponding to that tag. This new image reference is used by the strategy when it executes for the build.</p>
+</div>
+<div class="paragraph">
+<p>For other image change triggers that do not reference the strategy image stream, a new build is started, but the build strategy is not updated with a unique image reference.</p>
+</div>
+<div class="paragraph">
+<p>Since this example has an image change trigger for the strategy, the resulting build is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">strategy</span><span class="pi">:</span>
+  <span class="na">sourceStrategy</span><span class="pi">:</span>
+    <span class="na">from</span><span class="pi">:</span>
+      <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">DockerImage"</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">172.30.17.3:5001/mynamespace/ruby-20-centos7:&lt;immutableid&gt;"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This ensures that the triggered build uses the new image that was just pushed to the repository, and the build can be re-run any time with the same inputs.</p>
+</div>
+<div class="paragraph">
+<p>You can pause an image change trigger to allow multiple changes on the referenced image stream before a build is started. You can also set the <code>paused</code> attribute to true when initially adding an <code>ImageChangeTrigger</code> to a <code>BuildConfig</code> to prevent a build from being immediately triggered.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageChange"</span>
+<span class="na">imageChange</span><span class="pi">:</span>
+  <span class="na">from</span><span class="pi">:</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageStreamTag"</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">custom-image:latest"</span>
+  <span class="na">paused</span><span class="pi">:</span> <span class="no">true</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If a build is triggered due to a webhook trigger or manual request, the build that is created uses the <code>&lt;immutableid&gt;</code> resolved from the <code>ImageStream</code> referenced by the <code>Strategy</code>. This ensures that builds are performed using consistent image tags for ease of reproduction.</p>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="http://docs.docker.com/v1.7/reference/api/hub_registry_spec/#docker-registry-1-0">v1 container registries</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-image-change-trigger-identification_triggering-builds-build-hooks"><a class="anchor" href="#builds-image-change-trigger-identification_triggering-builds-build-hooks"></a>Identifying the image change trigger of a build</h3>
+<div class="paragraph">
+<p>As a developer, if you have image change triggers, you can identify which image change initiated the last build. This can be useful for debugging or troubleshooting builds.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>BuildConfig</code></div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">build.openshift.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">BuildConfig</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">bc-ict-example</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">bc-ict-example-namespace</span>
+<span class="na">spec</span><span class="pi">:</span>
+
+<span class="c1"># ...</span>
+
+  <span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">imageChange</span><span class="pi">:</span>
+      <span class="na">from</span><span class="pi">:</span>
+        <span class="na">kind</span><span class="pi">:</span> <span class="s">ImageStreamTag</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">input:latest</span>
+        <span class="na">namespace</span><span class="pi">:</span> <span class="s">bc-ict-example-namespace</span>
+  <span class="pi">-</span> <span class="na">imageChange</span><span class="pi">:</span>
+      <span class="na">from</span><span class="pi">:</span>
+        <span class="na">kind</span><span class="pi">:</span> <span class="s">ImageStreamTag</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">input2:latest</span>
+        <span class="na">namespace</span><span class="pi">:</span> <span class="s">bc-ict-example-namespace</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ImageChange</span>
+<span class="na">status</span><span class="pi">:</span>
+  <span class="na">imageChangeTriggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">from</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">input:latest</span>
+      <span class="na">namespace</span><span class="pi">:</span> <span class="s">bc-ict-example-namespace</span>
+    <span class="na">lastTriggerTime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2021-06-30T13:47:53Z"</span>
+    <span class="na">lastTriggeredImageID</span><span class="pi">:</span> <span class="s">image-registry.openshift-image-registry.svc:5000/bc-ict-example-namespace/input@sha256:0f88ffbeb9d25525720bfa3524cb1bf0908b7f791057cf1acfae917b11266a69</span>
+  <span class="pi">-</span> <span class="na">from</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">input2:latest</span>
+      <span class="na">namespace</span><span class="pi">:</span> <span class="s">bc-ict-example-namespace</span>
+    <span class="na">lastTriggeredImageID</span><span class="pi">:</span>  <span class="s">image-registry.openshift-image-registry.svc:5000/bc-ict-example-namespace/input2@sha256:0f88ffbeb9d25525720bfa3524cb2ce0908b7f791057cf1acfae917b11266a69</span>
+
+  <span class="na">lastVersion</span><span class="pi">:</span> <span class="s">1</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This example omits elements that are not related to image change triggers.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have configured multiple image change triggers. These triggers have triggered one or more builds.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>In the <code>BuildConfig</code> CR, in <code>status.imageChangeTriggers</code>, identify the <code>lastTriggerTime</code> that has the latest timestamp.</p>
+<div class="paragraph">
+<p>This <code>ImageChangeTriggerStatus</code></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre class="nowrap">Then you use the `name` and `namespace` from that build to find the corresponding image change trigger in `buildConfig.spec.triggers`.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Under <code>imageChangeTriggers</code>, compare  timestamps to identify the latest</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Image change triggers</div>
+<p>In your build configuration, <code>buildConfig.spec.triggers</code> is an array of build trigger policies, <code>BuildTriggerPolicy</code>.</p>
+</div>
+<div class="paragraph">
+<p>Each <code>BuildTriggerPolicy</code> has a <code>type</code> field and set of pointers fields. Each pointer field corresponds to one of the allowed values for the <code>type</code> field. As such, you can only set <code>BuildTriggerPolicy</code> to only one pointer field.</p>
+</div>
+<div class="paragraph">
+<p>For image change triggers, the value of <code>type</code> is <code>ImageChange</code>. Then, the <code>imageChange</code> field is the pointer to an <code>ImageChangeTrigger</code> object, which has the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>lastTriggeredImageID</code>: This field, which is not shown in the example, is deprecated in OpenShift Dedicated 4.8 and will be ignored in a future release. It contains the resolved image reference for the <code>ImageStreamTag</code> when the last build was triggered from this <code>BuildConfig</code>.</p>
+</li>
+<li>
+<p><code>paused</code>: You can use this field, which is not shown in the example, to temporarily disable this particular image change trigger.</p>
+</li>
+<li>
+<p><code>from</code>: Use this field to reference the <code>ImageStreamTag</code> that drives this image change trigger. Its type is the core Kubernetes type, <code>OwnerReference</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>from</code> field has the following fields of note:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>kind</code>: For image change triggers, the only supported value is <code>ImageStreamTag</code>.</p>
+</li>
+<li>
+<p><code>namespace</code>: Use this field to specify the namespace of the <code>ImageStreamTag</code>.</p>
+</li>
+<li>
+<p><code>name</code>: Use this field to specify the <code>ImageStreamTag</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Image change trigger status</div>
+<p>In your build configuration, <code>buildConfig.status.imageChangeTriggers</code> is an array of <code>ImageChangeTriggerStatus</code> elements. Each <code>ImageChangeTriggerStatus</code> element includes the <code>from</code>, <code>lastTriggeredImageID</code>, and <code>lastTriggerTime</code> elements shown in the preceding example.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ImageChangeTriggerStatus</code> that has the most recent <code>lastTriggerTime</code> triggered the most recent build. You use its <code>name</code> and <code>namespace</code> to identify the image change trigger in <code>buildConfig.spec.triggers</code> that triggered the build.</p>
+</div>
+<div class="paragraph">
+<p>The <code>lastTriggerTime</code> with the most recent timestamp signifies the <code>ImageChangeTriggerStatus</code> of the last build. This <code>ImageChangeTriggerStatus</code> has the same <code>name</code> and <code>namespace</code> as the image change trigger in <code>buildConfig.spec.triggers</code> that triggered the build.</p>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="http://docs.docker.com/v1.7/reference/api/hub_registry_spec/#docker-registry-1-0">v1 container registries</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-configuration-change-triggers_triggering-builds-build-hooks"><a class="anchor" href="#builds-configuration-change-triggers_triggering-builds-build-hooks"></a>Configuration change triggers</h3>
+<div class="paragraph">
+<p>A configuration change trigger allows a build to be automatically invoked as soon as a new <code>BuildConfig</code> is created.</p>
+</div>
+<div class="paragraph">
+<p>The following is an example trigger definition YAML within the <code>BuildConfig</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml">  <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ConfigChange"</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Configuration change triggers currently only work when creating a new <code>BuildConfig</code>. In a future release, configuration change triggers will also be able to launch a build whenever a <code>BuildConfig</code> is updated.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="builds-setting-triggers-manually_triggering-builds-build-hooks"><a class="anchor" href="#builds-setting-triggers-manually_triggering-builds-build-hooks"></a>Setting triggers manually</h4>
+<div class="paragraph">
+<p>Triggers can be added to and removed from build configurations with <code>oc set triggers</code>.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To set a GitHub webhook trigger on a build configuration, enter the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nb">set </span>triggers bc &lt;name&gt; <span class="nt">--from-github</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To set an image change trigger, enter the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nb">set </span>triggers bc &lt;name&gt; <span class="nt">--from-image</span><span class="o">=</span><span class="s1">'&lt;image&gt;'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To remove a trigger, enter the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nb">set </span>triggers bc &lt;name&gt; <span class="nt">--from-bitbucket</span> <span class="nt">--remove</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When a webhook trigger already exists, adding it again regenerates the webhook secret.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For more information, consult the help documentation by entering the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nb">set </span>triggers <span class="nt">--help</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="builds-build-hooks_triggering-builds-build-hooks"><a class="anchor" href="#builds-build-hooks_triggering-builds-build-hooks"></a>Build hooks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Build hooks allow behavior to be injected into the build process.</p>
+</div>
+<div class="paragraph">
+<p>The <code>postCommit</code> field of a <code>BuildConfig</code> object runs commands inside a temporary container that is running the build output image. The hook is run immediately after the last layer of the image has been committed and before the image is pushed to a registry.</p>
+</div>
+<div class="paragraph">
+<p>The current working directory is set to the image&#8217;s <code>WORKDIR</code>, which is the default working directory of the container image. For most images, this is where the source code is located.</p>
+</div>
+<div class="paragraph">
+<p>The hook fails if the script or command returns a non-zero exit code or if starting the temporary container fails. When the hook fails it marks the build as failed and the image is not pushed to a registry. The reason for failing can be inspected by looking at the build logs.</p>
+</div>
+<div class="paragraph">
+<p>Build hooks can be used to run unit tests to verify the image before the build is marked complete and the image is made available in a registry. If all tests pass and the test runner returns with exit code <code>0</code>, the build is marked successful. In case of any test failure, the build is marked as failed. In all cases, the build log contains the output of the test runner, which can be used to identify failed tests.</p>
+</div>
+<div class="paragraph">
+<p>The <code>postCommit</code> hook is not only limited to running tests, but can be used for other commands as well. Since it runs in a temporary container, changes made by the hook do not persist, meaning that running the hook cannot affect the final image. This behavior allows for, among other uses, the installation and usage of test dependencies that are automatically discarded and are not present in the final image.</p>
+</div>
+<div class="sect2">
+<h3 id="builds-configuring-post-commit-build-hooks_triggering-builds-build-hooks"><a class="anchor" href="#builds-configuring-post-commit-build-hooks_triggering-builds-build-hooks"></a>Configuring post commit build hooks</h3>
+<div class="paragraph">
+<p>There are different ways to configure the post-build hook. All forms in the following examples are equivalent and run <code>bundle exec rake test --verbose</code>.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Use one of the following options to configure post-build hooks:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shell script</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">postCommit</span><span class="pi">:</span>
+  <span class="na">script</span><span class="pi">:</span> <span class="s2">"</span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">rake</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">--verbose"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>script</code> value is a shell script to be run with <code>/bin/sh -ic</code>. Use this option when a shell script is appropriate to execute the build hook. For example, for running unit tests as above. To control the image entry point or if the image does not have <code>/bin/sh</code>, use <code>command</code>, or <code>args</code>, or both.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The additional <code>-i</code> flag was introduced to improve the experience working with CentOS and RHEL images, and may be removed in a future release.</p>
+</div>
+</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Command as the image entry point</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">postCommit</span><span class="pi">:</span>
+  <span class="na">command</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">/bin/bash"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">-c"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">rake</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">--verbose"</span><span class="pi">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this form, <code>command</code> is the command to run, which overrides the image
+entry point in the exec form, as documented in the <a href="https://docs.docker.com/engine/reference/builder/#entrypoint">Dockerfile reference</a>. This is needed if the image does not have <code>/bin/sh</code>, or if you do not want to use a shell. In all other cases, using <code>script</code> might be more convenient.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Command with arguments</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">postCommit</span><span class="pi">:</span>
+  <span class="na">command</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">bundle"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">exec"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">rake"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">test"</span><span class="pi">]</span>
+  <span class="na">args</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">--verbose"</span><span class="pi">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This form is equivalent to appending the arguments to <code>command</code>.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Providing both <code>script</code> and <code>command</code> simultaneously creates an invalid build hook.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-using-cli-post-commit-build-hooks_triggering-builds-build-hooks"><a class="anchor" href="#builds-using-cli-post-commit-build-hooks_triggering-builds-build-hooks"></a>Using the CLI to set post commit build hooks</h3>
+<div class="paragraph">
+<p>The <code>oc set build-hook</code> command can be used to set the build hook for a build configuration.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Complete one of the following actions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To set a command as the post-commit build hook, enter the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nb">set </span>build-hook bc/mybc <span class="se">\</span>
+    <span class="nt">--post-commit</span> <span class="se">\</span>
+    <span class="nt">--command</span> <span class="se">\</span>
+    <span class="nt">--</span> bundle <span class="nb">exec </span>rake <span class="nb">test</span> <span class="nt">--verbose</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To set a script as the post-commit build hook, enter the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nb">set </span>build-hook bc/mybc <span class="nt">--post-commit</span> <span class="nt">--script</span><span class="o">=</span><span class="s2">"bundle exec rake test --verbose"</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-dedicated';
+  var version = '';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

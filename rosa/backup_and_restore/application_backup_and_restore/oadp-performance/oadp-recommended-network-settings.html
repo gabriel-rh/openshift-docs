@@ -1,0 +1,1770 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>OADP recommended network settings - OADP Application backup and restore | Backup and restore | Red Hat OpenShift Service on AWS </title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <span>
+          <div class="alert alert-info" role="primary" id="support-info">
+            <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+            </strong>
+          </div>
+        </span>
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+          <a href="../../../welcome/index.html">Red Hat OpenShift Service on AWS </a>
+        
+      </li>
+      <li class="hidden-xs active">
+        Backup and restore
+      </li>
+      <li class="hidden-xs active"><a href="../../../backup_and_restore/application_backup_and_restore/oadp-intro.html">OADP Application backup and restore</a></li>
+      <li class="hidden-xs active"><a href="../../../backup_and_restore/application_backup_and_restore/oadp-performance/oadp-recommended-network-settings.html">OADP performance</a></li>
+      <li class="hidden-xs active">
+        OADP recommended network settings
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/main/backup_and_restore/application_backup_and_restore/oadp-performance/oadp-recommended-network-settings.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=[rosa-]+Issue+in+file+backup_and_restore/application_backup_and_restore/oadp-performance/oadp-recommended-network-settings.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../../../welcome/index.html">Welcome</a></li>
+            <li><a class="" href="../../../welcome/about-hcp.html">Learn more about ROSA with HCP</a></li>
+            <li><a class="" href="../../../welcome/cloud-experts-rosa-hcp-sts-explained.html">AWS STS and ROSA with HCP explained</a></li>
+            <li><a class="" href="../../../welcome/legal-notice.html">Legal notice</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>What's new</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../../../rosa_release_notes/rosa-release-notes.html">What's new with Red Hat OpenShift Service on AWS</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-right"></span>Introduction to ROSA</a>
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+            <li><a class="" href="../../../rosa_architecture/rosa-understanding.html">Understanding ROSA</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-2-1"><span id="sgSpan-2-1" class="fa fa-caret-right"></span>&nbsp;Policies and service definition</a>
+              <ul id="topicSubGroup-2-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-policy-understand-availability.html">About availability for ROSA</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-policy-responsibility-matrix.html">Overview of responsibilities for ROSA</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-service-definition.html">ROSA service definition</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-instance-types.html">ROSA instance types</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-life-cycle.html">ROSA update life cycle</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-hcp-service-definition.html">ROSA with HCP service definition</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-hcp-instance-types.html">ROSA with HCP instance types</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-hcp-life-cycle.html">ROSA with HCP update life cycle</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-policy-process-security.html">Understanding security for ROSA</a></li>
+                  <li><a class="" href="../../../rosa_architecture/rosa_policy_service_definition/rosa-sre-access.html">SRE and service account access</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../rosa_architecture/rosa-sts-about-iam-resources.html">About IAM resources for STS clusters</a></li>
+            <li><a class="" href="../../../rosa_architecture/rosa-oidc-overview.html">OpenID Connect Overview</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Architecture</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../../../architecture/index.html">Architecture overview</a></li>
+            <li><a class="" href="../../../architecture/architecture.html">Product architecture</a></li>
+            <li><a class="" href="../../../architecture/rosa-architecture-models.html">Architecture models</a></li>
+            <li><a class="" href="../../../architecture/control-plane.html">Control plane architecture</a></li>
+            <li><a class="" href="../../../architecture/nvidia-gpu-architecture-overview.html">NVIDIA GPU architecture overview</a></li>
+            <li><a class="" href="../../../architecture/understanding-development.html">Understanding OpenShift development</a></li>
+            <li><a class="" href="../../../architecture/admission-plug-ins.html">Admission plugins</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup4"><span id="tgSpan4" class="fa fa-angle-right"></span>Tutorials</a>
+      <ul id="topicGroup4" class="collapse  list-unstyled">
+            <li><a class="" href="../../../cloud_experts_tutorials/index.html">Tutorials overview</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html">ROSA with HCP activation and account linking</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-rosa-with-hcp-private-offer-acceptance-and-sharing.html">ROSA with HCP private offer acceptance and sharing</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/rosa-mobb-verify-permissions-sts-deployment.html">Verifying Permissions for a ROSA STS Deployment</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-custom-dns-resolver.html">Deploying ROSA with a Custom DNS Resolver</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-using-cloudfront-and-waf.html">Using AWS WAF and Amazon CloudFront to protect ROSA workloads</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-using-alb-and-waf.html">Using AWS WAF and AWS ALBs to protect ROSA workloads</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploy-api-data-protection.html">Deploying OpenShift API for Data Protection on a ROSA cluster</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-aws-load-balancer-operator.html">AWS Load Balancer Operator on ROSA</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-entra-id-idp.html">Configuring Microsoft Entra ID (formerly Azure Active Directory) as an identity provider</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-aws-secret-manager.html">Using AWS Secrets Manager CSI on ROSA with STS</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-using-aws-ack.html">Using AWS Controllers for Kubernetes on ROSA</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-external-dns.html">Deploying the External DNS Operator on ROSA</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-dynamic-certificate-custom-domain.html">Dynamically issuing certificates using the cert-manager Operator on ROSA</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-consistent-egress-ip.html">Assigning consistent egress IP for external traffic</a></li>
+            <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-update-component-routes.html">Updating component routes with custom domains and TLS certificates</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-4-16"><span id="sgSpan-4-16" class="fa fa-caret-right"></span>&nbsp;Getting started with ROSA</a>
+              <ul id="topicSubGroup-4-16" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-what-is-rosa.html">What is ROSA</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-rosa-sts-explained.html">ROSA with AWS STS explained</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-openshift-concepts.html">OpenShift concepts</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-4-16-3"><span id="ssgSpan-4-16-3" class="fa fa-caret-right"></span>&nbsp;Deploying a cluster</a>
+                  <ul id="topicSubSubGroup-4-16-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-deploying/cloud-experts-getting-started-choose-deployment-method.html" style="padding-left: 70px;">Choosing a deployment method</a></li>
+                    <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-deploying/cloud-experts-getting-started-simple-cli-guide.html" style="padding-left: 70px;">Simple CLI guide</a></li>
+                    <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-deploying/cloud-experts-getting-started-detailed-cli-guide.html" style="padding-left: 70px;">Detailed CLI guide</a></li>
+                    <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-deploying/cloud-experts-getting-started-simple-ui-guide.html" style="padding-left: 70px;">Simple UI guide</a></li>
+                    <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-deploying/cloud-experts-getting-started-detailed-ui.html" style="padding-left: 70px;">Detailed UI guide</a></li>
+                    <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-deploying/cloud-experts-getting-started-hcp.html" style="padding-left: 70px;">HCP deployment guide</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-admin.html">Creating an admin user</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-idp.html">Setting up an identity provider</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-admin-rights.html">Granting admin rights</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-accessing.html">Accessing your cluster</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-managing-worker-nodes.html">Managing worker nodes</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-autoscaling.html">Autoscaling</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-upgrading.html">Upgrading your cluster</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-deleting.html">Deleting your cluster</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-support.html">Obtaining support</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-4-17"><span id="sgSpan-4-17" class="fa fa-caret-right"></span>&nbsp;Deploying an application</a>
+              <ul id="topicSubGroup-4-17" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-intro.html">Introduction</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-prerequisites.html">Prerequisites</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-lab-overview.html">Lab Overview</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-deployment.html">Deployment</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-health-check.html">Health Check</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-storage.html">Storage</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-configmaps-secrets-env-var.html">ConfigMap, secrets, and environment variables</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-networking.html">Networking</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-scaling.html">Scaling an application</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-logging.html">Logging</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-s2i-deployments.html">S2i deployments</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-s2i-webhook-cicd.html">Using Source-to-Image (S2I) webhooks for automated deployment</a></li>
+                  <li><a class="" href="../../../cloud_experts_tutorials/cloud-experts-deploying-application/cloud-experts-deploying-application-integrating-aws.html">Integrating with AWS</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup5"><span id="tgSpan5" class="fa fa-angle-right"></span>Getting started</a>
+      <ul id="topicGroup5" class="collapse  list-unstyled">
+            <li><a class="" href="../../../rosa_getting_started/rosa-quickstart-guide-ui.html">ROSA quickstart guide</a></li>
+            <li><a class="" href="../../../rosa_getting_started/rosa-getting-started.html">Comprehensive guide to getting started with ROSA</a></li>
+            <li><a class="" href="../../../rosa_getting_started/rosa-sts-getting-started-workflow.html">Understanding the ROSA with STS deployment workflow</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup6"><span id="tgSpan6" class="fa fa-angle-right"></span>Prepare your environment</a>
+      <ul id="topicGroup6" class="collapse  list-unstyled">
+            <li><a class="" href="../../../rosa_planning/rosa-cloud-expert-prereq-checklist.html">Prerequisites checklist for deploying ROSA using STS</a></li>
+            <li><a class="" href="../../../rosa_planning/rosa-sts-aws-prereqs.html">Detailed requirements for deploying ROSA using STS</a></li>
+            <li><a class="" href="../../../rosa_planning/rosa-sts-ocm-role.html">ROSA IAM role resources</a></li>
+            <li><a class="" href="../../../rosa_planning/rosa-limits-scalability.html">Limits and scalability</a></li>
+            <li><a class="" href="../../../rosa_planning/rosa-hcp-limits-scalability.html">ROSA with HCP limits and scalability</a></li>
+            <li><a class="" href="../../../rosa_planning/rosa-planning-environment.html">Planning resource usage in your cluster</a></li>
+            <li><a class="" href="../../../rosa_planning/rosa-sts-required-aws-service-quotas.html">Required AWS service quotas</a></li>
+            <li><a class="" href="../../../rosa_planning/rosa-sts-setting-up-environment.html">Setting up your environment</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup7"><span id="tgSpan7" class="fa fa-angle-right"></span>Install ROSA with HCP clusters</a>
+      <ul id="topicGroup7" class="collapse  list-unstyled">
+            <li><a class="" href="../../../rosa_hcp/rosa-hcp-sts-creating-a-cluster-quickly.html">Creating ROSA with HCP clusters using the default options</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-7-1"><span id="sgSpan-7-1" class="fa fa-caret-right"></span>&nbsp;Creating a ROSA cluster using Terraform</a>
+              <ul id="topicSubGroup-7-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../rosa_hcp/terraform/rosa-hcp-creating-a-cluster-quickly-terraform.html">Creating a default ROSA cluster using Terraform</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../rosa_hcp/rosa-hcp-creating-cluster-with-aws-kms-key.html">Creating ROSA with HCP clusters using a custom AWS KMS encryption key</a></li>
+            <li><a class="" href="../../../rosa_hcp/rosa-hcp-aws-private-creating-cluster.html">Creating a private cluster on ROSA with HCP</a></li>
+            <li><a class="" href="../../../rosa_hcp/rosa-hcp-egress-lockdown-install.html">Creating a ROSA with HCP cluster with egress lockdown</a></li>
+            <li><a class="" href="../../../rosa_hcp/rosa-hcp-sts-creating-a-cluster-ext-auth.html">Creating ROSA with HCP clusters with external authentication</a></li>
+            <li><a class="" href="../../../rosa_hcp/rosa-hcp-cluster-no-cni.html">Creating ROSA with HCP clusters without a CNI plugin</a></li>
+            <li><a class="" href="../../../rosa_hcp/rosa-hcp-deleting-cluster.html">Deleting a ROSA with HCP cluster</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup8"><span id="tgSpan8" class="fa fa-angle-right"></span>Install ROSA Classic clusters</a>
+      <ul id="topicGroup8" class="collapse  list-unstyled">
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-sts-creating-a-cluster-quickly.html">Creating a ROSA cluster with STS using the default options</a></li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-sts-creating-a-cluster-with-customizations.html">Creating a ROSA cluster with STS using customizations</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-8-2"><span id="sgSpan-8-2" class="fa fa-caret-right"></span>&nbsp;Creating a ROSA (classic architecture) cluster using Terraform</a>
+              <ul id="topicSubGroup-8-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/terraform/rosa-classic-creating-a-cluster-quickly-terraform.html">Creating a default ROSA (classic architecture) cluster using Terraform</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-sts-interactive-mode-reference.html">Interactive cluster creation mode reference</a></li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-aws-privatelink-creating-cluster.html">Creating an AWS PrivateLink cluster on ROSA</a></li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-shared-vpc-config.html">Configuring a shared virtual private cloud for ROSA clusters</a></li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-sts-accessing-cluster.html">Accessing a ROSA cluster</a></li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-sts-config-identity-providers.html">Configuring identity providers using Red Hat OpenShift Cluster Manager</a></li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-sts-deleting-access-cluster.html">Revoking access to a ROSA cluster</a></li>
+            <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa-sts-deleting-cluster.html">Deleting a ROSA cluster</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-8-10"><span id="sgSpan-8-10" class="fa fa-caret-right"></span>&nbsp;Deploying ROSA without AWS STS</a>
+              <ul id="topicSubGroup-8-10" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-aws-prereqs.html">AWS prerequisites for ROSA</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-getting-started-workflow.html">Understanding the ROSA deployment workflow</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-required-aws-service-quotas.html">Required AWS service quotas</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-config-aws-account.html">Configuring your AWS account</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-installing-rosa.html">Installing the ROSA CLI</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-creating-cluster.html">Creating a ROSA cluster without AWS STS</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-private-cluster.html">Configuring a private cluster</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-deleting-access-cluster.html">Deleting access to a ROSA cluster</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-deleting-cluster.html">Deleting a ROSA cluster</a></li>
+                  <li><a class="" href="../../../rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-quickstart.html">Command quick reference for creating clusters and users</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup9"><span id="tgSpan9" class="fa fa-angle-right"></span>Support</a>
+      <ul id="topicGroup9" class="collapse  list-unstyled">
+            <li><a class="" href="../../../support/index.html">Support overview</a></li>
+            <li><a class="" href="../../../support/managing-cluster-resources.html">Managing your cluster resources</a></li>
+            <li><a class="" href="../../../support/approved-access.html">Approved Access</a></li>
+            <li><a class="" href="../../../support/getting-support.html">Getting support</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-4"><span id="sgSpan-9-4" class="fa fa-caret-right"></span>&nbsp;Remote health monitoring with connected clusters</a>
+              <ul id="topicSubGroup-9-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../support/remote_health_monitoring/about-remote-health-monitoring.html">About remote health monitoring</a></li>
+                  <li><a class="" href="../../../support/remote_health_monitoring/showing-data-collected-by-remote-health-monitoring.html">Showing data collected by remote health monitoring</a></li>
+                  <li><a class="" href="../../../support/remote_health_monitoring/using-insights-to-identify-issues-with-your-cluster.html">Using Insights to identify issues with your cluster</a></li>
+                  <li><a class="" href="../../../support/remote_health_monitoring/using-insights-operator.html">Using Insights Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../support/gathering-cluster-data.html">Gathering data about your cluster</a></li>
+            <li><a class="" href="../../../support/summarizing-cluster-specifications.html">Summarizing cluster specifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-7"><span id="sgSpan-9-7" class="fa fa-caret-right"></span>&nbsp;Troubleshooting</a>
+              <ul id="topicSubGroup-9-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../support/troubleshooting/rosa-troubleshooting-installations.html">Troubleshooting ROSA installations</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/rosa-troubleshooting-installations-hcp.html">Troubleshooting ROSA with HCP installations</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/rosa-troubleshooting-networking.html">Troubleshooting networking</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/verifying-node-health.html">Verifying node health</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/investigating-pod-issues.html">Investigating pod issues</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/troubleshooting-s2i.html">Troubleshooting the Source-to-Image process</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/troubleshooting-storage-issues.html">Troubleshooting storage issues</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/investigating-monitoring-issues.html">Investigating monitoring issues</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/diagnosing-oc-issues.html">Diagnosing OpenShift CLI (oc) issues</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/rosa-troubleshooting-expired-tokens.html">Troubleshooting expired offline access tokens</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/rosa-troubleshooting-iam-resources.html">Troubleshooting IAM roles</a></li>
+                  <li><a class="" href="../../../support/troubleshooting/rosa-troubleshooting-deployments.html">Troubleshooting cluster deployments</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup10"><span id="tgSpan10" class="fa fa-angle-right"></span>Web console</a>
+      <ul id="topicGroup10" class="collapse  list-unstyled">
+            <li><a class="" href="../../../web_console/web-console-overview.html">Web console overview</a></li>
+            <li><a class="" href="../../../web_console/web-console.html">Accessing the web console</a></li>
+            <li><a class="" href="../../../web_console/using-dashboard-to-get-cluster-information.html">Viewing cluster information</a></li>
+            <li><a class="" href="../../../web_console/adding-user-preferences.html">Adding user preferences</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-4"><span id="sgSpan-10-4" class="fa fa-caret-right"></span>&nbsp;Dynamic plugins</a>
+              <ul id="topicSubGroup-10-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../web_console/dynamic-plugin/overview-dynamic-plugin.html">Overview of dynamic plugins</a></li>
+                  <li><a class="" href="../../../web_console/dynamic-plugin/dynamic-plugins-get-started.html">Getting started with dynamic plugins</a></li>
+                  <li><a class="" href="../../../web_console/dynamic-plugin/deploy-plugin-cluster.html">Deploy your plugin on a cluster</a></li>
+                  <li><a class="" href="../../../web_console/dynamic-plugin/dynamic-plugin-example.html">Dynamic plugin example</a></li>
+                  <li><a class="" href="../../../web_console/dynamic-plugin/dynamic-plugins-reference.html">Dynamic plugin reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-5"><span id="sgSpan-10-5" class="fa fa-caret-right"></span>&nbsp;Web terminal</a>
+              <ul id="topicSubGroup-10-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../web_console/web_terminal/installing-web-terminal.html">Installing the web terminal</a></li>
+                  <li><a class="" href="../../../web_console/web_terminal/odc-using-web-terminal.html">Using the web terminal</a></li>
+                  <li><a class="" href="../../../web_console/web_terminal/troubleshooting-web-terminal.html">Troubleshooting the web terminal</a></li>
+                  <li><a class="" href="../../../web_console/web_terminal/uninstalling-web-terminal.html">Uninstalling the web terminal</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../web_console/creating-quick-start-tutorials.html">About quick start tutorials</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup11"><span id="tgSpan11" class="fa fa-angle-right"></span>CLI tools</a>
+      <ul id="topicGroup11" class="collapse  list-unstyled">
+            <li><a class="" href="../../../cli_reference/index.html">CLI tools overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-1"><span id="sgSpan-11-1" class="fa fa-caret-right"></span>&nbsp;OpenShift CLI (oc)</a>
+              <ul id="topicSubGroup-11-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cli_reference/openshift_cli/getting-started-cli.html">Getting started with the OpenShift CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/openshift_cli/configuring-cli.html">Configuring the OpenShift CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/openshift_cli/usage-oc-kubectl.html">Usage of oc and kubectl commands</a></li>
+                  <li><a class="" href="../../../cli_reference/openshift_cli/managing-cli-profiles.html">Managing CLI profiles</a></li>
+                  <li><a class="" href="../../../cli_reference/openshift_cli/extending-cli-plugins.html">Extending the OpenShift CLI with plugins</a></li>
+                  <li><a class="" href="../../../cli_reference/openshift_cli/developer-cli-commands.html">OpenShift CLI developer command reference</a></li>
+                  <li><a class="" href="../../../cli_reference/openshift_cli/administrator-cli-commands.html">OpenShift CLI administrator command reference</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../cli_reference/odo-important-update.html">Developer CLI (odo)</a></li>
+            <li><a class="" href="../../../cli_reference/kn-cli-tools.html">Knative CLI (kn) for use with OpenShift Serverless</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-4"><span id="sgSpan-11-4" class="fa fa-caret-right"></span>&nbsp;Pipelines CLI (tkn)</a>
+              <ul id="topicSubGroup-11-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cli_reference/tkn_cli/installing-tkn.html">Installing tkn</a></li>
+                  <li><a class="" href="../../../cli_reference/tkn_cli/op-configuring-tkn.html">Configuring tkn</a></li>
+                  <li><a class="" href="../../../cli_reference/tkn_cli/op-tkn-reference.html">Basic tkn commands</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-5"><span id="sgSpan-11-5" class="fa fa-caret-right"></span>&nbsp;opm CLI</a>
+              <ul id="topicSubGroup-11-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cli_reference/opm/cli-opm-install.html">Installing the opm CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/opm/cli-opm-ref.html">opm CLI reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-6"><span id="sgSpan-11-6" class="fa fa-caret-right"></span>&nbsp;Operator SDK</a>
+              <ul id="topicSubGroup-11-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cli_reference/osdk/cli-osdk-install.html">Installing the Operator SDK CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/osdk/cli-osdk-ref.html">Operator SDK CLI reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-7"><span id="sgSpan-11-7" class="fa fa-caret-right"></span>&nbsp;ROSA CLI</a>
+              <ul id="topicSubGroup-11-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cli_reference/rosa_cli/rosa-get-started-cli.html">Getting started with the ROSA CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/rosa_cli/rosa-manage-objects-cli.html">Managing objects with the ROSA CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/rosa_cli/rosa-checking-acct-version-cli.html">Checking account and version information with the ROSA CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/rosa_cli/rosa-checking-logs-cli.html">Checking logs with the ROSA CLI</a></li>
+                  <li><a class="" href="../../../cli_reference/rosa_cli/rosa-cli-permission-examples.html">Least privilege permissions for ROSA CLI commands</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup12"><span id="tgSpan12" class="fa fa-angle-right"></span>Red Hat OpenShift Cluster Manager</a>
+      <ul id="topicGroup12" class="collapse  list-unstyled">
+            <li><a class="" href="../../../ocm/ocm-overview.html">Red Hat OpenShift Cluster Manager</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup13"><span id="tgSpan13" class="fa fa-angle-right"></span>Cluster administration</a>
+      <ul id="topicGroup13" class="collapse  list-unstyled">
+            <li><a class="" href="../../../rosa_cluster_admin/rosa-cluster-notifications.html">Cluster notifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-13-1"><span id="sgSpan-13-1" class="fa fa-caret-right"></span>&nbsp;Configuring private connections</a>
+              <ul id="topicSubGroup-13-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../rosa_cluster_admin/cloud_infrastructure_access/rosa-configuring-private-connections.html">Configuring private connections</a></li>
+                  <li><a class="" href="../../../rosa_cluster_admin/cloud_infrastructure_access/dedicated-aws-peering.html">Configuring AWS VPC peering</a></li>
+                  <li><a class="" href="../../../rosa_cluster_admin/cloud_infrastructure_access/dedicated-aws-vpn.html">Configuring AWS VPN</a></li>
+                  <li><a class="" href="../../../rosa_cluster_admin/cloud_infrastructure_access/dedicated-aws-dc.html">Configuring AWS Direct Connect</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../rosa_cluster_admin/rosa-cluster-autoscaling.html">Cluster autoscaling</a></li>
+            <li><a class="" href="../../../rosa_cluster_admin/rosa-cluster-autoscaling-hcp.html">Cluster autoscaling for ROSA HCP</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-13-4"><span id="sgSpan-13-4" class="fa fa-caret-right"></span>&nbsp;Manage nodes using machine pools</a>
+              <ul id="topicSubGroup-13-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../rosa_cluster_admin/rosa_nodes/rosa-nodes-machinepools-about.html">About machine pools</a></li>
+                  <li><a class="" href="../../../rosa_cluster_admin/rosa_nodes/rosa-managing-worker-nodes.html">Managing compute nodes</a></li>
+                  <li><a class="" href="../../../rosa_cluster_admin/rosa_nodes/rosa-nodes-machinepools-configuring.html">Configuring machine pools in Local Zones</a></li>
+                  <li><a class="" href="../../../rosa_cluster_admin/rosa_nodes/rosa-nodes-about-autoscaling-nodes.html">About autoscaling nodes on a cluster</a></li>
+                  <li><a class="" href="../../../rosa_cluster_admin/rosa_nodes/nodes-cluster-resource-configure.html">Configuring cluster memory to meet container memory and risk requirements</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../rosa_cluster_admin/rosa-configuring-pid-limits.html">Configuring PID limits</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup14"><span id="tgSpan14" class="fa fa-angle-right"></span>Security and compliance</a>
+      <ul id="topicGroup14" class="collapse  list-unstyled">
+            <li><a class="" href="../../../security/audit-log-view.html">Viewing audit logs</a></li>
+            <li><a class="" href="../../../security/rosa-adding-additional-constraints-for-ip-based-aws-role-assumption.html">Adding additional constraints for IP-based AWS role assumption</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup15"><span id="tgSpan15" class="fa fa-angle-right"></span>Authentication and authorization</a>
+      <ul id="topicGroup15" class="collapse  list-unstyled">
+            <li><a class="" href="../../../authentication/index.html">Authentication and authorization overview</a></li>
+            <li><a class="" href="../../../authentication/understanding-authentication.html">Understanding authentication</a></li>
+            <li><a class="" href="../../../authentication/managing-oauth-access-tokens.html">Managing user-owned OAuth access tokens</a></li>
+            <li><a class="" href="../../../authentication/sd-configuring-identity-providers.html">Configuring identity providers</a></li>
+            <li><a class="" href="../../../authentication/using-rbac.html">Using RBAC to define and apply permissions</a></li>
+            <li><a class="" href="../../../authentication/understanding-and-creating-service-accounts.html">Understanding and creating service accounts</a></li>
+            <li><a class="" href="../../../authentication/using-service-accounts-in-applications.html">Using service accounts in applications</a></li>
+            <li><a class="" href="../../../authentication/using-service-accounts-as-oauth-client.html">Using a service account as an OAuth client</a></li>
+            <li><a class="" href="../../../authentication/assuming-an-aws-iam-role-for-a-service-account.html">Assuming an AWS IAM role for a service account</a></li>
+            <li><a class="" href="../../../authentication/tokens-scoping.html">Scoping tokens</a></li>
+            <li><a class="" href="../../../authentication/bound-service-account-tokens.html">Using bound service account tokens</a></li>
+            <li><a class="" href="../../../authentication/managing-security-context-constraints.html">Managing security context constraints</a></li>
+            <li><a class="" href="../../../authentication/understanding-and-managing-pod-security-admission.html">Understanding and managing pod security admission</a></li>
+            <li><a class="" href="../../../authentication/ldap-syncing.html">Syncing LDAP groups</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup16"><span id="tgSpan16" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup16" class="collapse  list-unstyled">
+            <li><a class="" href="../../../upgrading/rosa-hcp-upgrading.html">Upgrading ROSA with HCP clusters</a></li>
+            <li><a class="" href="../../../upgrading/rosa-upgrading-sts.html">Upgrading ROSA Classic clusters</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup17"><span id="tgSpan17" class="fa fa-angle-right"></span>CI/CD</a>
+      <ul id="topicGroup17" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-0"><span id="sgSpan-17-0" class="fa fa-caret-right"></span>&nbsp;CI/CD overview</a>
+              <ul id="topicSubGroup-17-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cicd/overview/index.html">About CI/CD</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-1"><span id="sgSpan-17-1" class="fa fa-caret-right"></span>&nbsp;Builds using Shipwright</a>
+              <ul id="topicSubGroup-17-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cicd/builds_using_shipwright/overview-openshift-builds.html">Overview of Builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-2"><span id="sgSpan-17-2" class="fa fa-caret-right"></span>&nbsp;Builds using BuildConfig</a>
+              <ul id="topicSubGroup-17-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cicd/builds/understanding-image-builds.html">Understanding image builds</a></li>
+                  <li><a class="" href="../../../cicd/builds/understanding-buildconfigs.html">Understanding build configurations</a></li>
+                  <li><a class="" href="../../../cicd/builds/creating-build-inputs.html">Creating build inputs</a></li>
+                  <li><a class="" href="../../../cicd/builds/managing-build-output.html">Managing build output</a></li>
+                  <li><a class="" href="../../../cicd/builds/build-strategies.html">Using build strategies</a></li>
+                  <li><a class="" href="../../../cicd/builds/basic-build-operations.html">Performing and configuring basic builds</a></li>
+                  <li><a class="" href="../../../cicd/builds/triggering-builds-build-hooks.html">Triggering and modifying builds</a></li>
+                  <li><a class="" href="../../../cicd/builds/advanced-build-operations.html">Performing advanced builds</a></li>
+                  <li><a class="" href="../../../cicd/builds/running-entitled-builds.html">Using Red Hat subscriptions in builds</a></li>
+                  <li><a class="" href="../../../cicd/builds/troubleshooting-builds.html">Troubleshooting builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-3"><span id="sgSpan-17-3" class="fa fa-caret-right"></span>&nbsp;Pipelines</a>
+              <ul id="topicSubGroup-17-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cicd/pipelines/about-pipelines.html">About OpenShift Pipelines</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-4"><span id="sgSpan-17-4" class="fa fa-caret-right"></span>&nbsp;GitOps</a>
+              <ul id="topicSubGroup-17-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cicd/gitops/about-redhat-openshift-gitops.html">About OpenShift GitOps</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-5"><span id="sgSpan-17-5" class="fa fa-caret-right"></span>&nbsp;Jenkins</a>
+              <ul id="topicSubGroup-17-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../cicd/jenkins/images-other-jenkins.html">Configuring Jenkins images</a></li>
+                  <li><a class="" href="../../../cicd/jenkins/images-other-jenkins-agent.html">Jenkins agent</a></li>
+                  <li><a class="" href="../../../cicd/jenkins/migrating-from-jenkins-to-openshift-pipelines.html">Migrating from Jenkins to OpenShift Pipelines</a></li>
+                  <li><a class="" href="../../../cicd/jenkins/important-changes-to-openshift-jenkins-images.html">Important changes to OpenShift Jenkins images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup18"><span id="tgSpan18" class="fa fa-angle-right"></span>Images</a>
+      <ul id="topicGroup18" class="collapse  list-unstyled">
+            <li><a class="" href="../../../openshift_images/index.html">Overview of images</a></li>
+            <li><a class="" href="../../../openshift_images/configuring-samples-operator.html">Overview of the Cluster Samples Operator</a></li>
+            <li><a class="" href="../../../openshift_images/samples-operator-alt-registry.html">Using the Cluster Samples Operator with an alternate registry</a></li>
+            <li><a class="" href="../../../openshift_images/create-images.html">Creating images</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-18-4"><span id="sgSpan-18-4" class="fa fa-caret-right"></span>&nbsp;Managing images</a>
+              <ul id="topicSubGroup-18-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../openshift_images/managing_images/managing-images-overview.html">Managing images overview</a></li>
+                  <li><a class="" href="../../../openshift_images/managing_images/tagging-images.html">Tagging images</a></li>
+                  <li><a class="" href="../../../openshift_images/managing_images/image-pull-policy.html">Image pull policy</a></li>
+                  <li><a class="" href="../../../openshift_images/managing_images/using-image-pull-secrets.html">Using image pull secrets</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../openshift_images/image-streams-manage.html">Managing image streams</a></li>
+            <li><a class="" href="../../../openshift_images/using-imagestreams-with-kube-resources.html">Using image streams with Kubernetes resources</a></li>
+            <li><a class="" href="../../../openshift_images/triggering-updates-on-imagestream-changes.html">Triggering updates on image stream changes</a></li>
+            <li><a class="" href="../../../openshift_images/image-configuration.html">Image configuration resources (Classic)</a></li>
+            <li><a class="" href="../../../openshift_images/image-configuration-hcp.html">Image configuration resources (HCP)</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-18-10"><span id="sgSpan-18-10" class="fa fa-caret-right"></span>&nbsp;Using images</a>
+              <ul id="topicSubGroup-18-10" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../openshift_images/using_images/using-images-overview.html">Using images overview</a></li>
+                  <li><a class="" href="../../../openshift_images/using_images/using-s21-images.html">Source-to-image</a></li>
+                  <li><a class="" href="../../../openshift_images/using_images/customizing-s2i-images.html">Customizing source-to-image images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup19"><span id="tgSpan19" class="fa fa-angle-right"></span>Add-on services</a>
+      <ul id="topicGroup19" class="collapse  list-unstyled">
+            <li><a class="" href="../../../adding_service_cluster/adding-service.html">Adding services to a cluster</a></li>
+            <li><a class="" href="../../../adding_service_cluster/rosa-available-services.html">Available services</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup20"><span id="tgSpan20" class="fa fa-angle-right"></span>Storage</a>
+      <ul id="topicGroup20" class="collapse  list-unstyled">
+            <li><a class="" href="../../../storage/index.html">Storage overview</a></li>
+            <li><a class="" href="../../../storage/understanding-ephemeral-storage.html">Understanding ephemeral storage</a></li>
+            <li><a class="" href="../../../storage/understanding-persistent-storage.html">Understanding persistent storage</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-20-3"><span id="sgSpan-20-3" class="fa fa-caret-right"></span>&nbsp;Configuring persistent storage</a>
+              <ul id="topicSubGroup-20-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../storage/persistent_storage/persistent-storage-aws.html">Persistent storage using AWS Elastic Block Store</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-20-4"><span id="sgSpan-20-4" class="fa fa-caret-right"></span>&nbsp;Using Container Storage Interface (CSI)</a>
+              <ul id="topicSubGroup-20-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../storage/container_storage_interface/persistent-storage-csi.html">Configuring CSI volumes</a></li>
+                  <li><a class="" href="../../../storage/container_storage_interface/persistent-storage-csi-sc-manage.html">Managing the default storage class</a></li>
+                  <li><a class="" href="../../../storage/container_storage_interface/persistent-storage-csi-ebs.html">AWS Elastic Block Store CSI Driver Operator</a></li>
+                  <li><a class="" href="../../../storage/container_storage_interface/persistent-storage-csi-aws-efs.html">AWS Elastic File Service CSI Driver Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../storage/generic-ephemeral-vols.html">Generic ephemeral volumes</a></li>
+            <li><a class="" href="../../../storage/dynamic-provisioning.html">Dynamic provisioning</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup21"><span id="tgSpan21" class="fa fa-angle-right"></span>Registry</a>
+      <ul id="topicGroup21" class="collapse  list-unstyled">
+            <li><a class="" href="../../../registry/index.html">Registry overview</a></li>
+            <li><a class="" href="../../../registry/configuring-registry-operator.html">Image Registry Operator in Red Hat OpenShift Service on AWS</a></li>
+            <li><a class="" href="../../../registry/accessing-the-registry.html">Accessing the registry</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup22"><span id="tgSpan22" class="fa fa-angle-right"></span>Operators</a>
+      <ul id="topicGroup22" class="collapse  list-unstyled">
+            <li><a class="" href="../../../operators/index.html">Operators overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-1"><span id="sgSpan-22-1" class="fa fa-caret-right"></span>&nbsp;Understanding Operators</a>
+              <ul id="topicSubGroup-22-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../operators/understanding/olm-what-operators-are.html">What are Operators?</a></li>
+                  <li><a class="" href="../../../operators/understanding/olm-packaging-format.html">Packaging format</a></li>
+                  <li><a class="" href="../../../operators/understanding/olm-common-terms.html">Common terms</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-1-3"><span id="ssgSpan-22-1-3" class="fa fa-caret-right"></span>&nbsp;Operator Lifecycle Manager (OLM)</a>
+                  <ul id="topicSubSubGroup-22-1-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../operators/understanding/olm/olm-understanding-olm.html" style="padding-left: 70px;">Concepts and resources</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-arch.html" style="padding-left: 70px;">Architecture</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-workflow.html" style="padding-left: 70px;">Workflow</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-understanding-dependency-resolution.html" style="padding-left: 70px;">Dependency resolution</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-understanding-operatorgroups.html" style="padding-left: 70px;">Operator groups</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-colocation.html" style="padding-left: 70px;">Multitenancy and Operator colocation</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-operatorconditions.html" style="padding-left: 70px;">Operator conditions</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-understanding-metrics.html" style="padding-left: 70px;">Metrics</a></li>
+                    <li><a class="" href="../../../operators/understanding/olm/olm-webhooks.html" style="padding-left: 70px;">Webhooks</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../operators/understanding/olm-understanding-operatorhub.html">OperatorHub</a></li>
+                  <li><a class="" href="../../../operators/understanding/olm-rh-catalogs.html">Red Hat-provided Operator catalogs</a></li>
+                  <li><a class="" href="../../../operators/understanding/olm-multitenancy.html">Operators in multitenant clusters</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-1-7"><span id="ssgSpan-22-1-7" class="fa fa-caret-right"></span>&nbsp;CRDs</a>
+                  <ul id="topicSubSubGroup-22-1-7" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../operators/understanding/crds/crd-managing-resources-from-crds.html" style="padding-left: 70px;">Managing resources from CRDs</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-2"><span id="sgSpan-22-2" class="fa fa-caret-right"></span>&nbsp;User tasks</a>
+              <ul id="topicSubGroup-22-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../operators/user/olm-creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-3"><span id="sgSpan-22-3" class="fa fa-caret-right"></span>&nbsp;Administrator tasks</a>
+              <ul id="topicSubGroup-22-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../operators/admin/olm-adding-operators-to-cluster.html">Adding Operators to a cluster</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-upgrading-operators.html">Updating installed Operators</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-configuring-proxy-support.html">Configuring proxy support</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-status.html">Viewing Operator status</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-managing-operatorconditions.html">Managing Operator conditions</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-managing-custom-catalogs.html">Managing custom catalogs</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-cs-podsched.html">Catalog source pod scheduling</a></li>
+                  <li><a class="" href="../../../operators/admin/olm-troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-4"><span id="sgSpan-22-4" class="fa fa-caret-right"></span>&nbsp;Developing Operators</a>
+              <ul id="topicSubGroup-22-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-about.html">About the Operator SDK</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-installing-cli.html">Installing the Operator SDK CLI</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-4-2"><span id="ssgSpan-22-4-2" class="fa fa-caret-right"></span>&nbsp;Go-based Operators</a>
+                  <ul id="topicSubSubGroup-22-4-2" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../operators/operator_sdk/golang/osdk-golang-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/golang/osdk-golang-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/golang/osdk-golang-updating-projects.html" style="padding-left: 70px;">Updating Go-based projects</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-4-3"><span id="ssgSpan-22-4-3" class="fa fa-caret-right"></span>&nbsp;Ansible-based Operators</a>
+                  <ul id="topicSubSubGroup-22-4-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../operators/operator_sdk/ansible/osdk-ansible-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/ansible/osdk-ansible-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/ansible/osdk-ansible-updating-projects.html" style="padding-left: 70px;">Updating Ansible-based projects</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/ansible/osdk-ansible-support.html" style="padding-left: 70px;">Ansible support</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/ansible/osdk-ansible-k8s-collection.html" style="padding-left: 70px;">Kubernetes Collection for Ansible</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/ansible/osdk-ansible-inside-operator.html" style="padding-left: 70px;">Using Ansible inside an Operator</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/ansible/osdk-ansible-cr-status.html" style="padding-left: 70px;">Custom resource status management</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-4-4"><span id="ssgSpan-22-4-4" class="fa fa-caret-right"></span>&nbsp;Helm-based Operators</a>
+                  <ul id="topicSubSubGroup-22-4-4" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../operators/operator_sdk/helm/osdk-helm-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/helm/osdk-helm-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/helm/osdk-helm-updating-projects.html" style="padding-left: 70px;">Updating Helm-based projects</a></li>
+                    <li><a class="" href="../../../operators/operator_sdk/helm/osdk-helm-support.html" style="padding-left: 70px;">Helm support</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-generating-csvs.html">Defining cluster service versions (CSVs)</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-working-bundle-images.html">Working with bundle images</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-complying-with-psa.html">Complying with pod security admission</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-scorecard.html">Validating Operators using the scorecard</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-bundle-validate.html">Validating Operator bundles</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-ha-sno.html">High-availability or single-node cluster detection and support</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-monitoring-prometheus.html">Configuring built-in monitoring with Prometheus</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-leader-election.html">Configuring leader election</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-pruning-utility.html">Object pruning utility</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-pkgman-to-bundle.html">Migrating package manifest projects to bundle format</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-cli-ref.html">Operator SDK CLI reference</a></li>
+                  <li><a class="" href="../../../operators/operator_sdk/osdk-migrating-to-v0-1-0.html">Migrating to Operator SDK v0.1.0</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup23"><span id="tgSpan23" class="fa fa-angle-right"></span>Networking</a>
+      <ul id="topicGroup23" class="collapse  list-unstyled">
+            <li><a class="" href="../../../networking/about-managed-networking.html">About networking</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-1"><span id="sgSpan-23-1" class="fa fa-caret-right"></span>&nbsp;Networking Operators</a>
+              <ul id="topicSubGroup-23-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../networking/networking_operators/aws-load-balancer-operator.html">AWS Load Balancer Operator</a></li>
+                  <li><a class="" href="../../../networking/networking_operators/dns-operator.html">DNS Operator in Red Hat OpenShift Service on AWS</a></li>
+                  <li><a class="" href="../../../networking/networking_operators/ingress-operator.html">Ingress Operator in Red Hat OpenShift Service on AWS</a></li>
+                  <li><a class="" href="../../../networking/networking_operators/ingress-node-firewall-operator.html">Ingress Node Firewall Operator in Red Hat OpenShift Service on AWS</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../networking/network-verification.html">Network verification</a></li>
+            <li><a class="" href="../../../networking/configuring-cluster-wide-proxy.html">Configuring a cluster-wide proxy during installation</a></li>
+            <li><a class="" href="../../../networking/cidr-range-definitions.html">CIDR range definitions</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-5"><span id="sgSpan-23-5" class="fa fa-caret-right"></span>&nbsp;Network security</a>
+              <ul id="topicSubGroup-23-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../networking/network_security/network-policy-apis.html">Understanding network policy APIs</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-23-5-1"><span id="ssgSpan-23-5-1" class="fa fa-caret-right"></span>&nbsp;Admin network policy</a>
+                  <ul id="topicSubSubGroup-23-5-1" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../networking/network_security/AdminNetworkPolicy/ovn-k-anp.html" style="padding-left: 70px;">About AdminNetworkPolicy</a></li>
+                    <li><a class="" href="../../../networking/network_security/AdminNetworkPolicy/ovn-k-banp.html" style="padding-left: 70px;">About BaselineAdminNetworkPolicy</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-23-5-2"><span id="ssgSpan-23-5-2" class="fa fa-caret-right"></span>&nbsp;Network policy</a>
+                  <ul id="topicSubSubGroup-23-5-2" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../networking/network_security/network_policy/about-network-policy.html" style="padding-left: 70px;">About network policy</a></li>
+                    <li><a class="" href="../../../networking/network_security/network_policy/creating-network-policy.html" style="padding-left: 70px;">Creating a network policy</a></li>
+                    <li><a class="" href="../../../networking/network_security/network_policy/viewing-network-policy.html" style="padding-left: 70px;">Viewing a network policy</a></li>
+                    <li><a class="" href="../../../networking/network_security/network_policy/editing-network-policy.html" style="padding-left: 70px;">Editing a network policy</a></li>
+                    <li><a class="" href="../../../networking/network_security/network_policy/deleting-network-policy.html" style="padding-left: 70px;">Deleting a network policy</a></li>
+                    <li><a class="" href="../../../networking/network_security/network_policy/default-network-policy.html" style="padding-left: 70px;">Defining a default network policy for projects</a></li>
+                    <li><a class="" href="../../../networking/network_security/network_policy/multitenant-network-policy.html" style="padding-left: 70px;">Configuring multitenant isolation with network policy</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../networking/network_security/logging-network-security.html">Audit logging for network security</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-6"><span id="sgSpan-23-6" class="fa fa-caret-right"></span>&nbsp;OVN-Kubernetes network plugin</a>
+              <ul id="topicSubGroup-23-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../networking/ovn_kubernetes_network_provider/about-ovn-kubernetes.html">About the OVN-Kubernetes network plugin</a></li>
+                  <li><a class="" href="../../../networking/ovn_kubernetes_network_provider/configuring-egress-ips-ovn.html">Configuring an egress IP address</a></li>
+                  <li><a class="" href="../../../networking/ovn_kubernetes_network_provider/migrate-from-openshift-sdn.html">Migrating from OpenShift SDN network plugin to OVN-Kubernetes network plugin</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-7"><span id="sgSpan-23-7" class="fa fa-caret-right"></span>&nbsp;OpenShift SDN network plugin</a>
+              <ul id="topicSubGroup-23-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../networking/ovn_kubernetes_network_provider/enabling-multicast.html">Enabling multicast for a project</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-8"><span id="sgSpan-23-8" class="fa fa-caret-right"></span>&nbsp;Configuring Routes</a>
+              <ul id="topicSubGroup-23-8" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../networking/routes/route-configuration.html">Route configuration</a></li>
+                  <li><a class="" href="../../../networking/routes/secured-routes.html">Secured routes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup24"><span id="tgSpan24" class="fa fa-angle-right"></span>Building applications</a>
+      <ul id="topicGroup24" class="collapse  list-unstyled">
+            <li><a class="" href="../../../applications/index.html">Building applications overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-1"><span id="sgSpan-24-1" class="fa fa-caret-right"></span>&nbsp;Projects</a>
+              <ul id="topicSubGroup-24-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../applications/projects/working-with-projects.html">Working with projects</a></li>
+                  <li><a class="" href="../../../applications/projects/configuring-project-creation.html">Configuring project creation</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-2"><span id="sgSpan-24-2" class="fa fa-caret-right"></span>&nbsp;Creating applications</a>
+              <ul id="topicSubGroup-24-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../applications/creating_applications/using-templates.html">Using templates</a></li>
+                  <li><a class="" href="../../../applications/creating_applications/odc-creating-applications-using-developer-perspective.html">Creating applications using the Developer perspective</a></li>
+                  <li><a class="" href="../../../applications/creating_applications/creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>
+                  <li><a class="" href="../../../applications/creating_applications/creating-applications-using-cli.html">Creating applications using the CLI</a></li>
+                  <li><a class="" href="../../../applications/creating_applications/templates-using-ruby-on-rails.html">Creating applications using Ruby on Rails</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../applications/odc-viewing-application-composition-using-topology-view.html">Viewing application composition using the Topology view</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-4"><span id="sgSpan-24-4" class="fa fa-caret-right"></span>&nbsp;Working with Helm charts</a>
+              <ul id="topicSubGroup-24-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../applications/working_with_helm_charts/understanding-helm.html">Understanding Helm</a></li>
+                  <li><a class="" href="../../../applications/working_with_helm_charts/installing-helm.html">Installing Helm</a></li>
+                  <li><a class="" href="../../../applications/working_with_helm_charts/configuring-custom-helm-chart-repositories.html">Configuring custom Helm chart repositories</a></li>
+                  <li><a class="" href="../../../applications/working_with_helm_charts/odc-working-with-helm-releases.html">Working with Helm releases</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-5"><span id="sgSpan-24-5" class="fa fa-caret-right"></span>&nbsp;Deployments</a>
+              <ul id="topicSubGroup-24-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../applications/deployments/rosa-config-custom-domains-applications.html">Custom domains for applications</a></li>
+                  <li><a class="" href="../../../applications/deployments/what-deployments-are.html">Understanding Deployments and DeploymentConfigs</a></li>
+                  <li><a class="" href="../../../applications/deployments/managing-deployment-processes.html">Managing deployment processes</a></li>
+                  <li><a class="" href="../../../applications/deployments/deployment-strategies.html">Using deployment strategies</a></li>
+                  <li><a class="" href="../../../applications/deployments/route-based-deployment-strategies.html">Using route-based deployment strategies</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-6"><span id="sgSpan-24-6" class="fa fa-caret-right"></span>&nbsp;Quotas</a>
+              <ul id="topicSubGroup-24-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a></li>
+                  <li><a class="" href="../../../applications/quotas/quotas-setting-across-multiple-projects.html">Resource quotas across multiple projects</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../../applications/config-maps.html">Using config maps with applications</a></li>
+            <li><a class="" href="../../../applications/odc-monitoring-project-and-application-metrics-using-developer-perspective.html">Monitoring project and application metrics using the Developer perspective</a></li>
+            <li><a class="" href="../../../applications/application-health.html">Monitoring application health</a></li>
+            <li><a class="" href="../../../applications/odc-editing-applications.html">Editing applications</a></li>
+            <li><a class="" href="../../../applications/working-with-quotas.html">Working with quotas</a></li>
+            <li><a class="" href="../../../applications/pruning-objects.html">Pruning objects to reclaim resources</a></li>
+            <li><a class="" href="../../../applications/idling-applications.html">Idling applications</a></li>
+            <li><a class="" href="../../../applications/odc-deleting-applications.html">Deleting applications</a></li>
+            <li><a class="" href="../../../applications/red-hat-marketplace.html">Using the Red Hat Marketplace</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup25"><span id="tgSpan25" class="fa fa-angle-down"></span>Backup and restore</a>
+      <ul id="topicGroup25" class="collapse in list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-25-0"><span id="sgSpan-25-0" class="fa fa-caret-down"></span>&nbsp;OADP Application backup and restore</a>
+              <ul id="topicSubGroup-25-0" class="nav-tertiary list-unstyled collapse in">
+
+                  <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/oadp-intro.html">Introduction to OpenShift API for Data Protection</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-25-0-1"><span id="ssgSpan-25-0-1" class="fa fa-caret-right"></span>&nbsp;OADP release notes</a>
+                  <ul id="topicSubSubGroup-25-0-1" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/release-notes/oadp-1-4-release-notes.html" style="padding-left: 70px;">OADP 1.4 release notes</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-25-0-2"><span id="ssgSpan-25-0-2" class="fa fa-caret-down"></span>&nbsp;OADP performance</a>
+                  <ul id="topicSubSubGroup-25-0-2" class="nav-tertiary list-unstyled collapse in">
+
+                    <li><a class=" active" href="../../../backup_and_restore/application_backup_and_restore/oadp-performance/oadp-recommended-network-settings.html" style="padding-left: 70px;">OADP recommended network settings</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/oadp-features-plugins.html">OADP features and plugins</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-25-0-4"><span id="ssgSpan-25-0-4" class="fa fa-caret-right"></span>&nbsp;OADP use cases</a>
+                  <ul id="topicSubSubGroup-25-0-4" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/oadp-use-cases/oadp-rosa-backup-restore.html" style="padding-left: 70px;">Backing up an application using OADP with ROSA STS</a></li>
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/oadp-use-cases/oadp-usecase-restore-different-namespace.html" style="padding-left: 70px;">Restoring a backup to a different namespace</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-25-0-5"><span id="ssgSpan-25-0-5" class="fa fa-caret-right"></span>&nbsp;Installing and configuring OADP</a>
+                  <ul id="topicSubSubGroup-25-0-5" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/oadp-rosa/oadp-rosa-backing-up-applications.html" style="padding-left: 70px;">Installing OADP</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-25-0-6"><span id="ssgSpan-25-0-6" class="fa fa-caret-right"></span>&nbsp;Uninstalling OADP</a>
+                  <ul id="topicSubSubGroup-25-0-6" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/installing/uninstalling-oadp.html" style="padding-left: 70px;">Uninstalling OADP</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-25-0-7"><span id="ssgSpan-25-0-7" class="fa fa-caret-right"></span>&nbsp;OADP backing up</a>
+                  <ul id="topicSubSubGroup-25-0-7" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/backing-up-applications.html" style="padding-left: 70px;">Backing up applications</a></li>
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html" style="padding-left: 70px;">Creating a Backup CR</a></li>
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-hooks-doc.html" style="padding-left: 70px;">Creating backup hooks</a></li>
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-scheduling-backups-doc.html" style="padding-left: 70px;">Scheduling backups using Schedule CR</a></li>
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-deleting-backups.html" style="padding-left: 70px;">Deleting backups</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-25-0-8"><span id="ssgSpan-25-0-8" class="fa fa-caret-right"></span>&nbsp;OADP restoring</a>
+                  <ul id="topicSubSubGroup-25-0-8" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html" style="padding-left: 70px;">Restoring applications</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup26"><span id="tgSpan26" class="fa fa-angle-right"></span>Nodes</a>
+      <ul id="topicGroup26" class="collapse  list-unstyled">
+            <li><a class="" href="../../../nodes/index.html">Overview of nodes</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-1"><span id="sgSpan-26-1" class="fa fa-caret-right"></span>&nbsp;Working with pods</a>
+              <ul id="topicSubGroup-26-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../nodes/pods/nodes-pods-using.html">About pods</a></li>
+                  <li><a class="" href="../../../nodes/pods/nodes-pods-viewing.html">Viewing pods</a></li>
+                  <li><a class="" href="../../../nodes/pods/nodes-pods-configuring.html">Configuring a cluster for pods</a></li>
+                  <li><a class="" href="../../../nodes/pods/nodes-pods-secrets.html">Providing sensitive data to pods</a></li>
+                  <li><a class="" href="../../../nodes/pods/nodes-pods-configmaps.html">Creating and using config maps</a></li>
+                  <li><a class="" href="../../../nodes/pods/nodes-pods-priority.html">Including pod priority in pod scheduling decisions</a></li>
+                  <li><a class="" href="../../../nodes/pods/nodes-pods-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-2"><span id="sgSpan-26-2" class="fa fa-caret-right"></span>&nbsp;Automatically scaling pods with the Custom Metrics Autoscaler Operator</a>
+              <ul id="topicSubGroup-26-2" class="nav-tertiary list-unstyled collapse">
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-26-2-0"><span id="ssgSpan-26-2-0" class="fa fa-caret-right"></span>&nbsp;Release notes</a>
+                  <ul id="topicSubSubGroup-26-2-0" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn.html" style="padding-left: 70px;">Custom Metrics Autoscaler Operator release notes</a></li>
+                    <li><a class="" href="../../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn-past.html" style="padding-left: 70px;">Past releases</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom.html">Custom Metrics Autoscaler Operator overview</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-install.html">Installing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-trigger.html">Understanding the custom metrics autoscaler triggers</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-trigger-auth.html">Understanding the custom metrics autoscaler trigger authentications</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-pausing.html">Pausing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-audit-log.html">Gathering audit logs</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-debugging.html">Gathering debugging data</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-metrics.html">Viewing Operator metrics</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-adding.html">Understanding how to add custom metrics autoscalers</a></li>
+                  <li><a class="" href="../../../nodes/cma/nodes-cma-autoscaling-custom-removing.html">Removing the Custom Metrics Autoscaler Operator</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-3"><span id="sgSpan-26-3" class="fa fa-caret-right"></span>&nbsp;Controlling pod placement onto nodes (scheduling)</a>
+              <ul id="topicSubGroup-26-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../nodes/scheduling/nodes-scheduler-about.html">About pod placement using the scheduler</a></li>
+                  <li><a class="" href="../../../nodes/scheduling/nodes-scheduler-pod-affinity.html">Placing pods relative to other pods using pod affinity and anti-affinity rules</a></li>
+                  <li><a class="" href="../../../nodes/scheduling/nodes-scheduler-node-affinity.html">Controlling pod placement on nodes using node affinity rules</a></li>
+                  <li><a class="" href="../../../nodes/scheduling/nodes-scheduler-overcommit.html">Placing pods onto overcommited nodes</a></li>
+                  <li><a class="" href="../../../nodes/scheduling/nodes-scheduler-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>
+                  <li><a class="" href="../../../nodes/scheduling/nodes-scheduler-pod-topology-spread-constraints.html">Controlling pod placement using pod topology spread constraints</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-4"><span id="sgSpan-26-4" class="fa fa-caret-right"></span>&nbsp;Using jobs and daemon sets</a>
+              <ul id="topicSubGroup-26-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../nodes/jobs/nodes-pods-daemonsets.html">Running background tasks on nodes automatically with daemon sets</a></li>
+                  <li><a class="" href="../../../nodes/jobs/nodes-nodes-jobs.html">Running tasks in pods using jobs</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-5"><span id="sgSpan-26-5" class="fa fa-caret-right"></span>&nbsp;Working with nodes</a>
+              <ul id="topicSubGroup-26-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../nodes/nodes/nodes-nodes-viewing.html">Viewing and listing the nodes in your cluster</a></li>
+                  <li><a class="" href="../../../nodes/nodes/nodes-nodes-working.html">Working with nodes</a></li>
+                  <li><a class="" href="../../../nodes/nodes/nodes-node-tuning-operator.html">Using the Node Tuning Operator</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-6"><span id="sgSpan-26-6" class="fa fa-caret-right"></span>&nbsp;Working with containers</a>
+              <ul id="topicSubGroup-26-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-using.html">Understanding containers</a></li>
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-init.html">Using Init Containers to perform tasks before a pod is deployed</a></li>
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-volumes.html">Using volumes to persist container data</a></li>
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-projected-volumes.html">Mapping volumes using projected volumes</a></li>
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-downward-api.html">Allowing containers to consume API objects</a></li>
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-copying-files.html">Copying files to or from a container</a></li>
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-remote-commands.html">Executing remote commands in a container</a></li>
+                  <li><a class="" href="../../../nodes/containers/nodes-containers-port-forwarding.html">Using port forwarding to access applications in a container</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-7"><span id="sgSpan-26-7" class="fa fa-caret-right"></span>&nbsp;Working with clusters</a>
+              <ul id="topicSubGroup-26-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../nodes/clusters/nodes-containers-events.html">Viewing system event information in a cluster</a></li>
+                  <li><a class="" href="../../../nodes/clusters/nodes-cluster-resource-levels.html">Analyzing cluster resource levels</a></li>
+                  <li><a class="" href="../../../nodes/clusters/nodes-cluster-limit-ranges.html">Setting limit ranges</a></li>
+                  <li><a class="" href="../../../nodes/clusters/nodes-cluster-resource-configure.html">Configuring cluster memory to meet container memory and risk requirements</a></li>
+                  <li><a class="" href="../../../nodes/clusters/nodes-cluster-overcommit.html">Configuring your cluster to place pods on overcommited nodes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup27"><span id="tgSpan27" class="fa fa-angle-right"></span>Observability</a>
+      <ul id="topicGroup27" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-27-0"><span id="sgSpan-27-0" class="fa fa-caret-right"></span>&nbsp;Observability overview</a>
+              <ul id="topicSubGroup-27-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../observability/overview/index.html">About Observability</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-27-1"><span id="sgSpan-27-1" class="fa fa-caret-right"></span>&nbsp;Monitoring</a>
+              <ul id="topicSubGroup-27-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../observability/monitoring/monitoring-overview.html">Monitoring overview</a></li>
+                  <li><a class="" href="../../../observability/monitoring/sd-accessing-monitoring-for-user-defined-projects.html">Accessing monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../../observability/monitoring/configuring-the-monitoring-stack.html">Configuring the monitoring stack</a></li>
+                  <li><a class="" href="../../../observability/monitoring/sd-disabling-monitoring-for-user-defined-projects.html">Disabling monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../../observability/monitoring/enabling-alert-routing-for-user-defined-projects.html">Enabling alert routing for user-defined projects</a></li>
+                  <li><a class="" href="../../../observability/monitoring/managing-metrics.html">Managing metrics</a></li>
+                  <li><a class="" href="../../../observability/monitoring/managing-alerts.html">Managing alerts</a></li>
+                  <li><a class="" href="../../../observability/monitoring/reviewing-monitoring-dashboards.html">Reviewing monitoring dashboards</a></li>
+                  <li><a class="" href="../../../observability/monitoring/accessing-third-party-monitoring-apis.html">Accessing third-party monitoring APIs</a></li>
+                  <li><a class="" href="../../../observability/monitoring/troubleshooting-monitoring-issues.html">Troubleshooting monitoring issues</a></li>
+                  <li><a class="" href="../../../observability/monitoring/config-map-reference-for-the-cluster-monitoring-operator.html">Config map reference for the Cluster Monitoring Operator</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-27-2"><span id="sgSpan-27-2" class="fa fa-caret-right"></span>&nbsp;Logging</a>
+              <ul id="topicSubGroup-27-2" class="nav-tertiary list-unstyled collapse">
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-0"><span id="ssgSpan-27-2-0" class="fa fa-caret-right"></span>&nbsp;Release notes</a>
+                  <ul id="topicSubSubGroup-27-2-0" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/logging_release_notes/logging-5-9-release-notes.html" style="padding-left: 70px;">Logging 5.9</a></li>
+                    <li><a class="" href="../../../observability/logging/logging_release_notes/logging-5-8-release-notes.html" style="padding-left: 70px;">Logging 5.8</a></li>
+                    <li><a class="" href="../../../observability/logging/logging_release_notes/logging-5-7-release-notes.html" style="padding-left: 70px;">Logging 5.7</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../observability/logging/cluster-logging-support.html">Support</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-2"><span id="ssgSpan-27-2-2" class="fa fa-caret-right"></span>&nbsp;Troubleshooting logging</a>
+                  <ul id="topicSubSubGroup-27-2-2" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/troubleshooting/cluster-logging-cluster-status.html" style="padding-left: 70px;">Viewing Logging status</a></li>
+                    <li><a class="" href="../../../observability/logging/troubleshooting/log-forwarding-troubleshooting.html" style="padding-left: 70px;">Troubleshooting log forwarding</a></li>
+                    <li><a class="" href="../../../observability/logging/troubleshooting/troubleshooting-logging-alerts.html" style="padding-left: 70px;">Troubleshooting logging alerts</a></li>
+                    <li><a class="" href="../../../observability/logging/troubleshooting/cluster-logging-log-store-status.html" style="padding-left: 70px;">Viewing the status of the Elasticsearch log store</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../observability/logging/cluster-logging.html">About Logging</a></li>
+                  <li><a class="" href="../../../observability/logging/cluster-logging-deploying.html">Installing Logging</a></li>
+                  <li><a class="" href="../../../observability/logging/cluster-logging-upgrading.html">Updating Logging</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-6"><span id="ssgSpan-27-2-6" class="fa fa-caret-right"></span>&nbsp;Visualizing logs</a>
+                  <ul id="topicSubSubGroup-27-2-6" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/log_visualization/log-visualization.html" style="padding-left: 70px;">About log visualization</a></li>
+                    <li><a class="" href="../../../observability/logging/log_visualization/log-visualization-ocp-console.html" style="padding-left: 70px;">Log visualization with the web console</a></li>
+                    <li><a class="" href="../../../observability/logging/log_visualization/cluster-logging-dashboards.html" style="padding-left: 70px;">Viewing cluster dashboards</a></li>
+                    <li><a class="" href="../../../observability/logging/log_visualization/logging-kibana.html" style="padding-left: 70px;">Log visualization with Kibana</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-7"><span id="ssgSpan-27-2-7" class="fa fa-caret-right"></span>&nbsp;Configuring your Logging deployment</a>
+                  <ul id="topicSubSubGroup-27-2-7" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/config/cluster-logging-memory.html" style="padding-left: 70px;">Configuring CPU and memory limits for Logging components</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-8"><span id="ssgSpan-27-2-8" class="fa fa-caret-right"></span>&nbsp;Log collection and forwarding</a>
+                  <ul id="topicSubSubGroup-27-2-8" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/log_collection_forwarding/log-forwarding.html" style="padding-left: 70px;">About log collection and forwarding</a></li>
+                    <li><a class="" href="../../../observability/logging/log_collection_forwarding/logging-output-types.html" style="padding-left: 70px;">Log output types</a></li>
+                    <li><a class="" href="../../../observability/logging/log_collection_forwarding/cluster-logging-enabling-json-logging.html" style="padding-left: 70px;">Enabling JSON log forwarding</a></li>
+                    <li><a class="" href="../../../observability/logging/log_collection_forwarding/configuring-log-forwarding.html" style="padding-left: 70px;">Configuring log forwarding</a></li>
+                    <li><a class="" href="../../../observability/logging/log_collection_forwarding/cluster-logging-collector.html" style="padding-left: 70px;">Configuring the logging collector</a></li>
+                    <li><a class="" href="../../../observability/logging/log_collection_forwarding/cluster-logging-eventrouter.html" style="padding-left: 70px;">Collecting and storing Kubernetes events</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-9"><span id="ssgSpan-27-2-9" class="fa fa-caret-right"></span>&nbsp;Log storage</a>
+                  <ul id="topicSubSubGroup-27-2-9" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/log_storage/about-log-storage.html" style="padding-left: 70px;">About log storage</a></li>
+                    <li><a class="" href="../../../observability/logging/log_storage/installing-log-storage.html" style="padding-left: 70px;">Installing log storage</a></li>
+                    <li><a class="" href="../../../observability/logging/log_storage/cluster-logging-loki.html" style="padding-left: 70px;">Configuring the LokiStack log store</a></li>
+                    <li><a class="" href="../../../observability/logging/log_storage/logging-config-es-store.html" style="padding-left: 70px;">Configuring the Elasticsearch log store</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-10"><span id="ssgSpan-27-2-10" class="fa fa-caret-right"></span>&nbsp;Logging alerts</a>
+                  <ul id="topicSubSubGroup-27-2-10" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/logging_alerts/default-logging-alerts.html" style="padding-left: 70px;">Default logging alerts</a></li>
+                    <li><a class="" href="../../../observability/logging/logging_alerts/custom-logging-alerts.html" style="padding-left: 70px;">Custom logging alerts</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-11"><span id="ssgSpan-27-2-11" class="fa fa-caret-right"></span>&nbsp;Performance and reliability tuning</a>
+                  <ul id="topicSubSubGroup-27-2-11" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/performance_reliability/logging-flow-control-mechanisms.html" style="padding-left: 70px;">Flow control mechanisms</a></li>
+                    <li><a class="" href="../../../observability/logging/performance_reliability/logging-content-filtering.html" style="padding-left: 70px;">Filtering logs by content</a></li>
+                    <li><a class="" href="../../../observability/logging/performance_reliability/logging-input-spec-filtering.html" style="padding-left: 70px;">Filtering logs by metadata</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-12"><span id="ssgSpan-27-2-12" class="fa fa-caret-right"></span>&nbsp;Scheduling resources</a>
+                  <ul id="topicSubSubGroup-27-2-12" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/scheduling_resources/logging-node-selectors.html" style="padding-left: 70px;">Using node selectors to move logging resources</a></li>
+                    <li><a class="" href="../../../observability/logging/scheduling_resources/logging-taints-tolerations.html" style="padding-left: 70px;">Using tolerations to control logging pod placement</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../observability/logging/cluster-logging-uninstall.html">Uninstalling Logging</a></li>
+                  <li><a class="" href="../../../observability/logging/cluster-logging-exported-fields.html">Exported fields</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-27-2-15"><span id="ssgSpan-27-2-15" class="fa fa-caret-right"></span>&nbsp;API reference</a>
+                  <ul id="topicSubSubGroup-27-2-15" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../observability/logging/api_reference/logging-5-6-reference.html" style="padding-left: 70px;">5.6 Logging API reference</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../../observability/logging/logging-common-terms.html">Glossary</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup28"><span id="tgSpan28" class="fa fa-angle-right"></span>Service Mesh</a>
+      <ul id="topicGroup28" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-28-0"><span id="sgSpan-28-0" class="fa fa-caret-right"></span>&nbsp;Service Mesh 2.x</a>
+              <ul id="topicSubGroup-28-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-about.html">About OpenShift Service Mesh</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/servicemesh-release-notes.html">Service Mesh 2.x release notes</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-architecture.html">Service Mesh architecture</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-deployment-models.html">Service Mesh deployment models</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-vs-community.html">Service Mesh and Istio differences</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/preparing-ossm-installation.html">Preparing to install Service Mesh</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/installing-ossm.html">Installing the Operators</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-create-smcp.html">Creating the ServiceMeshControlPlane</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-create-mesh.html">Adding workloads to a service mesh</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/prepare-to-deploy-applications-ossm.html">Enabling sidecar injection</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/upgrading-ossm.html">Upgrading Service Mesh</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-profiles-users.html">Managing users and profiles</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-security.html">Security</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-traffic-manage.html">Traffic management</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-observability.html">Metrics, logs, and traces</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-performance-scalability.html">Performance and scalability</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-deploy-production.html">Deploying to production</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-federation.html">Federation</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-extensions.html">Extensions</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-threescale-webassembly-module.html">3scale WebAssembly for 2.1</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/threescale-adapter.html">3scale Istio adapter for 2.0</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-troubleshooting-istio.html">Troubleshooting Service Mesh</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-reference-smcp.html">Control plane configuration reference</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-reference-kiali.html">Kiali configuration reference</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/ossm-reference-jaeger.html">Jaeger configuration reference</a></li>
+                  <li><a class="" href="../../../service_mesh/v2x/removing-ossm.html">Uninstalling Service Mesh</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup29"><span id="tgSpan29" class="fa fa-angle-right"></span>Serverless</a>
+      <ul id="topicGroup29" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-29-0"><span id="sgSpan-29-0" class="fa fa-caret-right"></span>&nbsp;About Serverless</a>
+              <ul id="topicSubGroup-29-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../serverless/about/about-serverless.html">Serverless overview</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup30"><span id="tgSpan30" class="fa fa-angle-right"></span>Virtualization</a>
+      <ul id="topicGroup30" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-0"><span id="sgSpan-30-0" class="fa fa-caret-right"></span>&nbsp;About</a>
+              <ul id="topicSubGroup-30-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/about_virt/about-virt.html">About OpenShift Virtualization</a></li>
+                  <li><a class="" href="../../../virt/about_virt/virt-security-policies.html">Security policies</a></li>
+                  <li><a class="" href="../../../virt/about_virt/virt-architecture.html">Architecture</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-1"><span id="sgSpan-30-1" class="fa fa-caret-right"></span>&nbsp;Getting started</a>
+              <ul id="topicSubGroup-30-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/getting_started/virt-getting-started.html">Getting started with OpenShift Virtualization</a></li>
+                  <li><a class="" href="../../../virt/getting_started/virt-using-the-cli-tools.html">virtctl and libguestfs</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-2"><span id="sgSpan-30-2" class="fa fa-caret-right"></span>&nbsp;Installing</a>
+              <ul id="topicSubGroup-30-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/install/preparing-cluster-for-virt.html">Preparing your cluster</a></li>
+                  <li><a class="" href="../../../virt/install/installing-virt.html">Installing OpenShift Virtualization</a></li>
+                  <li><a class="" href="../../../virt/install/uninstalling-virt.html">Uninstalling OpenShift Virtualization</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-3"><span id="sgSpan-30-3" class="fa fa-caret-right"></span>&nbsp;Post-installation configuration</a>
+              <ul id="topicSubGroup-30-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/post_installation_configuration/virt-post-install-config.html">Post-installation configuration</a></li>
+                  <li><a class="" href="../../../virt/post_installation_configuration/virt-node-placement-virt-components.html">Node placement rules</a></li>
+                  <li><a class="" href="../../../virt/post_installation_configuration/virt-post-install-network-config.html">Network configuration</a></li>
+                  <li><a class="" href="../../../virt/post_installation_configuration/virt-post-install-storage-config.html">Storage configuration</a></li>
+                  <li><a class="" href="../../../virt/post_installation_configuration/virt-configuring-certificate-rotation.html">Configuring certificate rotation</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-4"><span id="sgSpan-30-4" class="fa fa-caret-right"></span>&nbsp;Updating</a>
+              <ul id="topicSubGroup-30-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/updating/upgrading-virt.html">Updating OpenShift Virtualization</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-5"><span id="sgSpan-30-5" class="fa fa-caret-right"></span>&nbsp;Creating a virtual machine</a>
+              <ul id="topicSubGroup-30-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/creating_vm/virt-creating-vms-from-instance-types.html">Creating VMs from instance types</a></li>
+                  <li><a class="" href="../../../virt/creating_vm/virt-creating-vms-from-templates.html">Creating VMs from templates</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-6"><span id="sgSpan-30-6" class="fa fa-caret-right"></span>&nbsp;Advanced VM creation</a>
+              <ul id="topicSubGroup-30-6" class="nav-tertiary list-unstyled collapse">
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-30-6-0"><span id="ssgSpan-30-6-0" class="fa fa-caret-right"></span>&nbsp;Creating VMs in the web console</a>
+                  <ul id="topicSubSubGroup-30-6-0" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../virt/creating_vms_advanced/creating_vms_advanced_web/virt-creating-vms-from-rh-images-overview.html" style="padding-left: 70px;">Creating VMs from Red Hat images</a></li>
+                    <li><a class="" href="../../../virt/creating_vms_advanced/creating_vms_advanced_web/virt-creating-vms-from-web-images.html" style="padding-left: 70px;">Creating VMs by importing images from web pages</a></li>
+                    <li><a class="" href="../../../virt/creating_vms_advanced/creating_vms_advanced_web/virt-creating-vms-uploading-images.html" style="padding-left: 70px;">Creating VMs by uploading images</a></li>
+                    <li><a class="" href="../../../virt/creating_vms_advanced/creating_vms_advanced_web/virt-cloning-vms.html" style="padding-left: 70px;">Cloning VMs</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-30-6-1"><span id="ssgSpan-30-6-1" class="fa fa-caret-right"></span>&nbsp;Creating VMs using the CLI</a>
+                  <ul id="topicSubSubGroup-30-6-1" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../virt/creating_vms_advanced/creating_vms_cli/virt-creating-vms-from-cli.html" style="padding-left: 70px;">Creating virtual machines from the command line</a></li>
+                    <li><a class="" href="../../../virt/creating_vms_advanced/creating_vms_cli/virt-creating-vms-from-container-disks.html" style="padding-left: 70px;">Creating VMs by using container disks</a></li>
+                    <li><a class="" href="../../../virt/creating_vms_advanced/creating_vms_cli/virt-creating-vms-by-cloning-pvcs.html" style="padding-left: 70px;">Creating VMs by cloning PVCs</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-7"><span id="sgSpan-30-7" class="fa fa-caret-right"></span>&nbsp;Managing VMs</a>
+              <ul id="topicSubGroup-30-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/managing_vms/virt-installing-qemu-guest-agent.html">Installing the QEMU guest agent and VirtIO drivers</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-accessing-vm-consoles.html">Connecting to VM consoles</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-accessing-vm-ssh.html">Configuring SSH access to VMs</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-edit-vms.html">Editing virtual machines</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-edit-boot-order.html">Editing boot order</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-delete-vms.html">Deleting virtual machines</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-exporting-vms.html">Exporting virtual machines</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-manage-vmis.html">Managing virtual machine instances</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-controlling-vm-states.html">Controlling virtual machine states</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-using-vtpm-devices.html">Using virtual Trusted Platform Module devices</a></li>
+                  <li><a class="" href="../../../virt/managing_vms/virt-managing-vms-openshift-pipelines.html">Managing virtual machines with OpenShift Pipelines</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-30-7-11"><span id="ssgSpan-30-7-11" class="fa fa-caret-right"></span>&nbsp;Advanced virtual machine management</a>
+                  <ul id="topicSubSubGroup-30-7-11" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-working-with-resource-quotas-for-vms.html" style="padding-left: 70px;">Working with resource quotas for virtual machines</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-specifying-nodes-for-vms.html" style="padding-left: 70px;">Specifying nodes for virtual machines</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-configuring-default-cpu-model.html" style="padding-left: 70px;">Configuring the default CPU model</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-uefi-mode-for-vms.html" style="padding-left: 70px;">UEFI mode for virtual machines</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-configuring-pxe-booting.html" style="padding-left: 70px;">Configuring PXE booting for virtual machines</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-schedule-vms.html" style="padding-left: 70px;">Scheduling virtual machines</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-high-availability-for-vms.html" style="padding-left: 70px;">About high availability for virtual machines</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/advanced_vm_management/virt-vm-control-plane-tuning.html" style="padding-left: 70px;">Control plane tuning</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-30-7-12"><span id="ssgSpan-30-7-12" class="fa fa-caret-right"></span>&nbsp;VM disks</a>
+                  <ul id="topicSubSubGroup-30-7-12" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../../virt/managing_vms/virtual_disks/virt-hot-plugging-virtual-disks.html" style="padding-left: 70px;">Hot-plugging VM disks</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/virtual_disks/virt-expanding-vm-disks.html" style="padding-left: 70px;">Expanding VM disks</a></li>
+                    <li><a class="" href="../../../virt/managing_vms/virtual_disks/virt-migrating-storage-class.html" style="padding-left: 70px;">Migrating VM disks to a different storage class</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-8"><span id="sgSpan-30-8" class="fa fa-caret-right"></span>&nbsp;Networking</a>
+              <ul id="topicSubGroup-30-8" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/vm_networking/virt-networking-overview.html">Networking configuration overview</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-connecting-vm-to-default-pod-network.html">Connecting a VM to the default pod network</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-connecting-vm-to-primary-udn.html">Connecting a VM to a primary user-defined network</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-exposing-vm-with-service.html">Exposing a VM by using a service</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-connecting-vm-to-ovn-secondary-network.html">Connecting a VM to an OVN-Kubernetes secondary network</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-hot-plugging-network-interfaces.html">Hot plugging secondary network interfaces</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-connecting-vm-to-service-mesh.html">Connecting a VM to a service mesh</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-dedicated-network-live-migration.html">Configuring a dedicated network for live migration</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-configuring-viewing-ips-for-vms.html">Configuring and viewing IP addresses</a></li>
+                  <li><a class="" href="../../../virt/vm_networking/virt-using-mac-address-pool-for-vms.html">Managing MAC address pools for network interfaces</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-9"><span id="sgSpan-30-9" class="fa fa-caret-right"></span>&nbsp;Storage</a>
+              <ul id="topicSubGroup-30-9" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/storage/virt-storage-config-overview.html">Storage configuration overview</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-configuring-storage-profile.html">Configuring storage profiles</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-automatic-bootsource-updates.html">Managing automatic boot source updates</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-reserving-pvc-space-fs-overhead.html">Reserving PVC space for file system overhead</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-configuring-local-storage-with-hpp.html">Configuring local storage by using HPP</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-enabling-user-permissions-to-clone-datavolumes.html">Enabling user permissions to clone data volumes across namespaces</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-configuring-cdi-for-namespace-resourcequota.html">Configuring CDI to override CPU and memory quotas</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-preparing-cdi-scratch-space.html">Preparing CDI scratch space</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-using-preallocation-for-datavolumes.html">Using preallocation for data volumes</a></li>
+                  <li><a class="" href="../../../virt/storage/virt-managing-data-volume-annotations.html">Managing data volume annotations</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-10"><span id="sgSpan-30-10" class="fa fa-caret-right"></span>&nbsp;Live migration</a>
+              <ul id="topicSubGroup-30-10" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/live_migration/virt-about-live-migration.html">About live migration</a></li>
+                  <li><a class="" href="../../../virt/live_migration/virt-configuring-live-migration.html">Configuring live migration</a></li>
+                  <li><a class="" href="../../../virt/live_migration/virt-initiating-live-migration.html">Initiating and canceling live migration</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-11"><span id="sgSpan-30-11" class="fa fa-caret-right"></span>&nbsp;Nodes</a>
+              <ul id="topicSubGroup-30-11" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/nodes/virt-node-maintenance.html">Node maintenance</a></li>
+                  <li><a class="" href="../../../virt/nodes/virt-managing-node-labeling-obsolete-cpu-models.html">Managing node labeling for obsolete CPU models</a></li>
+                  <li><a class="" href="../../../virt/nodes/virt-preventing-node-reconciliation.html">Preventing node reconciliation</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-12"><span id="sgSpan-30-12" class="fa fa-caret-right"></span>&nbsp;Monitoring</a>
+              <ul id="topicSubGroup-30-12" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/monitoring/virt-monitoring-overview.html">Monitoring overview</a></li>
+                  <li><a class="" href="../../../virt/monitoring/virt-prometheus-queries.html">Prometheus queries for virtual resources</a></li>
+                  <li><a class="" href="../../../virt/monitoring/virt-exposing-custom-metrics-for-vms.html">Virtual machine custom metrics</a></li>
+                  <li><a class="" href="../../../virt/monitoring/virt-monitoring-vm-health.html">Virtual machine health checks</a></li>
+                  <li><a class="" href="../../../virt/monitoring/virt-runbooks.html">Runbooks</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-13"><span id="sgSpan-30-13" class="fa fa-caret-right"></span>&nbsp;Support</a>
+              <ul id="topicSubGroup-30-13" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/support/virt-support-overview.html">Support overview</a></li>
+                  <li><a class="" href="../../../virt/support/virt-collecting-virt-data.html">Collecting data for Red Hat Support</a></li>
+                  <li><a class="" href="../../../virt/support/virt-troubleshooting.html">Troubleshooting</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-30-14"><span id="sgSpan-30-14" class="fa fa-caret-right"></span>&nbsp;Backup and restore</a>
+              <ul id="topicSubGroup-30-14" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../../virt/backup_restore/virt-backup-restore-snapshots.html">Backup and restore by using VM snapshots</a></li>
+                  <li><a class="" href="../../../virt/backup_restore/virt-backup-restore-overview.html">Backing up and restoring virtual machines</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            OADP recommended network settings
+          </h1>
+        </div>
+        
+        
+        <!-- toc disabled -->
+<div class="paragraph">
+<p>For a supported experience with OpenShift API for Data Protection (OADP), you should have a stable and resilient network across OpenShift nodes, S3 storage, and in supported cloud environments that meet OpenShift network requirement recommendations.</p>
+</div>
+<div class="paragraph">
+<p>To ensure successful backup and restore operations for deployments with remote S3 buckets located off-cluster with suboptimal data paths, it is recommended that your network settings meet the following minimum requirements in such less optimal conditions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Bandwidth (network upload speed to object storage): Greater than 2 Mbps for small backups and 10-100 Mbps depending on the data volume for larger backups.</p>
+</li>
+<li>
+<p>Packet loss: 1%</p>
+</li>
+<li>
+<p>Packet corruption: 1%</p>
+</li>
+<li>
+<p>Latency: 100ms</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ensure that your Red Hat OpenShift Service on AWS network performs optimally and meets Red Hat OpenShift Service on AWS network requirements.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Although Red Hat provides supports for standard backup and restore failures, it does not provide support for failures caused by network settings that do not meet the recommended thresholds.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-rosa';
+  var version = '';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

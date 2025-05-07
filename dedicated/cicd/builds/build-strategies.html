@@ -1,0 +1,2840 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  
+  
+  <title>Using build strategies - Builds using BuildConfig | CI/CD | OpenShift Dedicated </title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/search.css" rel="stylesheet" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/autumn.css" rel="stylesheet"  media="screen"/>
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png"/>
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css"/>
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/docs.css" rel="stylesheet"  media="screen"/>
+  <link href="https://docs.okd.io/latest/_stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+
+  <!-- Adobe DTM -->
+  <script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+  <!-- End Adobe DTM -->
+
+  <script id="trustarc" src="https://static.redhat.com/libs/redhat/marketing/latest/trustarc/trustarc.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+
+</head>
+
+<body onload="selectVersion('');">
+  
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://console.redhat.com/openshift" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb hide-for-print">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <span>
+          <div class="alert alert-info" role="primary" id="support-info">
+            <strong>Starting on March 12, 2025, OpenShift docs will only be available at <a href="https://docs.redhat.com/en/" style="color: #0C5460 !important" class="link-primary">docs.redhat.com</a>. From that time on, docs.openshift.com links will automatically redirect to their locations on docs.redhat.com.
+            </strong>
+          </div>
+        </span>
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+
+      
+
+      
+
+
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+          <a href="../../welcome/index.html">OpenShift Dedicated </a>
+        
+      </li>
+      <li class="hidden-xs active">
+        CI/CD
+      </li>
+      <li class="hidden-xs active"><a href="../../cicd/builds/understanding-image-builds.html">Builds using BuildConfig</a></li>
+      
+      <li class="hidden-xs active">
+        Using build strategies
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/dedicated-4/cicd/builds/build-strategies.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332330&issuetype=1&components=12367614&priority=4&summary=[dedicated-4]+Issue+in+file+cicd/builds/build-strategies.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="window.print()"><span class="material-icons-outlined" title="Print page (Save as PDF)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas hide-for-print">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0"><span id="tgSpan0" class="fa fa-angle-right"></span>About</a>
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+            <li><a class="" href="../../welcome/index.html">Welcome</a></li>
+            <li><a class="" href="../../welcome/legal-notice.html">Legal notice</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1"><span id="tgSpan1" class="fa fa-angle-right"></span>What's new</a>
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_whats_new/osd-whats-new.html">What's new with OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2"><span id="tgSpan2" class="fa fa-angle-right"></span>Introduction to OpenShift Dedicated</a>
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_architecture/osd-understanding.html">Understanding OpenShift Dedicated</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-2-1"><span id="sgSpan-2-1" class="fa fa-caret-right"></span>&nbsp;Policies and service definition</a>
+              <ul id="topicSubGroup-2-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-service-definition.html">OpenShift Dedicated service definition</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-responsibility-matrix.html">Responsibility assignment matrix</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-process-security.html">Understanding process and security for OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-sre-access.html">SRE and service account access</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/policy-understand-availability.html">About availability for OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../osd_architecture/osd_policy/osd-life-cycle.html">Update life cycle</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3"><span id="tgSpan3" class="fa fa-angle-right"></span>Architecture</a>
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+            <li><a class="" href="../../architecture/index.html">Architecture overview</a></li>
+            <li><a class="" href="../../architecture/architecture.html">Product architecture</a></li>
+            <li><a class="" href="../../architecture/osd-architecture-models-gcp.html">Architecture models</a></li>
+            <li><a class="" href="../../architecture/control-plane.html">Control plane architecture</a></li>
+            <li><a class="" href="../../architecture/nvidia-gpu-architecture-overview.html">NVIDIA GPU architecture overview</a></li>
+            <li><a class="" href="../../architecture/understanding-development.html">Understanding OpenShift development</a></li>
+            <li><a class="" href="../../architecture/admission-plug-ins.html">Admission plugins</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup4"><span id="tgSpan4" class="fa fa-angle-right"></span>Red Hat OpenShift Cluster Manager</a>
+      <ul id="topicGroup4" class="collapse  list-unstyled">
+            <li><a class="" href="../../ocm/ocm-overview.html">Red Hat OpenShift Cluster Manager</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup5"><span id="tgSpan5" class="fa fa-angle-right"></span>Planning your environment</a>
+      <ul id="topicGroup5" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_planning/osd-limits-scalability.html">Limits and scalability</a></li>
+            <li><a class="" href="../../osd_planning/gcp-ccs.html">Customer Cloud Subscriptions on GCP</a></li>
+            <li><a class="" href="../../osd_planning/aws-ccs.html">Customer Cloud Subscriptions on AWS</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup6"><span id="tgSpan6" class="fa fa-angle-right"></span>Getting started</a>
+      <ul id="topicGroup6" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_getting_started/osd-understanding-your-cloud-deployment-options.html">Understanding your cloud deployment options</a></li>
+            <li><a class="" href="../../osd_getting_started/osd-getting-started.html">Getting started with OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup7"><span id="tgSpan7" class="fa fa-angle-right"></span>OpenShift Dedicated clusters on GCP</a>
+      <ul id="topicGroup7" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-psc-enabled-private-cluster.html">Private Service Connect overview</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-with-workload-identity-federation.html">Creating a cluster on GCP with Workload Identity Federation authentication</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-sa.html">Creating a cluster on GCP with Service Account authentication</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/creating-a-gcp-cluster-redhat-account.html">Creating a cluster on GCP with a Red Hat cloud account</a></li>
+            <li><a class="" href="../../osd_gcp_clusters/osd-deleting-a-cluster-gcp.html">Deleting an OpenShift Dedicated cluster on GCP</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup8"><span id="tgSpan8" class="fa fa-angle-right"></span>OpenShift Dedicated clusters on AWS</a>
+      <ul id="topicGroup8" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_aws_clusters/creating-an-aws-cluster.html">Creating a cluster on AWS</a></li>
+            <li><a class="" href="../../osd_aws_clusters/osd-deleting-a-cluster-aws.html">Deleting an OpenShift Dedicated cluster on AWS</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup9"><span id="tgSpan9" class="fa fa-angle-right"></span>Support</a>
+      <ul id="topicGroup9" class="collapse  list-unstyled">
+            <li><a class="" href="../../support/index.html">Support overview</a></li>
+            <li><a class="" href="../../support/managing-cluster-resources.html">Managing your cluster resources</a></li>
+            <li><a class="" href="../../support/getting-support.html">Getting support</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-3"><span id="sgSpan-9-3" class="fa fa-caret-right"></span>&nbsp;Remote health monitoring with connected clusters</a>
+              <ul id="topicSubGroup-9-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../support/remote_health_monitoring/about-remote-health-monitoring.html">About remote health monitoring</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/showing-data-collected-by-remote-health-monitoring.html">Showing data collected by remote health monitoring</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/using-insights-to-identify-issues-with-your-cluster.html">Using Insights to identify issues with your cluster</a></li>
+                  <li><a class="" href="../../support/remote_health_monitoring/using-insights-operator.html">Using Insights Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../support/gathering-cluster-data.html">Gathering data about your cluster</a></li>
+            <li><a class="" href="../../support/summarizing-cluster-specifications.html">Summarizing cluster specifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-9-6"><span id="sgSpan-9-6" class="fa fa-caret-right"></span>&nbsp;Troubleshooting</a>
+              <ul id="topicSubGroup-9-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../support/troubleshooting/verifying-node-health.html">Verifying node health</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/investigating-pod-issues.html">Investigating pod issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-s2i.html">Troubleshooting the Source-to-Image process</a></li>
+                  <li><a class="" href="../../support/troubleshooting/troubleshooting-storage-issues.html">Troubleshooting storage issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/investigating-monitoring-issues.html">Investigating monitoring issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/diagnosing-oc-issues.html">Diagnosing OpenShift CLI (oc) issues</a></li>
+                  <li><a class="" href="../../support/troubleshooting/sd-managed-resources.html">OpenShift Dedicated managed resources</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup10"><span id="tgSpan10" class="fa fa-angle-right"></span>Web console</a>
+      <ul id="topicGroup10" class="collapse  list-unstyled">
+            <li><a class="" href="../../web_console/web-console-overview.html">Web console overview</a></li>
+            <li><a class="" href="../../web_console/web-console.html">Accessing the web console</a></li>
+            <li><a class="" href="../../web_console/using-dashboard-to-get-cluster-information.html">Viewing cluster information</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-3"><span id="sgSpan-10-3" class="fa fa-caret-right"></span>&nbsp;Dynamic plugins</a>
+              <ul id="topicSubGroup-10-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../web_console/dynamic-plugin/overview-dynamic-plugin.html">Overview of dynamic plugins</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugins-get-started.html">Getting started with dynamic plugins</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/deploy-plugin-cluster.html">Deploy your plugin on a cluster</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugin-example.html">Dynamic plugin example</a></li>
+                  <li><a class="" href="../../web_console/dynamic-plugin/dynamic-plugins-reference.html">Dynamic plugin reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-10-4"><span id="sgSpan-10-4" class="fa fa-caret-right"></span>&nbsp;Web terminal</a>
+              <ul id="topicSubGroup-10-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../web_console/web_terminal/installing-web-terminal.html">Installing the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/odc-using-web-terminal.html">Using the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/troubleshooting-web-terminal.html">Troubleshooting the web terminal</a></li>
+                  <li><a class="" href="../../web_console/web_terminal/uninstalling-web-terminal.html">Uninstalling the web terminal</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../web_console/creating-quick-start-tutorials.html">About quick start tutorials</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup11"><span id="tgSpan11" class="fa fa-angle-right"></span>CLI tools</a>
+      <ul id="topicGroup11" class="collapse  list-unstyled">
+            <li><a class="" href="../../cli_reference/index.html">CLI tools overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-1"><span id="sgSpan-11-1" class="fa fa-caret-right"></span>&nbsp;OpenShift CLI (oc)</a>
+              <ul id="topicSubGroup-11-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/openshift_cli/getting-started-cli.html">Getting started with the OpenShift CLI</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/configuring-cli.html">Configuring the OpenShift CLI</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/usage-oc-kubectl.html">Usage of oc and kubectl commands</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/managing-cli-profiles.html">Managing CLI profiles</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/extending-cli-plugins.html">Extending the OpenShift CLI with plugins</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/developer-cli-commands.html">OpenShift CLI developer command reference</a></li>
+                  <li><a class="" href="../../cli_reference/openshift_cli/administrator-cli-commands.html">OpenShift CLI administrator command reference</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../cli_reference/odo-important-update.html">Developer CLI (odo)</a></li>
+            <li><a class="" href="../../cli_reference/kn-cli-tools.html">Knative CLI (kn) for use with OpenShift Serverless</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-4"><span id="sgSpan-11-4" class="fa fa-caret-right"></span>&nbsp;Pipelines CLI (tkn)</a>
+              <ul id="topicSubGroup-11-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/tkn_cli/installing-tkn.html">Installing tkn</a></li>
+                  <li><a class="" href="../../cli_reference/tkn_cli/op-configuring-tkn.html">Configuring tkn</a></li>
+                  <li><a class="" href="../../cli_reference/tkn_cli/op-tkn-reference.html">Basic tkn commands</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-5"><span id="sgSpan-11-5" class="fa fa-caret-right"></span>&nbsp;opm CLI</a>
+              <ul id="topicSubGroup-11-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/opm/cli-opm-install.html">Installing the opm CLI</a></li>
+                  <li><a class="" href="../../cli_reference/opm/cli-opm-ref.html">opm CLI reference</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-11-6"><span id="sgSpan-11-6" class="fa fa-caret-right"></span>&nbsp;Operator SDK</a>
+              <ul id="topicSubGroup-11-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cli_reference/osdk/cli-osdk-install.html">Installing the Operator SDK CLI</a></li>
+                  <li><a class="" href="../../cli_reference/osdk/cli-osdk-ref.html">Operator SDK CLI reference</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup12"><span id="tgSpan12" class="fa fa-angle-right"></span>Cluster administration</a>
+      <ul id="topicGroup12" class="collapse  list-unstyled">
+            <li><a class="" href="../../osd_cluster_admin/osd-cluster-notifications.html">Cluster notifications</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-12-1"><span id="sgSpan-12-1" class="fa fa-caret-right"></span>&nbsp;Configuring private connections</a>
+              <ul id="topicSubGroup-12-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_cluster_admin/osd_private_connections/aws-private-connections.html">Configuring private connections for AWS</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_private_connections/private-cluster.html">Configuring a private cluster</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../osd_cluster_admin/osd-cluster-autoscaling.html">Cluster autoscaling</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-12-3"><span id="sgSpan-12-3" class="fa fa-caret-right"></span>&nbsp;Nodes</a>
+              <ul id="topicSubGroup-12-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-nodes-machinepools-about.html">About machine pools</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-managing-worker-nodes.html">Managing compute nodes</a></li>
+                  <li><a class="" href="../../osd_cluster_admin/osd_nodes/osd-nodes-about-autoscaling-nodes.html">About autoscaling nodes on a cluster</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup13"><span id="tgSpan13" class="fa fa-angle-right"></span>Security and compliance</a>
+      <ul id="topicGroup13" class="collapse  list-unstyled">
+            <li><a class="" href="../../security/audit-log-view.html">Viewing audit logs</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup14"><span id="tgSpan14" class="fa fa-angle-right"></span>Authentication and authorization</a>
+      <ul id="topicGroup14" class="collapse  list-unstyled">
+            <li><a class="" href="../../authentication/index.html">Authentication and authorization overview</a></li>
+            <li><a class="" href="../../authentication/understanding-authentication.html">Understanding authentication</a></li>
+            <li><a class="" href="../../authentication/managing-oauth-access-tokens.html">Managing user-owned OAuth access tokens</a></li>
+            <li><a class="" href="../../authentication/sd-configuring-identity-providers.html">Configuring identity providers</a></li>
+            <li><a class="" href="../../authentication/osd-revoking-cluster-privileges.html">Revoking privileges and access to an OpenShift Dedicated cluster</a></li>
+            <li><a class="" href="../../authentication/osd-admin-roles.html">Managing administration roles and users</a></li>
+            <li><a class="" href="../../authentication/using-rbac.html">Using RBAC to define and apply permissions</a></li>
+            <li><a class="" href="../../authentication/understanding-and-creating-service-accounts.html">Understanding and creating service accounts</a></li>
+            <li><a class="" href="../../authentication/using-service-accounts-in-applications.html">Using service accounts in applications</a></li>
+            <li><a class="" href="../../authentication/using-service-accounts-as-oauth-client.html">Using a service account as an OAuth client</a></li>
+            <li><a class="" href="../../authentication/tokens-scoping.html">Scoping tokens</a></li>
+            <li><a class="" href="../../authentication/bound-service-account-tokens.html">Using bound service account tokens</a></li>
+            <li><a class="" href="../../authentication/managing-security-context-constraints.html">Managing security context constraints</a></li>
+            <li><a class="" href="../../authentication/understanding-and-managing-pod-security-admission.html">Understanding and managing pod security admission</a></li>
+            <li><a class="" href="../../authentication/ldap-syncing.html">Syncing LDAP groups</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup15"><span id="tgSpan15" class="fa fa-angle-right"></span>Upgrading</a>
+      <ul id="topicGroup15" class="collapse  list-unstyled">
+            <li><a class="" href="../../upgrading/osd-upgrades.html">Upgrading OpenShift Dedicated</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup16"><span id="tgSpan16" class="fa fa-angle-down"></span>CI/CD</a>
+      <ul id="topicGroup16" class="collapse in list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-0"><span id="sgSpan-16-0" class="fa fa-caret-right"></span>&nbsp;CI/CD overview</a>
+              <ul id="topicSubGroup-16-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/overview/index.html">About CI/CD</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-1"><span id="sgSpan-16-1" class="fa fa-caret-right"></span>&nbsp;Builds using Shipwright</a>
+              <ul id="topicSubGroup-16-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/builds_using_shipwright/overview-openshift-builds.html">Overview of Builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-2"><span id="sgSpan-16-2" class="fa fa-caret-down"></span>&nbsp;Builds using BuildConfig</a>
+              <ul id="topicSubGroup-16-2" class="nav-tertiary list-unstyled collapse in">
+
+                  <li><a class="" href="../../cicd/builds/understanding-image-builds.html">Understanding image builds</a></li>
+                  <li><a class="" href="../../cicd/builds/understanding-buildconfigs.html">Understanding build configurations</a></li>
+                  <li><a class="" href="../../cicd/builds/creating-build-inputs.html">Creating build inputs</a></li>
+                  <li><a class="" href="../../cicd/builds/managing-build-output.html">Managing build output</a></li>
+                  <li><a class=" active" href="../../cicd/builds/build-strategies.html">Using build strategies</a></li>
+                  <li><a class="" href="../../cicd/builds/basic-build-operations.html">Performing and configuring basic builds</a></li>
+                  <li><a class="" href="../../cicd/builds/triggering-builds-build-hooks.html">Triggering and modifying builds</a></li>
+                  <li><a class="" href="../../cicd/builds/advanced-build-operations.html">Performing advanced builds</a></li>
+                  <li><a class="" href="../../cicd/builds/running-entitled-builds.html">Using Red Hat subscriptions in builds</a></li>
+                  <li><a class="" href="../../cicd/builds/troubleshooting-builds.html">Troubleshooting builds</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-3"><span id="sgSpan-16-3" class="fa fa-caret-right"></span>&nbsp;Pipelines</a>
+              <ul id="topicSubGroup-16-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/pipelines/about-pipelines.html">About OpenShift Pipelines</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-4"><span id="sgSpan-16-4" class="fa fa-caret-right"></span>&nbsp;GitOps</a>
+              <ul id="topicSubGroup-16-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/gitops/about-redhat-openshift-gitops.html">About OpenShift GitOps</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-16-5"><span id="sgSpan-16-5" class="fa fa-caret-right"></span>&nbsp;Jenkins</a>
+              <ul id="topicSubGroup-16-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../cicd/jenkins/images-other-jenkins.html">Configuring Jenkins images</a></li>
+                  <li><a class="" href="../../cicd/jenkins/images-other-jenkins-agent.html">Jenkins agent</a></li>
+                  <li><a class="" href="../../cicd/jenkins/migrating-from-jenkins-to-openshift-pipelines.html">Migrating from Jenkins to OpenShift Pipelines</a></li>
+                  <li><a class="" href="../../cicd/jenkins/important-changes-to-openshift-jenkins-images.html">Important changes to OpenShift Jenkins images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup17"><span id="tgSpan17" class="fa fa-angle-right"></span>Images</a>
+      <ul id="topicGroup17" class="collapse  list-unstyled">
+            <li><a class="" href="../../openshift_images/index.html">Overview of images</a></li>
+            <li><a class="" href="../../openshift_images/configuring-samples-operator.html">Overview of the Cluster Samples Operator</a></li>
+            <li><a class="" href="../../openshift_images/samples-operator-alt-registry.html">Using the Cluster Samples Operator with an alternate registry</a></li>
+            <li><a class="" href="../../openshift_images/create-images.html">Creating images</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-4"><span id="sgSpan-17-4" class="fa fa-caret-right"></span>&nbsp;Managing images</a>
+              <ul id="topicSubGroup-17-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../openshift_images/managing_images/managing-images-overview.html">Managing images overview</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/tagging-images.html">Tagging images</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/image-pull-policy.html">Image pull policy</a></li>
+                  <li><a class="" href="../../openshift_images/managing_images/using-image-pull-secrets.html">Using image pull secrets</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../openshift_images/image-streams-manage.html">Managing image streams</a></li>
+            <li><a class="" href="../../openshift_images/using-imagestreams-with-kube-resources.html">Using image streams with Kubernetes resources</a></li>
+            <li><a class="" href="../../openshift_images/triggering-updates-on-imagestream-changes.html">Triggering updates on image stream changes</a></li>
+            <li><a class="" href="../../openshift_images/image-configuration.html">Image configuration resources</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-17-9"><span id="sgSpan-17-9" class="fa fa-caret-right"></span>&nbsp;Using images</a>
+              <ul id="topicSubGroup-17-9" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../openshift_images/using_images/using-images-overview.html">Using images overview</a></li>
+                  <li><a class="" href="../../openshift_images/using_images/using-s21-images.html">Source-to-image</a></li>
+                  <li><a class="" href="../../openshift_images/using_images/customizing-s2i-images.html">Customizing source-to-image images</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup18"><span id="tgSpan18" class="fa fa-angle-right"></span>Add-on services</a>
+      <ul id="topicGroup18" class="collapse  list-unstyled">
+            <li><a class="" href="../../adding_service_cluster/adding-service.html">Adding services to a cluster</a></li>
+            <li><a class="" href="../../adding_service_cluster/available-services.html">Available services</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup19"><span id="tgSpan19" class="fa fa-angle-right"></span>Storage</a>
+      <ul id="topicGroup19" class="collapse  list-unstyled">
+            <li><a class="" href="../../storage/index.html">Storage overview</a></li>
+            <li><a class="" href="../../storage/understanding-ephemeral-storage.html">Understanding ephemeral storage</a></li>
+            <li><a class="" href="../../storage/understanding-persistent-storage.html">Understanding persistent storage</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-19-3"><span id="sgSpan-19-3" class="fa fa-caret-right"></span>&nbsp;Configuring persistent storage</a>
+              <ul id="topicSubGroup-19-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../storage/persistent_storage/persistent-storage-aws.html">Persistent storage using AWS Elastic Block Store</a></li>
+                  <li><a class="" href="../../storage/persistent_storage/persistent-storage-gce.html">Persistent storage using GCE Persistent Disk</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-19-4"><span id="sgSpan-19-4" class="fa fa-caret-right"></span>&nbsp;Using Container Storage Interface (CSI)</a>
+              <ul id="topicSubGroup-19-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi.html">Configuring CSI volumes</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-sc-manage.html">Managing the default storage class</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-ebs.html">AWS Elastic Block Store CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-aws-efs.html">AWS Elastic File Service CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-gcp-pd.html">GCP PD CSI Driver Operator</a></li>
+                  <li><a class="" href="../../storage/container_storage_interface/persistent-storage-csi-google-cloud-file.html">GCP Filestore CSI Driver Operator</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../storage/generic-ephemeral-vols.html">Generic ephemeral volumes</a></li>
+            <li><a class="" href="../../storage/dynamic-provisioning.html">Dynamic provisioning</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup20"><span id="tgSpan20" class="fa fa-angle-right"></span>Registry</a>
+      <ul id="topicGroup20" class="collapse  list-unstyled">
+            <li><a class="" href="../../registry/index.html">Registry overview</a></li>
+            <li><a class="" href="../../registry/configuring-registry-operator.html">Image Registry Operator in OpenShift Dedicated</a></li>
+            <li><a class="" href="../../registry/accessing-the-registry.html">Accessing the registry</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup21"><span id="tgSpan21" class="fa fa-angle-right"></span>Operators</a>
+      <ul id="topicGroup21" class="collapse  list-unstyled">
+            <li><a class="" href="../../operators/index.html">Operators overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-1"><span id="sgSpan-21-1" class="fa fa-caret-right"></span>&nbsp;Understanding Operators</a>
+              <ul id="topicSubGroup-21-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/understanding/olm-what-operators-are.html">What are Operators?</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-packaging-format.html">Packaging format</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-common-terms.html">Common terms</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-1-3"><span id="ssgSpan-21-1-3" class="fa fa-caret-right"></span>&nbsp;Operator Lifecycle Manager (OLM)</a>
+                  <ul id="topicSubSubGroup-21-1-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-olm.html" style="padding-left: 70px;">Concepts and resources</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-arch.html" style="padding-left: 70px;">Architecture</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-workflow.html" style="padding-left: 70px;">Workflow</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-dependency-resolution.html" style="padding-left: 70px;">Dependency resolution</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-operatorgroups.html" style="padding-left: 70px;">Operator groups</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-colocation.html" style="padding-left: 70px;">Multitenancy and Operator colocation</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-operatorconditions.html" style="padding-left: 70px;">Operator conditions</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-understanding-metrics.html" style="padding-left: 70px;">Metrics</a></li>
+                    <li><a class="" href="../../operators/understanding/olm/olm-webhooks.html" style="padding-left: 70px;">Webhooks</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../operators/understanding/olm-understanding-operatorhub.html">OperatorHub</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-rh-catalogs.html">Red Hat-provided Operator catalogs</a></li>
+                  <li><a class="" href="../../operators/understanding/olm-multitenancy.html">Operators in multitenant clusters</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-1-7"><span id="ssgSpan-21-1-7" class="fa fa-caret-right"></span>&nbsp;CRDs</a>
+                  <ul id="topicSubSubGroup-21-1-7" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/understanding/crds/crd-managing-resources-from-crds.html" style="padding-left: 70px;">Managing resources from CRDs</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-2"><span id="sgSpan-21-2" class="fa fa-caret-right"></span>&nbsp;User tasks</a>
+              <ul id="topicSubGroup-21-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/user/olm-creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-3"><span id="sgSpan-21-3" class="fa fa-caret-right"></span>&nbsp;Administrator tasks</a>
+              <ul id="topicSubGroup-21-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/admin/olm-adding-operators-to-cluster.html">Adding Operators to a cluster</a></li>
+                  <li><a class="" href="../../operators/admin/olm-upgrading-operators.html">Updating installed Operators</a></li>
+                  <li><a class="" href="../../operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a></li>
+                  <li><a class="" href="../../operators/admin/olm-configuring-proxy-support.html">Configuring proxy support</a></li>
+                  <li><a class="" href="../../operators/admin/olm-status.html">Viewing Operator status</a></li>
+                  <li><a class="" href="../../operators/admin/olm-managing-operatorconditions.html">Managing Operator conditions</a></li>
+                  <li><a class="" href="../../operators/admin/olm-managing-custom-catalogs.html">Managing custom catalogs</a></li>
+                  <li><a class="" href="../../operators/admin/olm-cs-podsched.html">Catalog source pod scheduling</a></li>
+                  <li><a class="" href="../../operators/admin/olm-troubleshooting-operator-issues.html">Troubleshooting Operator issues</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-21-4"><span id="sgSpan-21-4" class="fa fa-caret-right"></span>&nbsp;Developing Operators</a>
+              <ul id="topicSubGroup-21-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../operators/operator_sdk/osdk-about.html">About the Operator SDK</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-installing-cli.html">Installing the Operator SDK CLI</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-2"><span id="ssgSpan-21-4-2" class="fa fa-caret-right"></span>&nbsp;Go-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-2" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/golang/osdk-golang-updating-projects.html" style="padding-left: 70px;">Updating Go-based projects</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-3"><span id="ssgSpan-21-4-3" class="fa fa-caret-right"></span>&nbsp;Ansible-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-3" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-updating-projects.html" style="padding-left: 70px;">Updating Ansible-based projects</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-support.html" style="padding-left: 70px;">Ansible support</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-k8s-collection.html" style="padding-left: 70px;">Kubernetes Collection for Ansible</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-inside-operator.html" style="padding-left: 70px;">Using Ansible inside an Operator</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/ansible/osdk-ansible-cr-status.html" style="padding-left: 70px;">Custom resource status management</a></li>                  </ul>
+                  </li>
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-21-4-4"><span id="ssgSpan-21-4-4" class="fa fa-caret-right"></span>&nbsp;Helm-based Operators</a>
+                  <ul id="topicSubSubGroup-21-4-4" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-tutorial.html" style="padding-left: 70px;">Tutorial</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-project-layout.html" style="padding-left: 70px;">Project layout</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-updating-projects.html" style="padding-left: 70px;">Updating Helm-based projects</a></li>
+                    <li><a class="" href="../../operators/operator_sdk/helm/osdk-helm-support.html" style="padding-left: 70px;">Helm support</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../operators/operator_sdk/osdk-generating-csvs.html">Defining cluster service versions (CSVs)</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-working-bundle-images.html">Working with bundle images</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-complying-with-psa.html">Complying with pod security admission</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-scorecard.html">Validating Operators using the scorecard</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-bundle-validate.html">Validating Operator bundles</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-ha-sno.html">High-availability or single-node cluster detection and support</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-monitoring-prometheus.html">Configuring built-in monitoring with Prometheus</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-leader-election.html">Configuring leader election</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-pruning-utility.html">Object pruning utility</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-pkgman-to-bundle.html">Migrating package manifest projects to bundle format</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-cli-ref.html">Operator SDK CLI reference</a></li>
+                  <li><a class="" href="../../operators/operator_sdk/osdk-migrating-to-v0-1-0.html">Migrating to Operator SDK v0.1.0</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup22"><span id="tgSpan22" class="fa fa-angle-right"></span>Networking</a>
+      <ul id="topicGroup22" class="collapse  list-unstyled">
+            <li><a class="" href="../../networking/about-managed-networking.html">About networking</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-1"><span id="sgSpan-22-1" class="fa fa-caret-right"></span>&nbsp;Networking Operators</a>
+              <ul id="topicSubGroup-22-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/networking_operators/dns-operator.html">DNS Operator in OpenShift Dedicated</a></li>
+                  <li><a class="" href="../../networking/networking_operators/ingress-operator.html">Ingress Operator in OpenShift Dedicated</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../networking/network-verification.html">Network verification</a></li>
+            <li><a class="" href="../../networking/configuring-cluster-wide-proxy.html">Configuring a cluster-wide proxy during installation</a></li>
+            <li><a class="" href="../../networking/cidr-range-definitions.html">CIDR range definitions</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-5"><span id="sgSpan-22-5" class="fa fa-caret-right"></span>&nbsp;Network security</a>
+              <ul id="topicSubGroup-22-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/network_security/network-policy-apis.html">Understanding network policy APIs</a></li>
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-22-5-1"><span id="ssgSpan-22-5-1" class="fa fa-caret-right"></span>&nbsp;Network policy</a>
+                  <ul id="topicSubSubGroup-22-5-1" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../networking/network_security/network_policy/about-network-policy.html" style="padding-left: 70px;">About network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/creating-network-policy.html" style="padding-left: 70px;">Creating a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/viewing-network-policy.html" style="padding-left: 70px;">Viewing a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/deleting-network-policy.html" style="padding-left: 70px;">Deleting a network policy</a></li>
+                    <li><a class="" href="../../networking/network_security/network_policy/multitenant-network-policy.html" style="padding-left: 70px;">Configuring multitenant isolation with network policy</a></li>                  </ul>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-6"><span id="sgSpan-22-6" class="fa fa-caret-right"></span>&nbsp;OVN-Kubernetes network plugin</a>
+              <ul id="topicSubGroup-22-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/about-ovn-kubernetes.html">About the OVN-Kubernetes network plugin</a></li>
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/migrate-from-openshift-sdn-osd.html">Migrating from the OpenShift SDN network plugin</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-7"><span id="sgSpan-22-7" class="fa fa-caret-right"></span>&nbsp;OpenShift SDN network plugin</a>
+              <ul id="topicSubGroup-22-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/ovn_kubernetes_network_provider/enabling-multicast.html">Enabling multicast for a project</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-22-8"><span id="sgSpan-22-8" class="fa fa-caret-right"></span>&nbsp;Configuring Routes</a>
+              <ul id="topicSubGroup-22-8" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../networking/routes/route-configuration.html">Route configuration</a></li>
+                  <li><a class="" href="../../networking/routes/secured-routes.html">Secured routes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup23"><span id="tgSpan23" class="fa fa-angle-right"></span>Building applications</a>
+      <ul id="topicGroup23" class="collapse  list-unstyled">
+            <li><a class="" href="../../applications/index.html">Building applications overview</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-1"><span id="sgSpan-23-1" class="fa fa-caret-right"></span>&nbsp;Projects</a>
+              <ul id="topicSubGroup-23-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/projects/working-with-projects.html">Working with projects</a></li>
+                  <li><a class="" href="../../applications/projects/configuring-project-creation.html">Configuring project creation</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-2"><span id="sgSpan-23-2" class="fa fa-caret-right"></span>&nbsp;Creating applications</a>
+              <ul id="topicSubGroup-23-2" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/creating_applications/using-templates.html">Using templates</a></li>
+                  <li><a class="" href="../../applications/creating_applications/odc-creating-applications-using-developer-perspective.html">Creating applications using the Developer perspective</a></li>
+                  <li><a class="" href="../../applications/creating_applications/creating-apps-from-installed-operators.html">Creating applications from installed Operators</a></li>
+                  <li><a class="" href="../../applications/creating_applications/creating-applications-using-cli.html">Creating applications using the CLI</a></li>
+                  <li><a class="" href="../../applications/creating_applications/templates-using-ruby-on-rails.html">Creating applications using Ruby on Rails</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../applications/odc-viewing-application-composition-using-topology-view.html">Viewing application composition using the Topology view</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-4"><span id="sgSpan-23-4" class="fa fa-caret-right"></span>&nbsp;Working with Helm charts</a>
+              <ul id="topicSubGroup-23-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/working_with_helm_charts/understanding-helm.html">Understanding Helm</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/installing-helm.html">Installing Helm</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/configuring-custom-helm-chart-repositories.html">Configuring custom Helm chart repositories</a></li>
+                  <li><a class="" href="../../applications/working_with_helm_charts/odc-working-with-helm-releases.html">Working with Helm releases</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-5"><span id="sgSpan-23-5" class="fa fa-caret-right"></span>&nbsp;Deployments</a>
+              <ul id="topicSubGroup-23-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/deployments/osd-config-custom-domains-applications.html">Custom domains for applications</a></li>
+                  <li><a class="" href="../../applications/deployments/what-deployments-are.html">Understanding Deployments and DeploymentConfigs</a></li>
+                  <li><a class="" href="../../applications/deployments/managing-deployment-processes.html">Managing deployment processes</a></li>
+                  <li><a class="" href="../../applications/deployments/deployment-strategies.html">Using deployment strategies</a></li>
+                  <li><a class="" href="../../applications/deployments/route-based-deployment-strategies.html">Using route-based deployment strategies</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-23-6"><span id="sgSpan-23-6" class="fa fa-caret-right"></span>&nbsp;Quotas</a>
+              <ul id="topicSubGroup-23-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a></li>
+                  <li><a class="" href="../../applications/quotas/quotas-setting-across-multiple-projects.html">Resource quotas across multiple projects</a></li>              </ul>
+            </li>
+            <li><a class="" href="../../applications/config-maps.html">Using config maps with applications</a></li>
+            <li><a class="" href="../../applications/odc-monitoring-project-and-application-metrics-using-developer-perspective.html">Monitoring project and application metrics using the Developer perspective</a></li>
+            <li><a class="" href="../../applications/application-health.html">Monitoring application health</a></li>
+            <li><a class="" href="../../applications/odc-editing-applications.html">Editing applications</a></li>
+            <li><a class="" href="../../applications/working-with-quotas.html">Working with quotas</a></li>
+            <li><a class="" href="../../applications/pruning-objects.html">Pruning objects to reclaim resources</a></li>
+            <li><a class="" href="../../applications/idling-applications.html">Idling applications</a></li>
+            <li><a class="" href="../../applications/odc-deleting-applications.html">Deleting applications</a></li>
+            <li><a class="" href="../../applications/red-hat-marketplace.html">Using the Red Hat Marketplace</a></li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup24"><span id="tgSpan24" class="fa fa-angle-right"></span>Nodes</a>
+      <ul id="topicGroup24" class="collapse  list-unstyled">
+            <li><a class="" href="../../nodes/index.html">Overview of nodes</a></li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-1"><span id="sgSpan-24-1" class="fa fa-caret-right"></span>&nbsp;Working with pods</a>
+              <ul id="topicSubGroup-24-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/pods/nodes-pods-using.html">About pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-viewing.html">Viewing pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-configuring.html">Configuring a cluster for pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-secrets.html">Providing sensitive data to pods</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-configmaps.html">Creating and using config maps</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-priority.html">Including pod priority in pod scheduling decisions</a></li>
+                  <li><a class="" href="../../nodes/pods/nodes-pods-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-2"><span id="sgSpan-24-2" class="fa fa-caret-right"></span>&nbsp;Automatically scaling pods with the Custom Metrics Autoscaler Operator</a>
+              <ul id="topicSubGroup-24-2" class="nav-tertiary list-unstyled collapse">
+
+                <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubSubGroup-24-2-0"><span id="ssgSpan-24-2-0" class="fa fa-caret-right"></span>&nbsp;Release notes</a>
+                  <ul id="topicSubSubGroup-24-2-0" class="nav-tertiary list-unstyled collapse">
+
+                    <li><a class="" href="../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn.html" style="padding-left: 70px;">Custom Metrics Autoscaler Operator release notes</a></li>
+                    <li><a class="" href="../../nodes/cma/nodes-cma-rn/nodes-cma-autoscaling-custom-rn-past.html" style="padding-left: 70px;">Past releases</a></li>                  </ul>
+                  </li>
+
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom.html">Custom Metrics Autoscaler Operator overview</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-install.html">Installing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-trigger.html">Understanding the custom metrics autoscaler triggers</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-trigger-auth.html">Understanding the custom metrics autoscaler trigger authentications</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-pausing.html">Pausing the custom metrics autoscaler</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-audit-log.html">Gathering audit logs</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-debugging.html">Gathering debugging data</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-metrics.html">Viewing Operator metrics</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-adding.html">Understanding how to add custom metrics autoscalers</a></li>
+                  <li><a class="" href="../../nodes/cma/nodes-cma-autoscaling-custom-removing.html">Removing the Custom Metrics Autoscaler Operator</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-3"><span id="sgSpan-24-3" class="fa fa-caret-right"></span>&nbsp;Controlling pod placement onto nodes (scheduling)</a>
+              <ul id="topicSubGroup-24-3" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-about.html">About pod placement using the scheduler</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-pod-affinity.html">Placing pods relative to other pods using pod affinity and anti-affinity rules</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-node-affinity.html">Controlling pod placement on nodes using node affinity rules</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-overcommit.html">Placing pods onto overcommited nodes</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-node-selectors.html">Placing pods on specific nodes using node selectors</a></li>
+                  <li><a class="" href="../../nodes/scheduling/nodes-scheduler-pod-topology-spread-constraints.html">Controlling pod placement using pod topology spread constraints</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-4"><span id="sgSpan-24-4" class="fa fa-caret-right"></span>&nbsp;Using jobs and daemon sets</a>
+              <ul id="topicSubGroup-24-4" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/jobs/nodes-pods-daemonsets.html">Running background tasks on nodes automatically with daemon sets</a></li>
+                  <li><a class="" href="../../nodes/jobs/nodes-nodes-jobs.html">Running tasks in pods using jobs</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-5"><span id="sgSpan-24-5" class="fa fa-caret-right"></span>&nbsp;Working with nodes</a>
+              <ul id="topicSubGroup-24-5" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/nodes/nodes-nodes-viewing.html">Viewing and listing the nodes in your cluster</a></li>
+                  <li><a class="" href="../../nodes/nodes/nodes-node-tuning-operator.html">Using the Node Tuning Operator</a></li>
+                  <li><a class="" href="../../nodes/nodes/nodes-remediating-fencing-maintaining-rhwa.html">Remediating, fencing, and maintaining nodes</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-6"><span id="sgSpan-24-6" class="fa fa-caret-right"></span>&nbsp;Working with containers</a>
+              <ul id="topicSubGroup-24-6" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/containers/nodes-containers-using.html">Understanding containers</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-init.html">Using Init Containers to perform tasks before a pod is deployed</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-volumes.html">Using volumes to persist container data</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-projected-volumes.html">Mapping volumes using projected volumes</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-downward-api.html">Allowing containers to consume API objects</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-copying-files.html">Copying files to or from a container</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-remote-commands.html">Executing remote commands in a container</a></li>
+                  <li><a class="" href="../../nodes/containers/nodes-containers-port-forwarding.html">Using port forwarding to access applications in a container</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-24-7"><span id="sgSpan-24-7" class="fa fa-caret-right"></span>&nbsp;Working with clusters</a>
+              <ul id="topicSubGroup-24-7" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../nodes/clusters/nodes-containers-events.html">Viewing system event information in a cluster</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-resource-levels.html">Analyzing cluster resource levels</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-limit-ranges.html">Setting limit ranges</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-resource-configure.html">Configuring cluster memory to meet container memory and risk requirements</a></li>
+                  <li><a class="" href="../../nodes/clusters/nodes-cluster-overcommit.html">Configuring your cluster to place pods on overcommited nodes</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup25"><span id="tgSpan25" class="fa fa-angle-right"></span>Observability</a>
+      <ul id="topicGroup25" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-25-0"><span id="sgSpan-25-0" class="fa fa-caret-right"></span>&nbsp;Observability overview</a>
+              <ul id="topicSubGroup-25-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../observability/overview/index.html">About Observability</a></li>              </ul>
+            </li>
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-25-1"><span id="sgSpan-25-1" class="fa fa-caret-right"></span>&nbsp;Monitoring</a>
+              <ul id="topicSubGroup-25-1" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../observability/monitoring/monitoring-overview.html">Monitoring overview</a></li>
+                  <li><a class="" href="../../observability/monitoring/sd-accessing-monitoring-for-user-defined-projects.html">Accessing monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/configuring-the-monitoring-stack.html">Configuring the monitoring stack</a></li>
+                  <li><a class="" href="../../observability/monitoring/sd-disabling-monitoring-for-user-defined-projects.html">Disabling monitoring for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/enabling-alert-routing-for-user-defined-projects.html">Enabling alert routing for user-defined projects</a></li>
+                  <li><a class="" href="../../observability/monitoring/managing-metrics.html">Managing metrics</a></li>
+                  <li><a class="" href="../../observability/monitoring/managing-alerts.html">Managing alerts</a></li>
+                  <li><a class="" href="../../observability/monitoring/reviewing-monitoring-dashboards.html">Reviewing monitoring dashboards</a></li>
+                  <li><a class="" href="../../observability/monitoring/accessing-third-party-monitoring-apis.html">Accessing third-party monitoring APIs</a></li>
+                  <li><a class="" href="../../observability/monitoring/troubleshooting-monitoring-issues.html">Troubleshooting monitoring issues</a></li>
+                  <li><a class="" href="../../observability/monitoring/config-map-reference-for-the-cluster-monitoring-operator.html">Config map reference for the Cluster Monitoring Operator</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup26"><span id="tgSpan26" class="fa fa-angle-right"></span>Service Mesh</a>
+      <ul id="topicGroup26" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-26-0"><span id="sgSpan-26-0" class="fa fa-caret-right"></span>&nbsp;Service Mesh 2.x</a>
+              <ul id="topicSubGroup-26-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../service_mesh/v2x/ossm-about.html">About OpenShift Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/servicemesh-release-notes.html">Service Mesh 2.x release notes</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-architecture.html">Service Mesh architecture</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-deployment-models.html">Service Mesh deployment models</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-vs-community.html">Service Mesh and Istio differences</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/preparing-ossm-installation.html">Preparing to install Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/installing-ossm.html">Installing the Operators</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-create-smcp.html">Creating the ServiceMeshControlPlane</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-create-mesh.html">Adding workloads to a service mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/prepare-to-deploy-applications-ossm.html">Enabling sidecar injection</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/upgrading-ossm.html">Upgrading Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-profiles-users.html">Managing users and profiles</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-security.html">Security</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-traffic-manage.html">Traffic management</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-observability.html">Metrics, logs, and traces</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-performance-scalability.html">Performance and scalability</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-deploy-production.html">Deploying to production</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-federation.html">Federation</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-extensions.html">Extensions</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-threescale-webassembly-module.html">3scale WebAssembly for 2.1</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/threescale-adapter.html">3scale Istio adapter for 2.0</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-troubleshooting-istio.html">Troubleshooting Service Mesh</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-smcp.html">Control plane configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-kiali.html">Kiali configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/ossm-reference-jaeger.html">Jaeger configuration reference</a></li>
+                  <li><a class="" href="../../service_mesh/v2x/removing-ossm.html">Uninstalling Service Mesh</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+    <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup27"><span id="tgSpan27" class="fa fa-angle-right"></span>Serverless</a>
+      <ul id="topicGroup27" class="collapse  list-unstyled">
+            <li class="nav-header"><a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-27-0"><span id="sgSpan-27-0" class="fa fa-caret-right"></span>&nbsp;About Serverless</a>
+              <ul id="topicSubGroup-27-0" class="nav-tertiary list-unstyled collapse">
+
+                  <li><a class="" href="../../serverless/about/about-serverless.html">Serverless overview</a></li>              </ul>
+            </li>
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="print-logo" style="display:none;">
+        <img src="https://www.redhat.com/cms/managed-files/Logo-Red_Hat-OpenShift-A-Standard-RGB_0_0.svg" alt="print logo"/>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Using build strategies
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#builds-strategy-docker-build_build-strategies">Docker build</a>
+<ul class="sectlevel2">
+<li><a href="#builds-strategy-docker-from-image_build-strategies">Replacing the Dockerfile FROM image</a></li>
+<li><a href="#builds-strategy-dockerfile-path_build-strategies">Using Dockerfile path</a></li>
+<li><a href="#builds-strategy-docker-environment-variables_build-strategies">Using docker environment variables</a></li>
+<li><a href="#builds-strategy-docker-build-arguments_build-strategies">Adding Docker build arguments</a></li>
+<li><a href="#builds-strategy-docker-squash-layers_build-strategies">Squashing layers with docker builds</a></li>
+<li><a href="#builds-using-build-volumes_build-strategies-docker">Using build volumes</a></li>
+</ul>
+</li>
+<li><a href="#builds-strategy-s2i-build_build-strategies-docker">Source-to-image build</a>
+<ul class="sectlevel2">
+<li><a href="#builds-strategy-s2i-incremental-builds_build-strategies-docker">Performing source-to-image incremental builds</a></li>
+<li><a href="#builds-strategy-s2i-override-builder-image-scripts_build-strategies-docker">Overriding source-to-image builder image scripts</a></li>
+<li><a href="#builds-strategy-s2i-environment-variables_build-strategies-docker">Source-to-image environment variables</a></li>
+<li><a href="#builds-strategy-s2i-ignore-source-files_build-strategies-docker">Ignoring source-to-image source files</a></li>
+<li><a href="#images-create-s2i_build-strategies-docker">Creating images from source code with source-to-image</a></li>
+<li><a href="#builds-using-build-volumes_build-strategies-s2i">Using build volumes</a></li>
+</ul>
+</li>
+<li><a href="#builds-strategy-pipeline-build_build-strategies-s2i">Pipeline build</a>
+<ul class="sectlevel2">
+<li><a href="#builds-understanding-openshift-pipeline_build-strategies-s2i">Understanding OpenShift Dedicated pipelines</a></li>
+<li><a href="#builds-strategy-pipeline-providing-jenkinsfile_build-strategies-s2i">Providing the Jenkins file for pipeline builds</a></li>
+<li><a href="#builds-strategy-pipeline-environment-variables_build-strategies-s2i">Using environment variables for pipeline builds</a></li>
+<li><a href="#builds-tutorial-pipeline_build-strategies-s2i">Pipeline build tutorial</a></li>
+</ul>
+</li>
+<li><a href="#builds-strategy-secrets-web-console_build-strategies-s2i">Adding secrets with web console</a></li>
+<li><a href="#builds-strategy-enable-pulling-pushing_build-strategies-s2i">Enabling pulling and pushing</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following sections define the primary supported build strategies, and how to
+use them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="builds-strategy-docker-build_build-strategies"><a class="anchor" href="#builds-strategy-docker-build_build-strategies"></a>Docker build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenShift Dedicated uses Buildah to build a container image from a Dockerfile. For more information on building container images with Dockerfiles, see <a href="https://docs.docker.com/engine/reference/builder/">the Dockerfile reference documentation</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you set Docker build arguments by using the <code>buildArgs</code> array, see <a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact">Understand how ARG and FROM interact</a> in the Dockerfile reference documentation.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-docker-from-image_build-strategies"><a class="anchor" href="#builds-strategy-docker-from-image_build-strategies"></a>Replacing the Dockerfile FROM image</h3>
+<div class="paragraph">
+<p>You can replace the <code>FROM</code> instruction of the Dockerfile with the <code>from</code> parameters of the <code>BuildConfig</code> object. If the Dockerfile uses multi-stage builds, the image in the last <code>FROM</code> instruction will be replaced.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To replace the <code>FROM</code> instruction of the Dockerfile with the <code>from</code> parameters of the <code>BuildConfig</code> object, add the following settings to the <code>BuildConfig</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">strategy</span><span class="pi">:</span>
+  <span class="na">dockerStrategy</span><span class="pi">:</span>
+    <span class="na">from</span><span class="pi">:</span>
+      <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageStreamTag"</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">debian:latest"</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-dockerfile-path_build-strategies"><a class="anchor" href="#builds-strategy-dockerfile-path_build-strategies"></a>Using Dockerfile path</h3>
+<div class="paragraph">
+<p>By default, docker builds use a Dockerfile located at the root of the context specified in the <code>BuildConfig.spec.source.contextDir</code> field.</p>
+</div>
+<div class="paragraph">
+<p>The <code>dockerfilePath</code> field allows the build to use a different path to locate your Dockerfile, relative to the <code>BuildConfig.spec.source.contextDir</code> field. It can be a different file name than the default Dockerfile, such as <code>MyDockerfile</code>, or a path to a Dockerfile in a subdirectory, such as <code>dockerfiles/app1/Dockerfile</code>.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Set the <code>dockerfilePath</code> field for the build to use a different path to locate your Dockerfile:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">strategy</span><span class="pi">:</span>
+  <span class="na">dockerStrategy</span><span class="pi">:</span>
+    <span class="na">dockerfilePath</span><span class="pi">:</span> <span class="s">dockerfiles/app1/Dockerfile</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-docker-environment-variables_build-strategies"><a class="anchor" href="#builds-strategy-docker-environment-variables_build-strategies"></a>Using docker environment variables</h3>
+<div class="paragraph">
+<p>To make environment variables available to the docker build process and resulting image, you can add environment variables to the <code>dockerStrategy</code> definition of the build configuration.</p>
+</div>
+<div class="paragraph">
+<p>The environment variables defined there are inserted as a single <code>ENV</code> Dockerfile instruction right after the <code>FROM</code> instruction, so that it can be referenced later on within the Dockerfile.</p>
+</div>
+<div class="paragraph">
+<p>The variables are defined during build and stay in the output image, therefore they will be present in any container that runs that image as well.</p>
+</div>
+<div class="paragraph">
+<p>For example, defining a custom HTTP proxy to be used during build and runtime:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">dockerStrategy</span><span class="pi">:</span>
+<span class="nn">...</span>
+  <span class="na">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">HTTP_PROXY"</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://myproxy.net:5187/"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also manage environment variables defined in the build configuration with the <code>oc set env</code> command.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-docker-build-arguments_build-strategies"><a class="anchor" href="#builds-strategy-docker-build-arguments_build-strategies"></a>Adding Docker build arguments</h3>
+<div class="paragraph">
+<p>You can set <a href="https://docs.docker.com/engine/reference/builder/#arg">Docker build arguments</a> using the <code>buildArgs</code> array. The build arguments are passed to Docker when a build is started.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>See <a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact">Understand how ARG and FROM interact</a> in the Dockerfile reference documentation.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To set Docker build arguments, add entries to the <code>buildArgs</code> array, which is located in the <code>dockerStrategy</code> definition of the <code>BuildConfig</code> object. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">dockerStrategy</span><span class="pi">:</span>
+<span class="nn">...</span>
+  <span class="na">buildArgs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">version"</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">latest"</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Only the <code>name</code> and <code>value</code> fields are supported. Any settings on the <code>valueFrom</code> field are ignored.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-docker-squash-layers_build-strategies"><a class="anchor" href="#builds-strategy-docker-squash-layers_build-strategies"></a>Squashing layers with docker builds</h3>
+<div class="paragraph">
+<p>Docker builds normally create a layer representing each instruction in a Dockerfile. Setting the <code>imageOptimizationPolicy</code> to <code>SkipLayers</code> merges all instructions into a single layer on top of the base image.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Set the <code>imageOptimizationPolicy</code> to <code>SkipLayers</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">strategy</span><span class="pi">:</span>
+  <span class="na">dockerStrategy</span><span class="pi">:</span>
+    <span class="na">imageOptimizationPolicy</span><span class="pi">:</span> <span class="s">SkipLayers</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-using-build-volumes_build-strategies-docker"><a class="anchor" href="#builds-using-build-volumes_build-strategies-docker"></a>Using build volumes</h3>
+<div class="paragraph">
+<p>You can mount build volumes to give running builds access to information that you do not want to persist in the output container image.</p>
+</div>
+<div class="paragraph">
+<p>Build volumes provide sensitive information, such as repository credentials, that the build environment or configuration only needs at build time. Build volumes are different from build inputs, whose data can persist in the output container image.</p>
+</div>
+<div class="paragraph">
+<p>The mount points of build volumes, from which the running build reads data, are functionally similar to <a href="https://kubernetes.io/docs/concepts/storage/volumes/">pod volume mounts</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have added an input secret, config map, or both to a BuildConfig object.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>In the <code>dockerStrategy</code> definition of the <code>BuildConfig</code> object, add any build volumes to the <code>volumes</code> array. For example:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">dockerStrategy</span><span class="pi">:</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">secret-mvn</span> <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="na">mounts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">destinationPath</span><span class="pi">:</span> <span class="s">/opt/app-root/src/.ssh</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="na">source</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">Secret</span> <i class="conum" data-value="3"></i><b>(3)</b>
+          <span class="na">secret</span><span class="pi">:</span>
+            <span class="na">secretName</span><span class="pi">:</span> <span class="s">my-secret</span> <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">settings-mvn</span> <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="na">mounts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">destinationPath</span><span class="pi">:</span> <span class="s">/opt/app-root/src/.m2</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="na">source</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">ConfigMap</span> <i class="conum" data-value="3"></i><b>(3)</b>
+          <span class="na">configMap</span><span class="pi">:</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">my-config</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Required. A unique name.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Required. The absolute path of the mount point. It must not contain <code>..</code> or <code>:</code> and does not collide with the destination path generated by the builder. The <code>/opt/app-root/src</code> is the default home directory for many Red Hat S2I-enabled images.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Required. The type of source, <code>ConfigMap</code>, <code>Secret</code>, or <code>CSI</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Required. The name of the source.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="../../cicd/builds/creating-build-inputs.html#builds-define-build-inputs_creating-build-inputs">Build inputs</a></p>
+</li>
+<li>
+<p><a href="../../cicd/builds/creating-build-inputs.html#builds-input-secrets-configmaps_creating-build-inputs">Input secrets and config maps</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="builds-strategy-s2i-build_build-strategies-docker"><a class="anchor" href="#builds-strategy-s2i-build_build-strategies-docker"></a>Source-to-image build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Source-to-image (S2I) is a tool for building reproducible container images. It produces ready-to-run images by injecting application source into a container image and assembling a new image. The new image incorporates the base image, the builder, and built source and is ready to use with the <code>buildah run</code> command. S2I supports incremental builds, which re-use previously downloaded dependencies, previously built artifacts, and so on.</p>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-s2i-incremental-builds_build-strategies-docker"><a class="anchor" href="#builds-strategy-s2i-incremental-builds_build-strategies-docker"></a>Performing source-to-image incremental builds</h3>
+<div class="paragraph">
+<p>Source-to-image (S2I) can perform incremental builds, which means it reuses artifacts from previously-built images.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To create an incremental build, create a  with the following modification to the strategy definition:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">strategy</span><span class="pi">:</span>
+  <span class="na">sourceStrategy</span><span class="pi">:</span>
+    <span class="na">from</span><span class="pi">:</span>
+      <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageStreamTag"</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">incremental-image:latest"</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="na">incremental</span><span class="pi">:</span> <span class="no">true</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify an image that supports incremental builds. Consult the documentation of the builder image to determine if it supports this behavior.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This flag controls whether an incremental build is attempted. If the builder image does not support incremental builds, the build will still succeed, but you will get a log message stating the incremental build was not successful because of a missing <code>save-artifacts</code> script.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>See S2I Requirements for information on how to create a builder image supporting incremental builds.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-s2i-override-builder-image-scripts_build-strategies-docker"><a class="anchor" href="#builds-strategy-s2i-override-builder-image-scripts_build-strategies-docker"></a>Overriding source-to-image builder image scripts</h3>
+<div class="paragraph">
+<p>You can override the <code>assemble</code>, <code>run</code>, and <code>save-artifacts</code> source-to-image (S2I) scripts provided by the builder image.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To override the <code>assemble</code>, <code>run</code>, and <code>save-artifacts</code> S2I scripts provided by the builder image, complete one of the following actions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Provide an <code>assemble</code>, <code>run</code>, or <code>save-artifacts</code> script in the <code>.s2i/bin</code> directory of your application source repository.</p>
+</li>
+<li>
+<p>Provide a URL of a directory containing the scripts as part of the strategy definition in the <code>BuildConfig</code> object. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">strategy</span><span class="pi">:</span>
+  <span class="na">sourceStrategy</span><span class="pi">:</span>
+    <span class="na">from</span><span class="pi">:</span>
+      <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ImageStreamTag"</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">builder-image:latest"</span>
+    <span class="na">scripts</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://somehost.com/scripts_directory"</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The build process appends <code>run</code>, <code>assemble</code>, and <code>save-artifacts</code> to the path. If any or all scripts with these names exist, the build process uses these scripts in place of scripts with the same name that are provided in the image.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Files located at the <code>scripts</code> URL take precedence over files located in <code>.s2i/bin</code> of the source repository.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-s2i-environment-variables_build-strategies-docker"><a class="anchor" href="#builds-strategy-s2i-environment-variables_build-strategies-docker"></a>Source-to-image environment variables</h3>
+<div class="paragraph">
+<p>There are two ways to make environment variables available to the source build process and resulting image: environment files and <code>BuildConfig</code> environment values. The variables that you provide using either method will be present during the build process and in the output image.</p>
+</div>
+<div class="sect3">
+<h4 id="builds-strategy-s2i-environment-files_build-strategies-docker"><a class="anchor" href="#builds-strategy-s2i-environment-files_build-strategies-docker"></a>Using source-to-image environment files</h4>
+<div class="paragraph">
+<p>Source build enables you to set environment values, one per line, inside your application, by specifying them in a <code>.s2i/environment</code> file in the source repository. The environment variables specified in this file are present during the build process and in the output image.</p>
+</div>
+<div class="paragraph">
+<p>If you provide a <code>.s2i/environment</code> file in your source repository, source-to-image (S2I) reads this file during the build. This allows customization of the build behavior as the <code>assemble</code> script may use these variables.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>For example, to disable assets compilation for your Rails application during the build:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <code>DISABLE_ASSET_COMPILATION=true</code> in the <code>.s2i/environment</code> file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition to builds, the specified environment variables are also available in the running application itself. For example, to cause the Rails application to start in <code>development</code> mode instead of <code>production</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <code>RAILS_ENV=development</code> to the <code>.s2i/environment</code> file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The complete list of supported environment variables is available in the using images section for each image.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="builds-strategy-s2i-buildconfig-environment_build-strategies-docker"><a class="anchor" href="#builds-strategy-s2i-buildconfig-environment_build-strategies-docker"></a>Using source-to-image build configuration environment</h4>
+<div class="paragraph">
+<p>You can add environment variables to the <code>sourceStrategy</code> definition of the build configuration. The environment variables defined there are visible during the <code>assemble</code> script execution and will be defined in the output image, making them also available to the <code>run</code> script and application code.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>For example, to disable assets compilation for your Rails application:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">sourceStrategy</span><span class="pi">:</span>
+<span class="nn">...</span>
+  <span class="na">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">DISABLE_ASSET_COMPILATION"</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>The build environment section provides more advanced instructions.</p>
+</li>
+<li>
+<p>You can also manage environment variables defined in the build configuration with the <code>oc set env</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-s2i-ignore-source-files_build-strategies-docker"><a class="anchor" href="#builds-strategy-s2i-ignore-source-files_build-strategies-docker"></a>Ignoring source-to-image source files</h3>
+<div class="paragraph">
+<p>Source-to-image (S2I) supports a <code>.s2iignore</code> file, which contains a list of file patterns that should be ignored. Files in the build working directory, as provided by the various input sources, that match a pattern found in the <code>.s2iignore</code> file will not be made available to the <code>assemble</code> script.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="images-create-s2i_build-strategies-docker"><a class="anchor" href="#images-create-s2i_build-strategies-docker"></a>Creating images from source code with source-to-image</h3>
+<div class="paragraph">
+<p>Source-to-image (S2I) is a framework that makes it easy to write images that take application source code as an input and produce a new image that runs the assembled application as output.</p>
+</div>
+<div class="paragraph">
+<p>The main advantage of using S2I for building reproducible container images is the ease of use for developers. As a builder image author, you must understand two basic concepts in order for your images to provide the best S2I performance, the build process and S2I scripts.</p>
+</div>
+<div class="sect3">
+<h4 id="images-create-s2i-build_build-strategies-docker"><a class="anchor" href="#images-create-s2i-build_build-strategies-docker"></a>Understanding the source-to-image build process</h4>
+<div class="paragraph">
+<p>The build process consists of the following three fundamental elements, which are combined into a final container image:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sources</p>
+</li>
+<li>
+<p>Source-to-image (S2I) scripts</p>
+</li>
+<li>
+<p>Builder image</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>S2I generates a Dockerfile with the builder image as the first <code>FROM</code> instruction. The Dockerfile generated by S2I is then passed to Buildah.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="images-create-s2i-scripts_build-strategies-docker"><a class="anchor" href="#images-create-s2i-scripts_build-strategies-docker"></a>How to write source-to-image scripts</h4>
+<div class="paragraph">
+<p>You can write source-to-image (S2I) scripts in any programming language, as long as the scripts are executable inside the builder image. S2I supports multiple options providing <code>assemble</code>/<code>run</code>/<code>save-artifacts</code> scripts. All of these locations are checked on each build in the following order:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A script specified in the build configuration.</p>
+</li>
+<li>
+<p>A script found in the application source <code>.s2i/bin</code> directory.</p>
+</li>
+<li>
+<p>A script found at the default image URL with the <code>io.openshift.s2i.scripts-url</code> label.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Both the <code>io.openshift.s2i.scripts-url</code> label specified in the image and the script specified in a build configuration can take one of the following forms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>image:///path_to_scripts_dir</code>: absolute path inside the image to a directory where the S2I scripts are located.</p>
+</li>
+<li>
+<p><code>file:///path_to_scripts_dir</code>: relative or absolute path to a directory on the host where the S2I scripts are located.</p>
+</li>
+<li>
+<p><code>http(s)://path_to_scripts_dir</code>: URL to a directory where the S2I scripts are located.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. S2I scripts</caption>
+<colgroup>
+<col style="width: 27.2727%;">
+<col style="width: 72.7273%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Script</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>assemble</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The <code>assemble</code> script builds the application artifacts from a source and places them into appropriate directories inside the image. This script is required. The workflow for this script is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Optional: Restore build artifacts. If you want to support incremental builds, make sure to define <code>save-artifacts</code> as well.</p>
+</li>
+<li>
+<p>Place the application source in the desired location.</p>
+</li>
+<li>
+<p>Build the application artifacts.</p>
+</li>
+<li>
+<p>Install the artifacts into locations appropriate for them to run.</p>
+</li>
+</ol>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>run</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The <code>run</code> script executes your application. This script is required.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>save-artifacts</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The <code>save-artifacts</code> script gathers all dependencies that can speed up the build processes that follow. This script is optional. For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Ruby, <code>gems</code> installed by Bundler.</p>
+</li>
+<li>
+<p>For Java, <code>.m2</code> contents.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These dependencies are gathered into a <code>tar</code> file and streamed to the standard output.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>usage</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The <code>usage</code> script allows you to inform the user how to properly use your image. This script is optional.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>test/run</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The <code>test/run</code> script allows you to create a process to check if the image is working correctly. This script is optional. The proposed flow of that process is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Build the image.</p>
+</li>
+<li>
+<p>Run the image to verify the <code>usage</code> script.</p>
+</li>
+<li>
+<p>Run <code>s2i build</code> to verify the <code>assemble</code> script.</p>
+</li>
+<li>
+<p>Optional: Run <code>s2i build</code> again to verify the <code>save-artifacts</code> and <code>assemble</code> scripts save and restore artifacts functionality.</p>
+</li>
+<li>
+<p>Run the image to verify the test application is working.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The suggested location to put the test application built by your <code>test/run</code> script is the <code>test/test-app</code> directory in your image repository.</p>
+</div>
+</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Example S2I scripts</strong></p>
+</div>
+<div class="paragraph">
+<p>The following example S2I scripts are written in Bash. Each example assumes its <code>tar</code> contents are unpacked into the <code>/tmp/s2i</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>assemble</code> script:</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="c"># restore build artifacts</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">ls</span> /tmp/s2i/artifacts/ 2&gt;/dev/null<span class="si">)</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">mv</span> /tmp/s2i/artifacts/<span class="k">*</span> <span class="nv">$HOME</span>/.
+<span class="k">fi</span>
+
+<span class="c"># move the application source</span>
+<span class="nb">mv</span> /tmp/s2i/src <span class="nv">$HOME</span>/src
+
+<span class="c"># build application artifacts</span>
+<span class="nb">pushd</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>
+make all
+
+<span class="c"># install the artifacts</span>
+make <span class="nb">install
+popd</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title"><code>run</code> script:</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="c"># run the application</span>
+/opt/application/run.sh</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title"><code>save-artifacts</code> script:</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="nb">pushd</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-d</span> deps <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># all deps contents to tar stream</span>
+    <span class="nb">tar </span>cf - deps
+<span class="k">fi
+</span><span class="nb">popd</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title"><code>usage</code> script:</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="c"># inform the user how to use the image</span>
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+This is a S2I sample builder image, to use it, install
+https://github.com/openshift/source-to-image
+EOF</span></code></pre>
+</div>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://blog.openshift.com/create-s2i-builder-image/">S2I Image Creation Tutorial</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-using-build-volumes_build-strategies-s2i"><a class="anchor" href="#builds-using-build-volumes_build-strategies-s2i"></a>Using build volumes</h3>
+<div class="paragraph">
+<p>You can mount build volumes to give running builds access to information that you do not want to persist in the output container image.</p>
+</div>
+<div class="paragraph">
+<p>Build volumes provide sensitive information, such as repository credentials, that the build environment or configuration only needs at build time. Build volumes are different from build inputs, whose data can persist in the output container image.</p>
+</div>
+<div class="paragraph">
+<p>The mount points of build volumes, from which the running build reads data, are functionally similar to <a href="https://kubernetes.io/docs/concepts/storage/volumes/">pod volume mounts</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have added an input secret, config map, or both to a BuildConfig object.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>In the <code>sourceStrategy</code> definition of the <code>BuildConfig</code> object, add any build volumes to the <code>volumes</code> array. For example:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">sourceStrategy</span><span class="pi">:</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">secret-mvn</span> <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="na">mounts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">destinationPath</span><span class="pi">:</span> <span class="s">/opt/app-root/src/.ssh</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="na">source</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">Secret</span> <i class="conum" data-value="3"></i><b>(3)</b>
+          <span class="na">secret</span><span class="pi">:</span>
+            <span class="na">secretName</span><span class="pi">:</span> <span class="s">my-secret</span> <i class="conum" data-value="4"></i><b>(4)</b>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">settings-mvn</span> <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="na">mounts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">destinationPath</span><span class="pi">:</span> <span class="s">/opt/app-root/src/.m2</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="na">source</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">ConfigMap</span> <i class="conum" data-value="3"></i><b>(3)</b>
+          <span class="na">configMap</span><span class="pi">:</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">my-config</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Required. A unique name.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Required. The absolute path of the mount point. It must not contain <code>..</code> or <code>:</code> and does not collide with the destination path generated by the builder. The <code>/opt/app-root/src</code> is the default home directory for many Red Hat S2I-enabled images.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Required. The type of source, <code>ConfigMap</code>, <code>Secret</code>, or <code>CSI</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Required. The name of the source.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="../../cicd/builds/creating-build-inputs.html#builds-define-build-inputs_creating-build-inputs">Build inputs</a></p>
+</li>
+<li>
+<p><a href="../../cicd/builds/creating-build-inputs.html#builds-input-secrets-configmaps_creating-build-inputs">Input secrets and config maps</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="builds-strategy-pipeline-build_build-strategies-s2i"><a class="anchor" href="#builds-strategy-pipeline-build_build-strategies-s2i"></a>Pipeline build</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Pipeline build strategy is deprecated in OpenShift Dedicated 4. Equivalent and improved functionality is present in the OpenShift Dedicated Pipelines based on Tekton.</p>
+</div>
+<div class="paragraph">
+<p>Jenkins images on OpenShift Dedicated are fully supported and users should follow Jenkins user documentation for defining their <code>jenkinsfile</code> in a job or store it in a Source Control Management system.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Pipeline build strategy allows developers to define a Jenkins pipeline for use by the Jenkins pipeline plugin. The build can be started, monitored, and managed by OpenShift Dedicated in the same way as any other build type.</p>
+</div>
+<div class="paragraph">
+<p>Pipeline workflows are defined in a <code>jenkinsfile</code>, either embedded directly in the build configuration, or supplied in a Git repository and referenced by the build configuration.</p>
+</div>
+<div class="sect2">
+<h3 id="builds-understanding-openshift-pipeline_build-strategies-s2i"><a class="anchor" href="#builds-understanding-openshift-pipeline_build-strategies-s2i"></a>Understanding OpenShift Dedicated pipelines</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Pipeline build strategy is deprecated in OpenShift Dedicated 4. Equivalent and improved functionality is present in the OpenShift Dedicated Pipelines based on Tekton.</p>
+</div>
+<div class="paragraph">
+<p>Jenkins images on OpenShift Dedicated are fully supported and users should follow Jenkins user documentation for defining their <code>jenkinsfile</code> in a job or store it in a Source Control Management system.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pipelines give you control over building, deploying, and promoting your applications on OpenShift Dedicated. Using a combination of the Jenkins Pipeline build strategy, <code>jenkinsfiles</code>, and the OpenShift Dedicated Domain Specific Language (DSL) provided by the Jenkins Client Plugin, you can create advanced build, test, deploy, and promote pipelines for any scenario.</p>
+</div>
+<div class="paragraph">
+<p><strong>OpenShift Dedicated Jenkins Sync Plugin</strong></p>
+</div>
+<div class="paragraph">
+<p>The OpenShift Dedicated Jenkins Sync Plugin keeps the build configuration and build objects in sync with Jenkins jobs and builds, and provides the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dynamic job and run creation in Jenkins.</p>
+</li>
+<li>
+<p>Dynamic creation of agent pod templates from image streams, image stream tags, or config maps.</p>
+</li>
+<li>
+<p>Injection of environment variables.</p>
+</li>
+<li>
+<p>Pipeline visualization in the OpenShift Dedicated web console.</p>
+</li>
+<li>
+<p>Integration with the Jenkins Git plugin, which passes commit information from OpenShift Dedicated builds to the Jenkins Git plugin.</p>
+</li>
+<li>
+<p>Synchronization of secrets into Jenkins credential entries.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>OpenShift Dedicated Jenkins Client Plugin</strong></p>
+</div>
+<div class="paragraph">
+<p>The OpenShift Dedicated Jenkins Client Plugin is a Jenkins plugin which aims to provide a readable, concise, comprehensive, and fluent Jenkins Pipeline syntax for rich interactions with an OpenShift Dedicated API Server. The plugin uses the OpenShift Dedicated command-line tool, <code>oc</code>, which must be available on the nodes executing the script.</p>
+</div>
+<div class="paragraph">
+<p>The Jenkins Client Plugin must be installed on your Jenkins master so the OpenShift Dedicated DSL will be available to use within the <code>jenkinsfile</code> for your application. This plugin is installed and enabled by default when using the OpenShift Dedicated Jenkins image.</p>
+</div>
+<div class="paragraph">
+<p>For OpenShift Dedicated Pipelines within your project, you will must use the Jenkins Pipeline Build Strategy. This strategy defaults to using a <code>jenkinsfile</code> at the root of your source repository, but also provides the following configuration options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An inline <code>jenkinsfile</code> field within your build configuration.</p>
+</li>
+<li>
+<p>A <code>jenkinsfilePath</code> field within your build configuration that references the location of the <code>jenkinsfile</code> to use relative to the source <code>contextDir</code>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The optional <code>jenkinsfilePath</code> field specifies the name of the file to use, relative to the source <code>contextDir</code>. If <code>contextDir</code> is omitted, it defaults to the root of the repository. If <code>jenkinsfilePath</code> is omitted, it defaults to <code>jenkinsfile</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-pipeline-providing-jenkinsfile_build-strategies-s2i"><a class="anchor" href="#builds-strategy-pipeline-providing-jenkinsfile_build-strategies-s2i"></a>Providing the Jenkins file for pipeline builds</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Pipeline build strategy is deprecated in OpenShift Dedicated 4. Equivalent and improved functionality is present in the OpenShift Dedicated Pipelines based on Tekton.</p>
+</div>
+<div class="paragraph">
+<p>Jenkins images on OpenShift Dedicated are fully supported and users should follow Jenkins user documentation for defining their <code>jenkinsfile</code> in a job or store it in a Source Control Management system.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>jenkinsfile</code> uses the standard groovy language syntax to allow fine grained control over the configuration, build, and deployment of your application.</p>
+</div>
+<div class="paragraph">
+<p>You can supply the <code>jenkinsfile</code> in one of the following ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A file located within your source code repository.</p>
+</li>
+<li>
+<p>Embedded as part of your build configuration using the <code>jenkinsfile</code> field.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When using the first option, the <code>jenkinsfile</code> must be included in your applications source code repository at one of the following locations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A file named <code>jenkinsfile</code> at the root of your repository.</p>
+</li>
+<li>
+<p>A file named <code>jenkinsfile</code> at the root of the source <code>contextDir</code> of your repository.</p>
+</li>
+<li>
+<p>A file name specified via the <code>jenkinsfilePath</code> field of the <code>JenkinsPipelineStrategy</code> section of your BuildConfig, which is relative to the source <code>contextDir</code> if supplied, otherwise it defaults to the root of the repository.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>jenkinsfile</code> is run on the Jenkins agent pod, which must have the
+OpenShift Dedicated client binaries available if you intend to use the OpenShift Dedicated DSL.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To provide the Jenkins file, you can either:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Embed the Jenkins file in the build configuration.</p>
+</li>
+<li>
+<p>Include in the build configuration a reference to the Git repository that contains the Jenkins file.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Embedded Definition</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">BuildConfig"</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sample-pipeline"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">strategy</span><span class="pi">:</span>
+    <span class="na">jenkinsPipelineStrategy</span><span class="pi">:</span>
+      <span class="na">jenkinsfile</span><span class="pi">:</span> <span class="pi">|-</span>
+        <span class="s">node('agent') {</span>
+          <span class="s">stage 'build'</span>
+          <span class="s">openshiftBuild(buildConfig: 'ruby-sample-build', showBuildLogs: 'true')</span>
+          <span class="s">stage 'deploy'</span>
+          <span class="s">openshiftDeploy(deploymentConfig: 'frontend')</span>
+        <span class="s">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Reference to Git Repository</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">BuildConfig"</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sample-pipeline"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">source</span><span class="pi">:</span>
+    <span class="na">git</span><span class="pi">:</span>
+      <span class="na">uri</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://github.com/openshift/ruby-hello-world"</span>
+  <span class="na">strategy</span><span class="pi">:</span>
+    <span class="na">jenkinsPipelineStrategy</span><span class="pi">:</span>
+      <span class="na">jenkinsfilePath</span><span class="pi">:</span> <span class="s">some/repo/dir/filename</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The optional <code>jenkinsfilePath</code> field specifies the name of the file to use, relative to the source <code>contextDir</code>. If <code>contextDir</code> is omitted, it defaults to the root of the repository. If <code>jenkinsfilePath</code> is omitted, it defaults to <code>jenkinsfile</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-strategy-pipeline-environment-variables_build-strategies-s2i"><a class="anchor" href="#builds-strategy-pipeline-environment-variables_build-strategies-s2i"></a>Using environment variables for pipeline builds</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Pipeline build strategy is deprecated in OpenShift Dedicated 4. Equivalent and improved functionality is present in the OpenShift Dedicated Pipelines based on Tekton.</p>
+</div>
+<div class="paragraph">
+<p>Jenkins images on OpenShift Dedicated are fully supported and users should follow Jenkins user documentation for defining their <code>jenkinsfile</code> in a job or store it in a Source Control Management system.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To make environment variables available to the Pipeline build process, you can add environment variables to the <code>jenkinsPipelineStrategy</code> definition of the build configuration.</p>
+</div>
+<div class="paragraph">
+<p>Once defined, the environment variables will be set as parameters for any Jenkins job associated with the build configuration.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To define environment variables to be used during build, edit the YAML file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">jenkinsPipelineStrategy</span><span class="pi">:</span>
+<span class="nn">...</span>
+  <span class="na">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">FOO"</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">BAR"</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also manage environment variables defined in the build configuration with the <code>oc set env</code> command.</p>
+</div>
+<div class="sect3">
+<h4 id="builds-strategy-pipeline-mapping-buildconfig-jenkins_build-strategies-s2i"><a class="anchor" href="#builds-strategy-pipeline-mapping-buildconfig-jenkins_build-strategies-s2i"></a>Mapping between BuildConfig environment variables and Jenkins job parameters</h4>
+<div class="paragraph">
+<p>When a Jenkins job is created or updated based on changes to a Pipeline strategy build configuration, any environment variables in the build configuration are mapped to Jenkins job parameters definitions, where the default values for the Jenkins job parameters definitions are the current values of the associated environment variables.</p>
+</div>
+<div class="paragraph">
+<p>After the Jenkins job&#8217;s initial creation, you can still add additional parameters to the job from the Jenkins console. The parameter names differ from the names of the environment variables in the build configuration. The parameters are honored when builds are started for those Jenkins jobs.</p>
+</div>
+<div class="paragraph">
+<p>How you start builds for the Jenkins job dictates how the parameters are set.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If you start with <code>oc start-build</code>, the values of the environment variables in the build configuration are the parameters set for the corresponding job instance. Any changes you make to the parameters' default values from the Jenkins console are ignored. The build configuration values take precedence.</p>
+</li>
+<li>
+<p>If you start with <code>oc start-build -e</code>, the values for the environment variables specified in the <code>-e</code> option take precedence.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you specify an environment variable not listed in the build configuration, they will be added as a Jenkins job parameter definitions.</p>
+</li>
+<li>
+<p>Any changes you make from the Jenkins console to the parameters corresponding to the environment variables are ignored. The build configuration and what you specify with <code>oc start-build -e</code> takes precedence.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you start the Jenkins job with the Jenkins console, then you can control the setting of the parameters with the Jenkins console as part of starting a build for the job.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is recommended that you specify in the build configuration all possible environment variables to be associated with job parameters. Doing so reduces disk I/O and improves performance during Jenkins processing.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builds-tutorial-pipeline_build-strategies-s2i"><a class="anchor" href="#builds-tutorial-pipeline_build-strategies-s2i"></a>Pipeline build tutorial</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Pipeline build strategy is deprecated in OpenShift Dedicated 4. Equivalent and improved functionality is present in the OpenShift Dedicated Pipelines based on Tekton.</p>
+</div>
+<div class="paragraph">
+<p>Jenkins images on OpenShift Dedicated are fully supported and users should follow Jenkins user documentation for defining their <code>jenkinsfile</code> in a job or store it in a Source Control Management system.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This example demonstrates how to create an OpenShift Dedicated Pipeline that will build, deploy, and verify a <code>Node.js/MongoDB</code> application using the <code>nodejs-mongodb.json</code> template.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create the Jenkins master:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">  $</span><span class="w"> </span>oc project &lt;project_name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Select the project that you want to use or create a new project with <code>oc new-project &lt;project_name&gt;</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">  $</span><span class="w"> </span>oc new-app jenkins-ephemeral <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to use persistent storage, use <code>jenkins-persistent</code> instead.</p>
+</div>
+</li>
+<li>
+<p>Create a file named <code>nodejs-sample-pipeline.yaml</code> with the following content:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This creates a <code>BuildConfig</code> object that employs the Jenkins pipeline strategy to build, deploy, and scale the <code>Node.js/MongoDB</code> example application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">BuildConfig"</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">nodejs-sample-pipeline"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">strategy</span><span class="pi">:</span>
+    <span class="na">jenkinsPipelineStrategy</span><span class="pi">:</span>
+      <span class="na">jenkinsfile</span><span class="pi">:</span> <span class="s">&lt;pipeline content from below&gt;</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">JenkinsPipeline</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After you create a <code>BuildConfig</code> object with a <code>jenkinsPipelineStrategy</code>, tell the
+pipeline what to do by using an inline <code>jenkinsfile</code>:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This example does not set up a Git repository for the application.</p>
+</div>
+<div class="paragraph">
+<p>The following <code>jenkinsfile</code> content is written in Groovy using the OpenShift Dedicated DSL. For this example, include inline content in the <code>BuildConfig</code> object using the YAML Literal Style, though including a <code>jenkinsfile</code> in your source repository is the preferred method.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="groovy"><span class="kt">def</span> <span class="n">templatePath</span> <span class="o">=</span> <span class="s1">'https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb.json'</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="kt">def</span> <span class="n">templateName</span> <span class="o">=</span> <span class="s1">'nodejs-mongodb-example'</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="n">pipeline</span> <span class="o">{</span>
+  <span class="n">agent</span> <span class="o">{</span>
+    <span class="n">node</span> <span class="o">{</span>
+      <span class="n">label</span> <span class="s1">'nodejs'</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="n">options</span> <span class="o">{</span>
+    <span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">20</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">'MINUTES'</span><span class="o">)</span> <i class="conum" data-value="4"></i><b>(4)</b>
+  <span class="o">}</span>
+  <span class="n">stages</span> <span class="o">{</span>
+    <span class="n">stage</span><span class="o">(</span><span class="s1">'preamble'</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">steps</span> <span class="o">{</span>
+            <span class="n">script</span> <span class="o">{</span>
+                <span class="n">openshift</span><span class="o">.</span><span class="na">withCluster</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="n">openshift</span><span class="o">.</span><span class="na">withProject</span><span class="o">()</span> <span class="o">{</span>
+                        <span class="n">echo</span> <span class="s2">"Using project: ${openshift.project()}"</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">stage</span><span class="o">(</span><span class="s1">'cleanup'</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">steps</span> <span class="o">{</span>
+        <span class="n">script</span> <span class="o">{</span>
+            <span class="n">openshift</span><span class="o">.</span><span class="na">withCluster</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">openshift</span><span class="o">.</span><span class="na">withProject</span><span class="o">()</span> <span class="o">{</span>
+                  <span class="n">openshift</span><span class="o">.</span><span class="na">selector</span><span class="o">(</span><span class="s2">"all"</span><span class="o">,</span> <span class="o">[</span> <span class="n">template</span> <span class="o">:</span> <span class="n">templateName</span> <span class="o">]).</span><span class="na">delete</span><span class="o">()</span> <i class="conum" data-value="5"></i><b>(5)</b>
+                  <span class="k">if</span> <span class="o">(</span><span class="n">openshift</span><span class="o">.</span><span class="na">selector</span><span class="o">(</span><span class="s2">"secrets"</span><span class="o">,</span> <span class="n">templateName</span><span class="o">).</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span> <i class="conum" data-value="6"></i><b>(6)</b>
+                    <span class="n">openshift</span><span class="o">.</span><span class="na">selector</span><span class="o">(</span><span class="s2">"secrets"</span><span class="o">,</span> <span class="n">templateName</span><span class="o">).</span><span class="na">delete</span><span class="o">()</span>
+                  <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">stage</span><span class="o">(</span><span class="s1">'create'</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">steps</span> <span class="o">{</span>
+        <span class="n">script</span> <span class="o">{</span>
+            <span class="n">openshift</span><span class="o">.</span><span class="na">withCluster</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">openshift</span><span class="o">.</span><span class="na">withProject</span><span class="o">()</span> <span class="o">{</span>
+                  <span class="n">openshift</span><span class="o">.</span><span class="na">newApp</span><span class="o">(</span><span class="n">templatePath</span><span class="o">)</span> <i class="conum" data-value="7"></i><b>(7)</b>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">stage</span><span class="o">(</span><span class="s1">'build'</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">steps</span> <span class="o">{</span>
+        <span class="n">script</span> <span class="o">{</span>
+            <span class="n">openshift</span><span class="o">.</span><span class="na">withCluster</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">openshift</span><span class="o">.</span><span class="na">withProject</span><span class="o">()</span> <span class="o">{</span>
+                  <span class="kt">def</span> <span class="n">builds</span> <span class="o">=</span> <span class="n">openshift</span><span class="o">.</span><span class="na">selector</span><span class="o">(</span><span class="s2">"bc"</span><span class="o">,</span> <span class="n">templateName</span><span class="o">).</span><span class="na">related</span><span class="o">(</span><span class="s1">'builds'</span><span class="o">)</span>
+                  <span class="n">timeout</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="o">{</span> <i class="conum" data-value="8"></i><b>(8)</b>
+                    <span class="n">builds</span><span class="o">.</span><span class="na">untilEach</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+                      <span class="k">return</span> <span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">object</span><span class="o">().</span><span class="na">status</span><span class="o">.</span><span class="na">phase</span> <span class="o">==</span> <span class="s2">"Complete"</span><span class="o">)</span>
+                    <span class="o">}</span>
+                  <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">stage</span><span class="o">(</span><span class="s1">'deploy'</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">steps</span> <span class="o">{</span>
+        <span class="n">script</span> <span class="o">{</span>
+            <span class="n">openshift</span><span class="o">.</span><span class="na">withCluster</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">openshift</span><span class="o">.</span><span class="na">withProject</span><span class="o">()</span> <span class="o">{</span>
+                  <span class="kt">def</span> <span class="n">rm</span> <span class="o">=</span> <span class="n">openshift</span><span class="o">.</span><span class="na">selector</span><span class="o">(</span><span class="s2">"dc"</span><span class="o">,</span> <span class="n">templateName</span><span class="o">).</span><span class="na">rollout</span><span class="o">()</span>
+                  <span class="n">timeout</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="o">{</span> <i class="conum" data-value="9"></i><b>(9)</b>
+                    <span class="n">openshift</span><span class="o">.</span><span class="na">selector</span><span class="o">(</span><span class="s2">"dc"</span><span class="o">,</span> <span class="n">templateName</span><span class="o">).</span><span class="na">related</span><span class="o">(</span><span class="s1">'pods'</span><span class="o">).</span><span class="na">untilEach</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+                      <span class="k">return</span> <span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">object</span><span class="o">().</span><span class="na">status</span><span class="o">.</span><span class="na">phase</span> <span class="o">==</span> <span class="s2">"Running"</span><span class="o">)</span>
+                    <span class="o">}</span>
+                  <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">stage</span><span class="o">(</span><span class="s1">'tag'</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">steps</span> <span class="o">{</span>
+        <span class="n">script</span> <span class="o">{</span>
+            <span class="n">openshift</span><span class="o">.</span><span class="na">withCluster</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">openshift</span><span class="o">.</span><span class="na">withProject</span><span class="o">()</span> <span class="o">{</span>
+                  <span class="n">openshift</span><span class="o">.</span><span class="na">tag</span><span class="o">(</span><span class="s2">"${templateName}:latest"</span><span class="o">,</span> <span class="s2">"${templateName}-staging:latest"</span><span class="o">)</span> <i class="conum" data-value="10"></i><b>(10)</b>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Path of the template to use.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Name of the template that will be created.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Spin up a <code>node.js</code> agent pod on which to run this build.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Set a timeout of 20 minutes for this pipeline.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Delete everything with this template label.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Delete any secrets with this template label.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Create a new application from the <code>templatePath</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Wait up to five minutes for the build to complete.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Wait up to five minutes for the deployment to complete.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>If everything else succeeded, tag the <code>$ {templateName}:latest</code> image as
+<code>$ {templateName}-staging:latest</code>. A pipeline build configuration for the staging
+environment can watch for the <code>$ {templateName}-staging:latest</code> image to change
+and then deploy it to the staging environment.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The previous example was written using the declarative pipeline style, but the older scripted pipeline style is also supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Create the Pipeline <code>BuildConfig</code> in your OpenShift Dedicated cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc create <span class="nt">-f</span> nodejs-sample-pipeline.yaml</code></pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If you do not want to create your own file, you can use the sample from the Origin repository by running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc create <span class="nt">-f</span> https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/pipeline/nodejs-sample-pipeline.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Start the Pipeline:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc start-build nodejs-sample-pipeline</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Alternatively, you can start your pipeline with the OpenShift Dedicated web console by navigating to the Builds &#8594; Pipeline section and clicking <strong>Start Pipeline</strong>, or by visiting the Jenkins Console, navigating to the Pipeline that you created, and clicking <strong>Build Now</strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once the pipeline is started, you should see the following actions performed within your project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A job instance is created on the Jenkins server.</p>
+</li>
+<li>
+<p>An agent pod is launched, if your pipeline requires one.</p>
+</li>
+<li>
+<p>The pipeline runs on the agent pod, or the master if no agent is required.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Any previously created resources with the <code>template=nodejs-mongodb-example</code> label will be deleted.</p>
+</li>
+<li>
+<p>A new application, and all of its associated resources, will be created from the <code>nodejs-mongodb-example</code> template.</p>
+</li>
+<li>
+<p>A build will be started using the <code>nodejs-mongodb-example</code> <code>BuildConfig</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The pipeline will wait until the build has completed to trigger the next stage.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>A deployment will be started using the <code>nodejs-mongodb-example</code> deployment configuration.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The pipeline will wait until the deployment has completed to trigger the next stage.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the build and deploy are successful, the <code>nodejs-mongodb-example:latest</code> image will be tagged as <code>nodejs-mongodb-example:stage</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The agent pod is deleted, if one was required for the pipeline.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The best way to visualize the pipeline execution is by viewing it in the OpenShift Dedicated web console. You can view your pipelines by logging in to the web console and navigating to Builds &#8594; Pipelines.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="builds-strategy-secrets-web-console_build-strategies-s2i"><a class="anchor" href="#builds-strategy-secrets-web-console_build-strategies-s2i"></a>Adding secrets with web console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can add a secret to your build configuration so that it can access a private repository.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To add a secret to your build configuration so that it can access a private
+repository from the OpenShift Dedicated web console:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new OpenShift Dedicated project.</p>
+</li>
+<li>
+<p>Create a secret that contains credentials for accessing a private source code
+repository.</p>
+</li>
+<li>
+<p>Create a build configuration.</p>
+</li>
+<li>
+<p>On the build configuration editor page or in the <code>create app from builder image</code> page of the web console, set the <strong>Source Secret</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Save</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="builds-strategy-enable-pulling-pushing_build-strategies-s2i"><a class="anchor" href="#builds-strategy-enable-pulling-pushing_build-strategies-s2i"></a>Enabling pulling and pushing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can enable pulling to a private registry by setting the pull secret and pushing by setting the push secret in the build configuration.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To enable pulling to a private registry:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Set the pull secret in the build configuration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To enable pushing:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Set the push secret in the build configuration.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.okd.io/latest/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-dedicated';
+  var version = '';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-telco': ['docs_telco', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version],
+    'openshift-serverless' : ['docs_serverless', version],
+    'openshift-pipelines' : ['docs_pipelines', version],
+    'openshift-builds' : ['docs_builds', version],
+    'openshift-gitops' : ['docs_gitops', version],
+    'openshift-lightspeed' : ['docs_lightspeed', version],
+    'openshift-service-mesh' : ['docs_service_mesh', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+    distros['openshift-dedicated'] = ['docs_dedicated_v3']
+  }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.net/content/img/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+              <p class="text-nowrap">Copyright © 2025 Red Hat, Inc.</p>
+            </div>
+
+
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                    <a id="teconsent"></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="consent_blackbar" style="z-index: 100; position: fixed"></div>
+
+
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if ($(window).width() < 1008) {
+        sidebar.classList.remove('wide');
+        document.querySelector('#hc-search').classList.remove('wide');
+        if (sidebar.classList.contains('open')) {
+          sidebar.style.display = 'block';
+        } else {
+          sidebar.style.display = 'none';
+        }
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      sidebar.classList.add('wide');
+      document.querySelector('#hc-search').classList.add('wide');
+      sidebar.style.display = 'block';
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+      sidebar.classList.remove('open');
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+      sidebar.classList.add('open');
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+        const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+          entries.forEach(entry => {
+            var id = entry.target.getAttribute('id');
+            //fight with js
+            document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+          });
+        });
+
+        //track all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.observe(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.pageYOffset === 0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active");
+          };
+          tocItems[0].classList.add("toc-active");
+        };
+      })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if ($(window).width() < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if ($(window).width() >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+  <!-- hide footer after 3 seconds -->
+  <script type="text/javascript">
+    const hideFooter = () => {
+      document.querySelector('footer#rh, footer.footer-origin-docs').style.display = "none";
+    };
+
+    window.addEventListener('load', function() {
+      setTimeout(hideFooter, 3000);
+    });
+  </script>
+</body>
+</html>

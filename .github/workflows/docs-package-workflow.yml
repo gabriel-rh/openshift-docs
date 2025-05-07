@@ -81,6 +81,9 @@ jobs:
 
       - name: Create or update gh-pages branch
         run: |
+          # Set up authentication for git operations
+          REPO_URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
@@ -98,9 +101,9 @@ jobs:
           if git show-ref --quiet refs/remotes/origin/gh-pages; then
             # gh-pages branch exists, update it
             
-            # Fix permissions issue - first clone to a fresh directory
+            # Fix permissions issue - first clone to a fresh directory with authentication
             mkdir -p _gh_pages_temp
-            git clone --branch gh-pages --single-branch $(git config --get remote.origin.url) _gh_pages_temp
+            git clone --branch gh-pages --single-branch "$REPO_URL" _gh_pages_temp
             
             # Copy our new docs into the fresh clone
             mkdir -p _gh_pages_temp/docs
@@ -126,5 +129,7 @@ jobs:
             rmdir docs || true
             git add .
             git commit -m "Initial GitHub Pages content" || echo "No changes to commit"
-            git push origin gh-pages
+            
+            # Push with authentication
+            git push "$REPO_URL" gh-pages
           fi

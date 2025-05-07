@@ -23,7 +23,7 @@ on:
         description: 'Comma-separated list of specific branches to build (empty to build all)'
         required: false
         default: ''
-        type: string        
+        type: string
 
 jobs:
   build:
@@ -54,7 +54,7 @@ jobs:
           export BRANCH="${{ github.event.inputs.branch }}"
           export REPO="${{ github.event.inputs.repo }}"
           export CONTAINER_ENGINE="docker"
-          export SPECIFIC_BRANCHES="${{ github.event.inputs.specific_branches }}"          
+          export SPECIFIC_BRANCHES="${{ github.event.inputs.specific_branches }}"
 
           # Copy the package.sh script from scripts folder to build directory
           cp ../scripts/package.sh ./
@@ -98,16 +98,19 @@ jobs:
           if git show-ref --quiet refs/remotes/origin/gh-pages; then
             # gh-pages branch exists, update it
             git checkout gh-pages
-            git rm -rf . || true
+            # Instead of removing all content, just overlay the new content
             git checkout temp-docs-branch -- docs/
-            git mv docs/* . || true
-            rmdir docs || true
+            # Move files from docs directory to their corresponding locations
+            mkdir -p _temp_docs_move
+            cp -r docs/* _temp_docs_move/
+            rsync -a _temp_docs_move/ ./
+            rm -rf _temp_docs_move docs/
             git add .
             git commit -m "Update GitHub Pages content" || echo "No changes to commit"
           else
             # Create gh-pages branch
             git checkout --orphan gh-pages
-            git rm -rf . || true
+            git rm -rf . || true  # For initial creation, we still want to clean
             git checkout temp-docs-branch -- docs/
             git mv docs/* . || true
             rmdir docs || true

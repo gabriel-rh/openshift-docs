@@ -19,6 +19,11 @@ on:
         required: true
         default: 'https://github.com/openshift/openshift-docs.git'
         type: string
+      specific_branches:
+        description: 'Comma-separated list of specific branches to build (empty to build all)'
+        required: false
+        default: ''
+        type: string        
 
 jobs:
   build:
@@ -49,6 +54,7 @@ jobs:
           export BRANCH="${{ github.event.inputs.branch }}"
           export REPO="${{ github.event.inputs.repo }}"
           export CONTAINER_ENGINE="docker"
+          export SPECIFIC_BRANCHES="${{ github.event.inputs.specific_branches }}"          
 
           # Copy the package.sh script from scripts folder to build directory
           cp ../scripts/package.sh ./

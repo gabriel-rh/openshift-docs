@@ -9,6 +9,8 @@ BRANCH="${BRANCH:-standalone-logging-docs-main}"
 CONTAINER_ENGINE="${CONTAINER_ENGINE:-podman}"
 # By default, use container for building, but allow using local asciibinder
 USE_LOCAL="${USE_LOCAL:-false}"
+# Optional comma-separated list of specific branches to process
+SPECIFIC_BRANCHES="${SPECIFIC_BRANCHES:-}"
 
 # Determine if sudo is needed (typically only in GHA if files are created by root in container)
 SUDO_CMD=""
@@ -25,12 +27,32 @@ git clone --branch $BRANCH --depth 1 --no-single-branch $REPO .docs_source
 cd .docs_source
 
 
-for remote in $(cat _distro_map.yml | yq eval ".*.branches | keys | .[]" - | sort | uniq)
-do
-    git fetch origin $remote
-    echo "checkout $remote"
-    git checkout $remote 2>/dev/null || git checkout --force --track remotes/origin/$remote
-done
+# Convert comma-separated list to array
+IFS=',' read -ra BRANCH_ARRAY <<< "$SPECIFIC_BRANCHES"
+
+if [ -z "$SPECIFIC_BRANCHES" ]; then
+  echo "---> No specific branches provided, processing all branches from _distro_map.yml"
+  # Original behavior - process all branches in the _distro_map.yml
+  for remote in $(cat _distro_map.yml | yq eval ".*.branches | keys | .[]" - | sort | uniq)
+  do
+      git fetch origin $remote
+      echo "checkout $remote"
+      git checkout $remote 2>/dev/null || git checkout --force --track remotes/origin/$remote
+  done
+else
+  echo "---> Processing only specified branches: $SPECIFIC_BRANCHES"
+  # Process only the specified branches
+  for remote in "${BRANCH_ARRAY[@]}"
+  do
+      # Trim any whitespace from branch name
+      remote=$(echo "$remote" | xargs)
+      if [ -n "$remote" ]; then
+          git fetch origin $remote
+          echo "checkout $remote"
+          git checkout $remote 2>/dev/null || git checkout --force --track remotes/origin/$remote
+      fi
+  done
+fi
 
 echo "---> Packaging $PACKAGE docs content"
 git checkout $BRANCH

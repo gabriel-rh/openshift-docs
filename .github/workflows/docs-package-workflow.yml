@@ -97,16 +97,26 @@ jobs:
           git fetch origin gh-pages || true
           if git show-ref --quiet refs/remotes/origin/gh-pages; then
             # gh-pages branch exists, update it
-            git checkout gh-pages
-            # Instead of removing all content, just overlay the new content
-            git checkout temp-docs-branch -- docs/
-            # Move files from docs directory to their corresponding locations
-            mkdir -p _temp_docs_move
-            cp -r docs/* _temp_docs_move/
-            rsync -a _temp_docs_move/ ./
-            rm -rf _temp_docs_move docs/
+            
+            # Fix permissions issue - first clone to a fresh directory
+            mkdir -p _gh_pages_temp
+            git clone --branch gh-pages --single-branch $(git config --get remote.origin.url) _gh_pages_temp
+            
+            # Copy our new docs into the fresh clone
+            mkdir -p _gh_pages_temp/docs
+            cp -r docs/* _gh_pages_temp/
+            
+            # Switch to the fresh clone and commit
+            cd _gh_pages_temp
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
             git add .
             git commit -m "Update GitHub Pages content" || echo "No changes to commit"
+            git push origin gh-pages
+            
+            # Clean up
+            cd ..
+            rm -rf _gh_pages_temp
           else
             # Create gh-pages branch
             git checkout --orphan gh-pages
@@ -116,6 +126,5 @@ jobs:
             rmdir docs || true
             git add .
             git commit -m "Initial GitHub Pages content" || echo "No changes to commit"
+            git push origin gh-pages
           fi
-
-          git push origin gh-pages

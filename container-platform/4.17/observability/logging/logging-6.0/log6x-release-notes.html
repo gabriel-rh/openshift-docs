@@ -8,6 +8,7 @@
 <!--<![endif]-->
 
 <head>
+    <meta name="robots" content="noindex,nofollow">
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -3242,6 +3243,12 @@
 <div id="toc" class="toc">
 <div id="toctitle" class="title"></div>
 <ul class="sectlevel1">
+<li><a href="#logging-release-notes-6-0-8_logging-6x">Logging 6.0.8</a>
+<ul class="sectlevel2">
+<li><a href="#logging-release-notes-6-0-8-bug-fixes_logging-6x">Bug fixes</a></li>
+<li><a href="#logging-release-notes-6-0-8-cves_logging-6x">CVEs</a></li>
+</ul>
+</li>
 <li><a href="#logging-release-notes-6-0-7_logging-6x">Logging 6.0.7</a>
 <ul class="sectlevel2">
 <li><a href="#logging-release-notes-6-0-7-enhancements_logging-6x">New features and enhancements</a></li>
@@ -3291,6 +3298,51 @@
 <li><a href="#log6x-release-notes-6-0-0-bug-fixes">Bug fixes</a></li>
 <li><a href="#log6x-release-notes-6-0-0-CVEs">CVEs</a></li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging-release-notes-6-0-8_logging-6x"><a class="anchor" href="#logging-release-notes-6-0-8_logging-6x"></a>Logging 6.0.8</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This release includes <a href="https://access.redhat.com/errata/RHBA-2025:4520">RHBA-2025:4520</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="logging-release-notes-6-0-8-bug-fixes_logging-6x"><a class="anchor" href="#logging-release-notes-6-0-8-bug-fixes_logging-6x"></a>Bug fixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Before this update, collector pods would enter a crash loop due to a configuration error when attempting token-based authentication with an Elasticsearch output. With this update, token authentication with an Elasticsearch output generates a valid configuration.  (<a href="https://issues.redhat.com/browse/LOG-7019">LOG-7019</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging-release-notes-6-0-8-cves_logging-6x"><a class="anchor" href="#logging-release-notes-6-0-8-cves_logging-6x"></a>CVEs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://access.redhat.com/security/cve/CVE-2024-2236">CVE-2024-2236</a></p>
+</li>
+<li>
+<p><a href="https://access.redhat.com/security/cve/CVE-2024-5535">CVE-2024-5535</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For detailed information on Red&#160;Hat security ratings, review <a href="https://access.redhat.com/security/updates/classification/#important">Severity ratings</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>

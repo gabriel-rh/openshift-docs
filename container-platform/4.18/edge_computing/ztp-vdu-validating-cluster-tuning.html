@@ -8,6 +8,7 @@
 <!--<![endif]-->
 
 <head>
+    <meta name="robots" content="noindex,nofollow">
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -3595,7 +3596,7 @@
 <p>You can use hardware tuning to tune CPU frequencies for reserved and isolated core CPUs.
 For FlexRAN like applications, hardware vendors recommend that you run CPU frequencies below the default provided frequencies.
 It is highly recommended that, before setting any frequencies, you refer to the hardware vendor’s guidelines for maximum frequency settings for your processor generation.
-This example shows the frequencies for reserved and isolated CPUs for Sapphire Rapid hardware:</p>
+This example sets the frequencies for reserved and isolated CPUs to 2500 MHz:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3616,7 +3617,7 @@ This example shows the frequencies for reserved and isolated CPUs for Sapphire R
           <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
       <span class="na">hardwareTuning</span><span class="pi">:</span>
           <span class="na">isolatedCpuFreq</span><span class="pi">:</span> <span class="m">2500000</span>
-          <span class="na">reservedCpuFreq</span><span class="pi">:</span> <span class="s">2800000</span></code></pre>
+          <span class="na">reservedCpuFreq</span><span class="pi">:</span> <span class="s">2500000</span></code></pre>
 </div>
 </div>
 </li>

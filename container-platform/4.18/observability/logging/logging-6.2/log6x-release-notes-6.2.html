@@ -8,6 +8,7 @@
 <!--<![endif]-->
 
 <head>
+    <meta name="robots" content="noindex,nofollow">
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -3224,6 +3225,11 @@
 <div id="toc" class="toc">
 <div id="toctitle" class="title"></div>
 <ul class="sectlevel1">
+<li><a href="#logging-release-notes-6-2-2_log6x-release-notes-6-2">Logging 6.2.2 Release Notes</a>
+<ul class="sectlevel2">
+<li><a href="#logging-release-notes-6-2-2-bug-fixes_log6x-release-notes-6-2">Bug Fixes</a></li>
+</ul>
+</li>
 <li><a href="#logging-release-notes-6-2-1_log6x-release-notes-6-2">Logging 6.2.1 Release Notes</a>
 <ul class="sectlevel2">
 <li><a href="#logging-release-notes-6-2-1-bug-fixes_log6x-release-notes-6-2">Bug Fixes</a></li>
@@ -3240,6 +3246,33 @@
 </ul>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging-release-notes-6-2-2_log6x-release-notes-6-2"><a class="anchor" href="#logging-release-notes-6-2-2_log6x-release-notes-6-2"></a>Logging 6.2.2 Release Notes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This release includes <a href="https://access.redhat.com/errata/RHBA-2025:4526">RHBA-2025:4526</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="logging-release-notes-6-2-2-bug-fixes_log6x-release-notes-6-2"><a class="anchor" href="#logging-release-notes-6-2-2-bug-fixes_log6x-release-notes-6-2"></a>Bug Fixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Before this update, logs without the <code>responseStatus.code</code> field caused parsing errors in the Loki <code>distributor</code> component. This happened when using the OpenTelemetry data model. With this update, logs without the <code>responseStatus.code</code> field are parsed correctly. (<a href="https://issues.redhat.com/browse/LOG-7012">LOG-7012</a>)</p>
+</li>
+<li>
+<p>Before this update, the Cloudwatch output supported log events up to 256 KB in size. With this update, the Cloudwatch output supports up to 1 MB in size to match the updates published by Amazon Web Services (AWS). (<a href="https://issues.redhat.com/browse/LOG-7013">LOG-7013</a>)</p>
+</li>
+<li>
+<p>Before this update, <code>auditd</code> log messages with multiple <code>msg</code> keys could cause errors in collector pods, because the standard <code>auditd</code> log format expects a single <code>msg</code> field per log entry that follows the <code>msg=audit(TIMESTAMP:ID)</code> structure. With this update, only the first <code>msg</code> value is used, which resolves the issue and ensures accurate extraction of audit metadata. (<a href="https://issues.redhat.com/browse/LOG-7014">LOG-7014</a>)</p>
+</li>
+<li>
+<p>Before this update, collector pods would enter a crash loop due to a configuration error when attempting token-based authentication with an Elasticsearch output. With this update, token authentication with an Elasticsearch output generates a valid configuration. (<a href="https://issues.redhat.com/browse/LOG-7017">LOG-7017</a>)</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>

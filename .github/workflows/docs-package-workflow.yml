@@ -73,6 +73,10 @@ jobs:
           # Copy the packaged content to the docs directory
           cp -r build/_package/* docs/
 
+      - name: Add noindex meta tag to HTML files
+        run: |
+          find docs -name "*.html" -type f -exec sed -i '/<head>/a \    <meta name="robots" content="noindex,nofollow">' {} \;
+          
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:

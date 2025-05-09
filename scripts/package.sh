@@ -88,14 +88,27 @@ fi
 
 
 # Prepare for offline mode if OFFLINE is true
+PATCH_FILE=""
 if [ "$OFFLINE" = "true" ]; then
   echo "---> Downloading offline patch from $OFFLINE_PATCH_URL"
   # Download the patch once and save it to a temporary file
   PATCH_FILE=$(mktemp)
   curl -L "$OFFLINE_PATCH_URL" -o "$PATCH_FILE"
+
+  # Apply patch to each branch if in offline mode
+  if [ "$OFFLINE" = "true" ] && [ -f "$PATCH_FILE" ]; then
+    echo "---> Applying offline patch to branch $remote"
+    # Apply the patch and commit the changes
+    git apply --ignore-whitespace "$PATCH_FILE" || echo "Warning: Could not apply patch to $BRANCH"
+    # If the patch applied successfully, commit the changes
+    if [ $? -eq 0 ]; then
+      git add -A
+      git commit -m "Apply offline patch (temporary)" || echo "Nothing to commit"
+    fi
+  fi
+
 else
   echo "---> Skipping offline patch (OFFLINE=false)"
-  PATCH_FILE=""
 fi
 
 # Convert comma-separated list to array
@@ -111,7 +124,7 @@ if [ -z "$SPECIFIC_BRANCHES" ]; then
       git checkout $remote 2>/dev/null || git checkout --force --track remotes/origin/$remote
 
       # Apply patch to each branch if in offline mode
-      if [ "$OFFLINE" = "true" ]; then
+      if [ "$OFFLINE" = "true" ] && [ -f "$PATCH_FILE" ]; then
         echo "---> Applying offline patch to branch $remote"
         # Apply the patch and commit the changes
         git apply --ignore-whitespace "$PATCH_FILE" || echo "Warning: Could not apply patch to $remote"
@@ -135,9 +148,15 @@ else
           git checkout $remote 2>/dev/null || git checkout --force --track remotes/origin/$remote
 
           # Apply patch to each branch if in offline mode
-          if [ "$OFFLINE" = "true" ]; then
+          if [ "$OFFLINE" = "true" ] && [ -f "$PATCH_FILE" ]; then
             echo "---> Applying offline patch to branch $remote"
-            curl -L "$OFFLINE_PATCH_URL" | git apply || echo "Warning: Could not apply patch to $remote"
+            # Use the cached patch file instead of downloading again
+            git apply --ignore-whitespace "$PATCH_FILE" || echo "Warning: Could not apply patch to $remote"
+            # If the patch applied successfully, commit the changes
+            if [ $? -eq 0 ]; then
+              git add -A
+              git commit -m "Apply offline patch (temporary)" || echo "Nothing to commit"
+            fi
           fi
       fi
   done
@@ -177,6 +196,8 @@ $SUDO_CMD cp -rf _package/${PACKAGE}/* ../_package/
 # Make sure to clean up any uncommited changes from patches
 echo "---> Cleaning up repository"
 git checkout $BRANCH
+$SUDO_CMD cp -rf _javascripts/ ../_package/
+
 git reset --hard HEAD
 git clean -fd
 

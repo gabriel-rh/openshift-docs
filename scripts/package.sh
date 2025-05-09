@@ -9,6 +9,8 @@ BRANCH="${BRANCH:-main}"
 CONTAINER_ENGINE="${CONTAINER_ENGINE:-podman}"
 # By default, use container for building, but allow using local asciibinder
 USE_LOCAL="${USE_LOCAL:-false}"
+# Parameter to specify which distros to include (comma-separated)
+DISTROS="${DISTROS:-}"
 # Optional comma-separated list of specific branches to process
 SPECIFIC_BRANCHES="${SPECIFIC_BRANCHES:-}"
 # Parameter for offline mode (defaults to false)
@@ -17,8 +19,7 @@ OFFLINE="${OFFLINE:-false}"
 OFFLINE_PATCH_URL="${OFFLINE_PATCH_URL:-https://github.com/openshift/openshift-docs/pull/92770.patch}"
 # Parameter to control cleanup of _package folder (defaults to false)
 CLEAN="${CLEAN:-false}"
-# Parameter to specify which distros to include (comma-separated)
-DISTROS="${DISTROS:-}"
+
 
 # Determine if sudo is needed (typically only in GHA if files are created by root in container)
 SUDO_CMD=""

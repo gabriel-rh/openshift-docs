@@ -11,10 +11,12 @@ CONTAINER_ENGINE="${CONTAINER_ENGINE:-podman}"
 USE_LOCAL="${USE_LOCAL:-false}"
 # Optional comma-separated list of specific branches to process
 SPECIFIC_BRANCHES="${SPECIFIC_BRANCHES:-}"
-# New parameter for offline mode (defaults to false)
+# Parameter for offline mode (defaults to false)
 OFFLINE="${OFFLINE:-false}"
 # URL for the offline patch
 OFFLINE_PATCH_URL="${OFFLINE_PATCH_URL:-https://github.com/openshift/openshift-docs/pull/92770.patch}"
+# Parameter to control cleanup of _package folder (defaults to false)
+CLEAN="${CLEAN:-false}"
 
 # Determine if sudo is needed (typically only in GHA if files are created by root in container)
 SUDO_CMD=""
@@ -30,21 +32,14 @@ git clone --branch $BRANCH --depth 1 --no-single-branch $REPO .docs_source
 
 cd .docs_source
 
-# Apply the offline patch if OFFLINE is true
+# Prepare for offline mode if OFFLINE is true
 if [ "$OFFLINE" = "true" ]; then
   echo "---> Downloading offline patch from $OFFLINE_PATCH_URL"
   # Download the patch once and save it to a temporary file
   PATCH_FILE=$(mktemp)
   curl -L "$OFFLINE_PATCH_URL" -o "$PATCH_FILE"
-
-  echo "---> Applying offline patch"
-  git apply --ignore-whitespace "$PATCH_FILE"
-
-  # Store the patch state so we can revert it later
-  PATCH_APPLIED=true
 else
   echo "---> Skipping offline patch (OFFLINE=false)"
-  PATCH_APPLIED=false
   PATCH_FILE=""
 fi
 
@@ -63,7 +58,13 @@ if [ -z "$SPECIFIC_BRANCHES" ]; then
       # Apply patch to each branch if in offline mode
       if [ "$OFFLINE" = "true" ]; then
         echo "---> Applying offline patch to branch $remote"
+        # Apply the patch and commit the changes
         git apply --ignore-whitespace "$PATCH_FILE" || echo "Warning: Could not apply patch to $remote"
+        # If the patch applied successfully, commit the changes
+        if [ $? -eq 0 ]; then
+          git add -A
+          git commit -m "Apply offline patch (temporary)" || echo "Nothing to commit"
+        fi
       fi
   done
 else
@@ -90,6 +91,16 @@ fi
 echo "---> Packaging $PACKAGE docs content"
 git checkout $BRANCH
 
+# Handle the _package directory based on CLEAN setting
+if [ "$CLEAN" = "true" ]; then
+  echo "---> Cleaning _package directory (CLEAN=true)"
+  $SUDO_CMD rm -rf ../_package
+fi
+
+# Create _package directory (mkdir -p will not fail if directory already exists)
+echo "---> Ensuring _package directory exists"
+mkdir -p ../_package
+
 # Check if we're using local asciibinder or container
 if [ "$USE_LOCAL" = "true" ]; then
   # Check if asciibinder is actually installed
@@ -106,9 +117,7 @@ else
 fi
 
 ## MOVING FILES INTO THE RIGHT PLACES
-rm -rf ../_package
-mkdir -p ../_package
-$SUDO_CMD mv _package/${PACKAGE}/* ../_package/
+$SUDO_CMD cp -rf _package/${PACKAGE}/* ../_package/
 
 # Make sure to clean up any uncommited changes from patches
 echo "---> Cleaning up repository"

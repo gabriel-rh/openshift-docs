@@ -4,7 +4,7 @@ set -e
 
 PACKAGE="${PACKAGE:-commercial}"
 REPO="${REPO:-https://github.com/openshift/openshift-docs.git}"
-BRANCH="${BRANCH:-standalone-logging-docs-main}"
+BRANCH="${BRANCH:-main}"
 # Default to podman, but allow using docker through environment variable
 CONTAINER_ENGINE="${CONTAINER_ENGINE:-podman}"
 # By default, use container for building, but allow using local asciibinder
@@ -17,6 +17,8 @@ OFFLINE="${OFFLINE:-false}"
 OFFLINE_PATCH_URL="${OFFLINE_PATCH_URL:-https://github.com/openshift/openshift-docs/pull/92770.patch}"
 # Parameter to control cleanup of _package folder (defaults to false)
 CLEAN="${CLEAN:-false}"
+# Parameter to specify which distros to include (comma-separated)
+DISTROS="${DISTROS:-}"
 
 # Determine if sudo is needed (typically only in GHA if files are created by root in container)
 SUDO_CMD=""
@@ -31,6 +33,59 @@ echo "---> Cloning docs from $BRANCH branch in $REPO"
 git clone --branch $BRANCH --depth 1 --no-single-branch $REPO .docs_source
 
 cd .docs_source
+
+# Filter distros in _distro_map.yml if DISTROS is provided
+if [ -n "$DISTROS" ]; then
+  echo "---> Filtering _distro_map.yml for distros: $DISTROS"
+
+  # Create a backup of the original file
+  cp _distro_map.yml _distro_map.yml.orig
+
+  # Start with the document header
+  echo "---" > _distro_map.yml
+
+  # Convert comma-separated list to array
+  IFS=',' read -ra DISTRO_ARRAY <<< "$DISTROS"
+
+  # Process each distro in the list
+  for distro in "${DISTRO_ARRAY[@]}"; do
+    # Trim any whitespace from distro name
+    distro=$(echo "$distro" | xargs)
+
+    if [ -n "$distro" ]; then
+      echo "---> Including distro: $distro"
+      # Extract the section for this distro (from the distro name to the next distro or EOF)
+      awk -v distro="$distro:" '
+        # Check if line is a new distro section
+        /^[a-zA-Z].*:/ {
+          # If it matches our target distro, set flag to 1
+          if ($0 ~ "^"distro) {
+            flag=1
+          }
+          # If it is a different distro, set flag to 0
+          else {
+            flag=0
+          }
+        }
+        # Only print if flag is 1
+        flag == 1 {print}
+      ' _distro_map.yml.orig >> _distro_map.yml
+    fi
+  done
+
+  echo "---> _distro_map.yml filtered successfully"
+
+  # Configure git for committing
+  git config --local user.email "builder@example.com"
+  git config --local user.name "Documentation Builder"
+
+  # Add and commit the filtered _distro_map.yml file
+  git add _distro_map.yml
+  git commit -m "Filter _distro_map.yml for specified distros: $DISTROS"
+else
+  echo "---> Using original _distro_map.yml (DISTROS not specified)"
+fi
+
 
 # Prepare for offline mode if OFFLINE is true
 if [ "$OFFLINE" = "true" ]; then
